@@ -26,7 +26,7 @@ import {
 } from "lucide-react";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 18 },
   show: { opacity: 1, y: 0 },
 };
 
@@ -55,7 +55,7 @@ function shuffleArr<T>(arr: T[]) {
 
 const WHATSAPP_NUMBER = "27686282874";
 const FACEBOOK_URL = "https://www.facebook.com/share/17TngbQ63y/?mibextid=wwXIfr";
-const EMAIL_DISPLAY = "kryvexissolutions@gmail.com"; // for display only (button just says Email)
+const EMAIL_DISPLAY = "kryvexissolutions@gmail.com"; // display only
 
 function waLink(prefill?: string) {
   const text = encodeURIComponent(prefill || "Hi Kryvexis 👋 I need help with Remote IT / Automation / OCR.");
@@ -195,6 +195,33 @@ function parseDemoInvoice(text: string) {
   return { supplier, invoiceNo, date, items, subtotal, vat, total: +total.toFixed(2), flags };
 }
 
+function SectionTitle({
+  badge,
+  title,
+  subtitle,
+  right,
+}: {
+  badge: React.ReactNode;
+  title: string;
+  subtitle?: string;
+  right?: React.ReactNode;
+}) {
+  return (
+    <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+      <div className="min-w-0">
+        <div className="k-badge">{badge}</div>
+        <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight">{title}</h2>
+        {subtitle ? (
+          <p className="mt-2 text-sm sm:text-base leading-relaxed text-[color:var(--k-muted)] max-w-2xl">
+            {subtitle}
+          </p>
+        ) : null}
+      </div>
+      {right ? <div className="shrink-0">{right}</div> : null}
+    </div>
+  );
+}
+
 export default function Page() {
   const [demoText, setDemoText] = useState<string>(() => randomInvoiceText());
   const [ran, setRan] = useState(false);
@@ -246,43 +273,50 @@ export default function Page() {
 
   return (
     <div className="min-h-screen">
-      {/* ===================== HERO ===================== */}
-      <section id="home" className="k-wrap k-section pt-10 md:pt-16">
+      {/* ===================== HERO (more premium, more spacing on mobile) ===================== */}
+      <section id="home" className="k-wrap k-section pt-8 sm:pt-12">
         <motion.div
           variants={fadeUp}
           initial="hidden"
           animate="show"
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="k-surface rounded-[28px] p-7 md:p-12"
+          className="k-surface rounded-[28px] p-6 sm:p-8 md:p-12 relative overflow-hidden"
         >
-          <div className="grid gap-10 md:grid-cols-[1.2fr_.8fr] md:items-start">
+          {/* Premium background shapes (no spammy look, subtle) */}
+          <div className="pointer-events-none absolute -top-24 -right-24 h-72 w-72 rounded-full blur-3xl opacity-30 bg-[color:var(--k-accent)]" />
+          <div className="pointer-events-none absolute -bottom-32 -left-28 h-80 w-80 rounded-full blur-3xl opacity-20 bg-[color:var(--k-accent2)]" />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.06] [background-image:radial-gradient(circle_at_1px_1px,white_1px,transparent_0)] [background-size:22px_22px]" />
+
+          <div className="grid gap-8 md:grid-cols-[1.25fr_.75fr] md:items-start">
             {/* Left */}
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5 sm:gap-6">
               <div className="k-badge">
                 <span className="h-2 w-2 rounded-full bg-[color:var(--k-ok)]" />
-                Remote IT • Automation • OCR Capture
+                Operational IT • Automation • OCR Capture
               </div>
 
               <div>
-                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.04] k-title">
+                <h1 className="text-[2.15rem] leading-[1.05] sm:text-5xl md:text-6xl font-extrabold tracking-tight k-title">
                   Kryvexis <span className="text-white/70">Solutions</span>
                 </h1>
-                <p className="mt-5 max-w-2xl text-base md:text-lg k-subtitle text-[color:var(--k-muted)]">
-                  Professional cyber-calm systems for small business: secure remote support, automation dashboards,
-                  and OCR document capture that turns invoices into clean data.
+                <p className="mt-4 sm:mt-5 max-w-2xl text-sm sm:text-base md:text-lg k-subtitle text-[color:var(--k-muted)] leading-relaxed">
+                  Professional, structured IT operations for growing businesses. We secure environments, stabilise
+                  systems, and automate workflows so owners gain visibility, speed, and control.
                 </p>
               </div>
 
+              {/* Buttons stack better on mobile */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <a href="#demo" className="k-btn">
+                <a href="#demo" className="k-btn w-full sm:w-auto justify-center">
                   Try the Demo <Sparkles className="h-4 w-4" />
                 </a>
-                <a href="#contact" className="k-btn k-btn-ghost">
-                  Request Help <ArrowRight className="h-4 w-4" />
+                <a href="#contact" className="k-btn k-btn-ghost w-full sm:w-auto justify-center">
+                  Start a Support Conversation <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              {/* Trust chips (less cramped, better line heights) */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 pt-1">
                 {[
                   { t: "Secure Access", d: "Client-owned + logged", icon: <Lock className="h-4 w-4" /> },
                   { t: "Fast Response", d: "Remote-first workflow", icon: <Zap className="h-4 w-4" /> },
@@ -293,20 +327,38 @@ export default function Page() {
                       {x.icon}
                       <div className="font-semibold text-[color:var(--k-text)]">{x.t}</div>
                     </div>
-                    <div className="mt-2 text-sm text-[color:var(--k-muted)]">{x.d}</div>
+                    <div className="mt-2 text-sm leading-relaxed text-[color:var(--k-muted)]">{x.d}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* NEW: Enterprise trust layer */}
+              <div className="mt-2 grid gap-3 sm:grid-cols-3">
+                {[
+                  ["Secure & Accountable", "Client-owned access. Logged actions. Clear responsibility."],
+                  ["Operational Thinking", "Fix the cause, not only the symptom."],
+                  ["Built for Small Business", "Practical systems without enterprise cost."],
+                ].map(([t, d]) => (
+                  <div key={t} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <div className="font-semibold text-[color:var(--k-text)]">{t}</div>
+                    <div className="mt-2 text-sm leading-relaxed text-[color:var(--k-muted)]">{d}</div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Right rail (NO WhatsApp/Email/Facebook here anymore) */}
-            <div className="k-panel p-6 md:p-7">
+            {/* Right rail */}
+            <div className="k-panel p-6 sm:p-7">
               <div className="text-xs font-semibold text-[color:var(--k-muted)]">OPERATIONAL FOCUS</div>
               <div className="mt-2 text-lg font-extrabold tracking-tight">Less chaos. More control.</div>
 
               <div className="mt-5 grid gap-4">
                 {[
-                  { icon: <ShieldCheck className="h-5 w-5" />, t: "Secure workflow", d: "Access control, logs, and clean handover." },
+                  {
+                    icon: <ShieldCheck className="h-5 w-5" />,
+                    t: "Secure workflow",
+                    d: "Access control, logs, and clean handover.",
+                  },
                   { icon: <Layers className="h-5 w-5" />, t: "System thinking", d: "Automation + reporting, not just fixes." },
                   { icon: <Clock className="h-5 w-5" />, t: "Predictable delivery", d: "Clear scope, clear timelines." },
                 ].map((x) => (
@@ -315,9 +367,21 @@ export default function Page() {
                       {x.icon}
                       <div className="font-semibold text-[color:var(--k-text)]">{x.t}</div>
                     </div>
-                    <div className="mt-2 text-sm text-[color:var(--k-muted)]">{x.d}</div>
+                    <div className="mt-2 text-sm leading-relaxed text-[color:var(--k-muted)]">{x.d}</div>
                   </div>
                 ))}
+              </div>
+
+              <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
+                <div className="text-xs text-[color:var(--k-muted)]">Typical outcomes</div>
+                <ul className="mt-3 space-y-2 text-sm text-[color:var(--k-text)]">
+                  {["Fewer repeat issues", "Faster support cycles", "Cleaner data pipelines"].map((x) => (
+                    <li key={x} className="flex items-center gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-[color:var(--k-accent)]" />
+                      {x}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
@@ -332,7 +396,7 @@ export default function Page() {
             ].map((x) => (
               <div key={x.a} className="rounded-2xl border border-white/10 bg-white/5 p-5">
                 <div className="text-lg font-extrabold tracking-tight">{x.a}</div>
-                <div className="mt-1 text-sm text-[color:var(--k-muted)]">{x.b}</div>
+                <div className="mt-1 text-sm leading-relaxed text-[color:var(--k-muted)]">{x.b}</div>
               </div>
             ))}
           </div>
@@ -347,70 +411,69 @@ export default function Page() {
           whileInView="show"
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="k-surface rounded-[28px] p-7 md:p-10"
+          className="k-surface rounded-[28px] p-6 sm:p-8 md:p-10"
         >
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-            <div>
-              <div className="k-badge">
+          <SectionTitle
+            badge={
+              <>
                 <FileScan className="h-4 w-4 text-[color:var(--k-accent)]" />
                 Interactive OCR Demo
-              </div>
-              <h2 className="mt-4 text-2xl md:text-3xl font-extrabold tracking-tight">OCR Engine Preview</h2>
-              <p className="mt-3 text-sm md:text-base leading-relaxed text-[color:var(--k-muted)]">
-                Generate different invoices and see extracted supplier, invoice number, totals, and line items.
-              </p>
-            </div>
+              </>
+            }
+            title="OCR Engine Preview"
+            subtitle="Generate different invoices and see extracted supplier, invoice number, totals, and line items."
+            right={
+              <div className="flex gap-2">
+                <button
+                  className="k-btn k-btn-ghost text-sm"
+                  onClick={() => {
+                    setDemoText(randomInvoiceText());
+                    setRan(false);
+                  }}
+                >
+                  Generate <Dices className="h-4 w-4" />
+                </button>
 
-            <div className="flex gap-2">
-              <button
-                className="k-btn k-btn-ghost text-sm"
-                onClick={() => {
-                  setDemoText(randomInvoiceText());
-                  setRan(false);
-                }}
-              >
-                Generate <Dices className="h-4 w-4" />
-              </button>
+                <button
+                  className="k-btn k-btn-ghost text-sm"
+                  onClick={() => {
+                    const all = demoText.split("\n");
+                    const header: string[] = [];
+                    const items: string[] = [];
+                    const footer: string[] = [];
 
-              <button
-                className="k-btn k-btn-ghost text-sm"
-                onClick={() => {
-                  const all = demoText.split("\n");
-                  const header: string[] = [];
-                  const items: string[] = [];
-                  const footer: string[] = [];
+                    let inItems = false;
+                    for (const l of all) {
+                      const isItem = l.includes("|") && l.split("|").length >= 4;
+                      if (!inItems && isItem) inItems = true;
 
-                  let inItems = false;
-                  for (const l of all) {
-                    const isItem = l.includes("|") && l.split("|").length >= 4;
-                    if (!inItems && isItem) inItems = true;
-
-                    if (!inItems) header.push(l);
-                    else {
-                      if (isItem) items.push(l);
-                      else footer.push(l);
+                      if (!inItems) header.push(l);
+                      else {
+                        if (isItem) items.push(l);
+                        else footer.push(l);
+                      }
                     }
-                  }
 
-                  const next = [...header, ...shuffleArr(items), ...footer].join("\n").trim();
-                  setDemoText(next);
-                  setRan(false);
-                }}
-              >
-                Shuffle <Shuffle className="h-4 w-4" />
-              </button>
-            </div>
-          </div>
+                    const next = [...header, ...shuffleArr(items), ...footer].join("\n").trim();
+                    setDemoText(next);
+                    setRan(false);
+                  }}
+                >
+                  Shuffle <Shuffle className="h-4 w-4" />
+                </button>
+              </div>
+            }
+          />
 
           <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <div className="rounded-[22px] border border-white/10 bg-[rgba(0,0,0,.22)] p-6">
+            <div className="rounded-[22px] border border-white/10 bg-[rgba(0,0,0,.22)] p-5 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="text-sm font-semibold text-white/80">Input</div>
                 <span className="text-xs text-white/40">Paste text or generate</span>
               </div>
 
               <textarea
-                className="mt-4 k-textarea"
+                className="mt-4 k-textarea min-h-[220px] sm:min-h-[260px]"
                 value={demoText}
                 onChange={(e) => {
                   setDemoText(e.target.value);
@@ -419,10 +482,10 @@ export default function Page() {
               />
 
               <div className="mt-5 flex flex-col sm:flex-row gap-3">
-                <button className="k-btn" onClick={() => setRan(true)}>
+                <button className="k-btn w-full sm:w-auto justify-center" onClick={() => setRan(true)}>
                   Run OCR <ArrowRight className="h-4 w-4" />
                 </button>
-                <a href="#contact" className="k-btn k-btn-ghost">
+                <a href="#contact" className="k-btn k-btn-ghost w-full sm:w-auto justify-center">
                   Request real setup
                 </a>
               </div>
@@ -432,19 +495,19 @@ export default function Page() {
               </div>
             </div>
 
-            <div className="rounded-[22px] border border-white/10 bg-[rgba(255,255,255,.03)] p-6">
+            <div className="rounded-[22px] border border-white/10 bg-[rgba(255,255,255,.03)] p-5 sm:p-6">
               <div className="flex items-center justify-between">
                 <div className="text-sm font-semibold text-white/80">Output</div>
                 <span className="text-xs text-white/40">Extracted fields</span>
               </div>
 
               {!result ? (
-                <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm text-[color:var(--k-muted)]">
+                <div className="mt-5 rounded-2xl border border-white/10 bg-white/5 p-5 text-sm leading-relaxed text-[color:var(--k-muted)]">
                   Run the demo to see extracted fields, line items, and validation flags.
                 </div>
               ) : (
                 <div className="mt-5 grid gap-5">
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                     {[
                       ["Supplier", result.supplier],
                       ["Invoice #", result.invoiceNo],
@@ -502,7 +565,7 @@ export default function Page() {
                         <TriangleAlert className="h-4 w-4" />
                         Review flags
                       </div>
-                      <ul className="mt-3 text-sm text-[color:var(--k-muted)] space-y-1">
+                      <ul className="mt-3 text-sm leading-relaxed text-[color:var(--k-muted)] space-y-1">
                         {result.flags.map((f) => (
                           <li key={f}>• {f}</li>
                         ))}
@@ -525,18 +588,16 @@ export default function Page() {
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <div className="k-badge">Services</div>
-              <h2 className="mt-4 text-2xl md:text-3xl font-extrabold tracking-tight">Solutions</h2>
-              <p className="mt-3 text-sm md:text-base leading-relaxed text-[color:var(--k-muted)]">
-                Built for small business operations: less admin, more visibility, stable IT.
-              </p>
-            </div>
-            <a href="#contact" className="hidden sm:inline-flex k-btn k-btn-ghost text-sm">
-              Get a quote <ArrowRight className="h-4 w-4" />
-            </a>
-          </div>
+          <SectionTitle
+            badge="Services"
+            title="Solutions"
+            subtitle="Operational systems designed for reliability, visibility, and controlled growth."
+            right={
+              <a href="#contact" className="hidden sm:inline-flex k-btn k-btn-ghost text-sm">
+                Get a quote <ArrowRight className="h-4 w-4" />
+              </a>
+            }
+          />
 
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {[
@@ -572,11 +633,13 @@ export default function Page() {
             ))}
           </div>
 
-          <div className="mt-10 k-surface rounded-[28px] p-7 md:p-10">
+          <div className="mt-10 k-surface rounded-[28px] p-6 sm:p-8 md:p-10">
             <div className="k-badge">How it works</div>
-            <div className="mt-4 text-xl md:text-2xl font-extrabold tracking-tight">Professional workflow</div>
-            <div className="mt-3 text-sm text-[color:var(--k-muted)]">
-              Scope → secure access → fix → handover. This is what makes it premium.
+            <div className="mt-3 text-xl md:text-2xl font-extrabold tracking-tight">
+              Structured delivery model used by professional IT operators.
+            </div>
+            <div className="mt-2 text-sm text-[color:var(--k-muted)] leading-relaxed">
+              Scope → secure access → implement fix → verify → handover. This is what makes it premium.
             </div>
 
             <div className="mt-8 grid gap-4 md:grid-cols-4">
@@ -588,7 +651,7 @@ export default function Page() {
               ].map(([t, d]) => (
                 <div key={t} className="rounded-2xl border border-white/10 bg-white/5 p-5">
                   <div className="font-semibold text-[color:var(--k-text)]">{t}</div>
-                  <div className="mt-2 text-sm text-[color:var(--k-muted)]">{d}</div>
+                  <div className="mt-2 text-sm leading-relaxed text-[color:var(--k-muted)]">{d}</div>
                 </div>
               ))}
             </div>
@@ -598,12 +661,12 @@ export default function Page() {
 
       {/* ===================== FIX ===================== */}
       <section id="fix" className="k-wrap k-section">
-        <div className="k-surface rounded-[28px] p-7 md:p-10">
+        <div className="k-surface rounded-[28px] p-6 sm:p-8 md:p-10">
           <div className="k-badge">Outcome</div>
-          <h3 className="mt-4 text-2xl md:text-3xl font-extrabold tracking-tight">
+          <h3 className="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight">
             From problem → fix, professionally.
           </h3>
-          <p className="mt-3 text-sm md:text-base leading-relaxed text-[color:var(--k-muted)]">
+          <p className="mt-2 text-sm md:text-base leading-relaxed text-[color:var(--k-muted)]">
             Calm delivery. Clear notes. Fewer repeat problems.
           </p>
 
@@ -618,7 +681,7 @@ export default function Page() {
                   <div className="text-sm text-[color:var(--k-muted)]">Slow, unstable, bottlenecks.</div>
                 </div>
               </div>
-              <div className="mt-4 text-sm text-[color:var(--k-muted)]">
+              <div className="mt-4 text-sm leading-relaxed text-[color:var(--k-muted)]">
                 Lag, disconnects, failed updates, and unreliable backups.
               </div>
             </div>
@@ -633,29 +696,27 @@ export default function Page() {
                   <div className="text-sm text-[color:var(--k-muted)]">Stable, fast, controlled.</div>
                 </div>
               </div>
-              <div className="mt-4 text-sm text-[color:var(--k-muted)]">
+              <div className="mt-4 text-sm leading-relaxed text-[color:var(--k-muted)]">
                 Clean fixes, performance tuning, hardened settings, and clear handover.
               </div>
             </div>
           </div>
 
-          <a href="#contact" className="mt-10 inline-flex k-btn text-sm">
+          <a href="#contact" className="mt-10 inline-flex k-btn text-sm w-full sm:w-auto justify-center">
             Start a support request <ArrowRight className="h-4 w-4" />
           </a>
         </div>
       </section>
 
-      {/* ===================== CONTACT (ONLY place with WhatsApp/Email/Facebook) ===================== */}
+      {/* ===================== CONTACT ===================== */}
       <section id="contact" className="k-wrap k-section pb-24">
-        <div className="k-surface rounded-[28px] p-7 md:p-12">
+        <div className="k-surface rounded-[28px] p-6 sm:p-8 md:p-12">
           <div className="flex items-start justify-between gap-4">
             <div>
               <div className="k-badge">Contact</div>
-              <h2 className="mt-4 text-2xl md:text-3xl font-extrabold tracking-tight">
-                Talk to Kryvexis
-              </h2>
-              <p className="mt-3 text-sm md:text-base leading-relaxed text-[color:var(--k-muted)] max-w-xl">
-                Tell me what you need help with and I’ll reply with next steps.
+              <h2 className="mt-3 text-2xl md:text-3xl font-extrabold tracking-tight">Talk to Kryvexis</h2>
+              <p className="mt-2 text-sm md:text-base leading-relaxed text-[color:var(--k-muted)] max-w-xl">
+                Describe your situation and Kryvexis will respond with clear next steps, scope, and timeline.
               </p>
             </div>
             <div className="hidden md:flex items-center gap-2 text-xs text-[color:var(--k-muted)]">
@@ -667,18 +728,8 @@ export default function Page() {
           <div className="mt-10 grid gap-10 md:grid-cols-2">
             {/* Form */}
             <div className="grid gap-4">
-              <input
-                placeholder="Your name"
-                className="k-input"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-              <input
-                placeholder="Email"
-                className="k-input"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <input placeholder="Your name" className="k-input" value={name} onChange={(e) => setName(e.target.value)} />
+              <input placeholder="Email" className="k-input" value={email} onChange={(e) => setEmail(e.target.value)} />
               <input
                 placeholder="Remote IT / Automation / OCR"
                 className="k-input"
@@ -693,14 +744,14 @@ export default function Page() {
                 onChange={(e) => setMessage(e.target.value)}
               />
 
-              <button className="k-btn" onClick={submitLead} disabled={sending}>
+              <button className="k-btn w-full sm:w-auto justify-center" onClick={submitLead} disabled={sending}>
                 {sending ? "Sending..." : "Send Message"} <ArrowRight className="h-4 w-4" />
               </button>
 
               {status && (
                 <div
                   className={[
-                    "rounded-2xl p-4 border text-sm",
+                    "rounded-2xl p-4 border text-sm leading-relaxed",
                     status.ok
                       ? "border-[rgba(52,211,153,.20)] bg-[rgba(52,211,153,.07)] text-[color:var(--k-text)]"
                       : "border-[rgba(251,113,133,.20)] bg-[rgba(251,113,133,.07)] text-[color:var(--k-text)]",
@@ -726,7 +777,6 @@ export default function Page() {
                   WhatsApp
                 </a>
 
-                {/* Email is just a label now; the form handles the real send */}
                 <div className="rounded-2xl px-4 py-3 border border-white/10 bg-white/5 flex items-center gap-3">
                   <Mail className="h-5 w-5 text-[color:var(--k-accent)]" />
                   Email
@@ -746,7 +796,7 @@ export default function Page() {
 
               <div className="mt-6 rounded-2xl p-4 border border-[rgba(52,211,153,.20)] bg-[rgba(52,211,153,.07)]">
                 <div className="font-semibold text-[color:var(--k-ok)]">Secure workflow</div>
-                <div className="mt-1 text-sm text-[color:var(--k-text)]">
+                <div className="mt-1 text-sm leading-relaxed text-[color:var(--k-text)]">
                   Client-owned access, clean notes, and professional delivery.
                 </div>
               </div>
