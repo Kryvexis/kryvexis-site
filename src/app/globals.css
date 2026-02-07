@@ -1,0 +1,369 @@
+@import "tailwindcss";
+
+/* ==========================================================
+   KRYVEXIS — CYBER PREMIUM THEME
+   ========================================================== */
+
+:root{
+  --k-bg:#05060d;
+
+  --k-panel: rgba(15,23,42,.78);
+  --k-panel2: rgba(11,18,32,.82);
+  --k-border: rgba(34,211,238,.12);
+
+  --k-text:#e5e7eb;
+  --k-muted: rgba(229,231,235,.62);
+
+  --k-accent:#22d3ee;
+  --k-accent2:#a78bfa;
+
+  --k-ok:#34d399;
+  --k-warn:#fbbf24;
+  --k-bad:#fb7185;
+
+  --k-radius: 22px;
+}
+
+html{scroll-behavior:smooth}
+*,
+*::before,
+*::after{box-sizing:border-box}
+
+body{
+  background: var(--k-bg);
+  color: var(--k-text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+}
+
+::selection{background: rgba(34,211,238,.18)}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-thumb{
+  background: rgba(34,211,238,.14);
+  border: 1px solid rgba(34,211,238,.12);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover{background: rgba(34,211,238,.18)}
+::-webkit-scrollbar-track{background: rgba(0,0,0,.25)}
+
+/* ==========================================================
+   BACKGROUND LAYERS (premium cyber)
+   ========================================================== */
+.k-noise{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .035;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+}
+
+.k-glow{
+  position: fixed;
+  inset: -30%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 25%, rgba(34,211,238,.12), transparent 55%),
+    radial-gradient(circle at 30% 70%, rgba(167,139,250,.08), transparent 58%);
+  filter: blur(75px);
+  opacity: .42;
+}
+
+.k-heroGlow{
+  position: fixed;
+  inset: -40%;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 70% 20%, rgba(34,211,238,.12), transparent 52%),
+    radial-gradient(circle at 15% 60%, rgba(167,139,250,.10), transparent 58%),
+    radial-gradient(circle at 70% 80%, rgba(52,211,153,.08), transparent 55%);
+  filter: blur(90px);
+  opacity: .40;
+}
+
+.k-grid{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .18;
+  background-image:
+    linear-gradient(to right, rgba(34,211,238,.10) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34,211,238,.08) 1px, transparent 1px);
+  background-size: 90px 90px;
+  mask-image: radial-gradient(circle at 50% 25%, rgba(0,0,0,1), rgba(0,0,0,.15) 55%, transparent 75%);
+}
+
+.k-vignette{
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 10%, transparent 0%, rgba(0,0,0,.25) 60%, rgba(0,0,0,.55) 100%);
+  opacity: .55;
+}
+
+/* ==========================================================
+   LAYOUT HELPERS
+   ========================================================== */
+.k-wrap{
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* More “freedom” between sections */
+.k-section{
+  padding-top: 5.5rem;
+  padding-bottom: 5.5rem;
+}
+@media (min-width: 768px){
+  .k-section{ padding-top: 7rem; padding-bottom: 7rem; }
+}
+
+/* ==========================================================
+   TYPE + UTILITIES
+   ========================================================== */
+.k-title{
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+.k-subtitle{
+  line-height: 1.6;
+}
+
+.k-divider{
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, rgba(34,211,238,.14), rgba(167,139,250,.12), transparent);
+  opacity: .95;
+}
+
+.k-neon{ text-shadow: 0 0 14px rgba(34,211,238,.18) }
+
+/* ==========================================================
+   SURFACES (varied)
+   ========================================================== */
+.k-surface{
+  background:
+    radial-gradient(circle at 15% 20%, rgba(34,211,238,.10), transparent 55%),
+    linear-gradient(180deg, rgba(15,23,42,.78), rgba(11,18,32,.82));
+  border: 1px solid rgba(34,211,238,.12);
+  border-radius: var(--k-radius);
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.06) inset,
+    0 22px 70px rgba(0,0,0,.58);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.k-panel{
+  background:
+    linear-gradient(180deg, rgba(15,23,42,.72), rgba(11,18,32,.82));
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 22px;
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.04) inset,
+    0 18px 60px rgba(0,0,0,.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.k-card{
+  background: linear-gradient(180deg, rgba(15,23,42,.82), rgba(11,18,32,.82));
+  border: 1px solid rgba(34,211,238,.11);
+  border-radius: var(--k-radius);
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.05) inset,
+    0 18px 60px rgba(0,0,0,.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.k-card:hover{
+  transform: translateY(-2px);
+  border-color: rgba(34,211,238,.18);
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.08) inset,
+    0 24px 80px rgba(0,0,0,.62);
+}
+
+.k-stat{
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.04);
+  padding: 14px;
+}
+
+.k-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding: .5rem .75rem;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  color: rgba(229,231,235,.86);
+  background: rgba(17,27,51,.42);
+  border: 1px solid rgba(34,211,238,.14);
+  box-shadow: 0 0 0 1px rgba(34,211,238,.05) inset;
+}
+
+/* ==========================================================
+   BUTTONS
+   ========================================================== */
+.k-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.5rem;
+  border-radius: 16px;
+  padding: .78rem 1.05rem;
+  font-weight: 850;
+  letter-spacing: .01em;
+
+  background: var(--k-accent);
+  color: #001018;
+  border: 1px solid rgba(255,255,255,.06);
+
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.12),
+    0 12px 32px rgba(34,211,238,.10);
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease;
+}
+.k-btn:hover{
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.16),
+    0 16px 44px rgba(34,211,238,.12);
+}
+.k-btn:active{transform: translateY(0)}
+.k-btn-ghost{
+  background: rgba(15,23,42,.40);
+  color: var(--k-text);
+  border: 1px solid rgba(34,211,238,.16);
+  box-shadow: 0 0 0 1px rgba(34,211,238,.06) inset;
+}
+.k-btn-ghost:hover{filter: brightness(1.05)}
+
+/* ==========================================================
+   INPUTS
+   ========================================================== */
+.k-input,.k-textarea{
+  width:100%;
+  border-radius: 16px;
+  padding: .95rem 1rem;
+  outline:none;
+  border: 1px solid rgba(34,211,238,.14);
+  background: rgba(11,18,32,.55);
+  color: var(--k-text);
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+.k-textarea{min-height: 150px; resize: vertical}
+.k-input:focus,.k-textarea:focus{
+  border-color: rgba(34,211,238,.34);
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 4px rgba(34,211,238,.10),
+    0 0 0 1px rgba(34,211,238,.12) inset;
+}
+.k-input::placeholder,.k-textarea::placeholder{color: rgba(229,231,235,.45)}
+
+/* Focus ring */
+:focus-visible{outline:none; box-shadow: 0 0 0 4px rgba(34,211,238,.12)}
+
+/* ==========================================================
+   FLOATING WHATSAPP BUTTON (FAB)
+   ========================================================== */
+.k-fab{
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 60;
+
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+
+  display: grid;
+  place-items: center;
+
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255,255,255,.22), transparent 40%),
+    linear-gradient(135deg, rgba(34,211,238,.18), rgba(167,139,250,.10)),
+    linear-gradient(180deg, rgba(15,23,42,.72), rgba(11,18,32,.72));
+
+  border: 1px solid rgba(34,211,238,.16);
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.06) inset,
+    0 18px 60px rgba(0,0,0,.55),
+    0 10px 28px rgba(34,211,238,.08);
+
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+
+  transition: transform 180ms ease, filter 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.k-fab:hover{
+  transform: translateY(-2px) scale(1.03);
+  filter: brightness(1.06);
+  border-color: rgba(34,211,238,.22);
+  box-shadow:
+    0 0 0 1px rgba(34,211,238,.10) inset,
+    0 22px 72px rgba(0,0,0,.58),
+    0 14px 34px rgba(34,211,238,.10);
+}
+
+.k-fab:active{ transform: translateY(0) scale(1); }
+
+.k-fab-badge{
+  position:absolute;
+  right:-4px;
+  top:-4px;
+  width:14px;height:14px;
+  border-radius:999px;
+  background: rgba(52,211,153,1);
+  box-shadow: 0 0 0 4px rgba(5,6,13,.9);
+}
+
+.k-fab-tip{
+  position: absolute;
+  right: 70px;
+  bottom: 10px;
+
+  padding: 8px 10px;
+  border-radius: 14px;
+
+  background: rgba(15,23,42,.76);
+  border: 1px solid rgba(34,211,238,.14);
+
+  font-size: 12px;
+  color: rgba(229,231,235,.80);
+  white-space: nowrap;
+
+  opacity: 0;
+  transform: translateX(6px);
+  pointer-events: none;
+
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.k-fab:hover .k-fab-tip{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.k-fab svg{
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
+}
