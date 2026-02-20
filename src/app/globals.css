@@ -378,3 +378,46 @@ header[data-bright="true"]::before{
   background:linear-gradient(to bottom, rgba(255,255,255,0.08), transparent 60%);
   pointer-events:none;
 }
+
+
+/* ===== Dynamic header (top vs scrolled) ===== */
+.kx-nav{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 50;
+  transition: background .22s ease, backdrop-filter .22s ease, border-color .22s ease, box-shadow .22s ease, transform .22s ease;
+}
+.kx-nav.is-top{
+  /* brighter + cleaner at the top (less fog) */
+  background: rgba(10, 16, 28, 0.12);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+}
+.kx-nav.is-scrolled{
+  /* more presence down the page (like before, but NOT super foggy) */
+  background: rgba(6, 10, 18, 0.28);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.14);
+  box-shadow: 0 14px 60px rgba(0,0,0,0.38);
+}
+
+/* Keep the subtle top shine but lighten it */
+.kx-nav::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.10), transparent 60%);
+  pointer-events:none;
+  opacity:.55;
+}
+
+/* Divider glow line (slightly brighter at top) */
+.kx-nav .nav-glowline{
+  opacity: .65;
+}
+.kx-nav.is-top .nav-glowline{
+  opacity: .78;
+}
