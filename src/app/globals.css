@@ -153,3 +153,40 @@ html{ scroll-behavior: smooth; }
 @media (min-width: 1025px){
   .brand-scale { transform: scale(2.2); }
 }
+
+
+/* ===== Micro interactions (buttons/cards) ===== */
+.btn-primary, .btn-secondary {
+  transform: translateY(0);
+}
+.btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-2px);
+}
+.btn-primary:active, .btn-secondary:active {
+  transform: translateY(0px) scale(0.99);
+}
+
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+@media (hover:hover) {
+  .tilt-card:hover {
+    transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-3px);
+    border-color: rgba(255,255,255,0.20);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 26px 110px rgba(0,0,0,0.62);
+  }
+}
+.tilt-card::after {
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius: inherit;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 30%), rgba(18,161,238,0.14), transparent 45%);
+  opacity: 0;
+  transition: opacity .18s ease;
+  pointer-events:none;
+}
+@media (hover:hover) {
+  .tilt-card:hover::after { opacity: 1; }
+}

@@ -2,7 +2,7 @@ import { ArrowUpRight } from "lucide-react";
 
 export function Card({ title, desc, icon:Icon, pills=[] }){
   return (
-    <div className="glass rounded-2xl p-6 shadow-soft hover:border-white/20 transition">
+    <div className="glass rounded-2xl p-6 shadow-soft hover:border-white/20 transition relative">
       <div className="flex items-start justify-between gap-4">
         <div className="h-11 w-11 rounded-2xl glass grid place-items-center">
           {Icon ? <Icon size={18} /> : null}

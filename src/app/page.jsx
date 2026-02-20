@@ -7,6 +7,8 @@ import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
 import ProductTour from "../components/ProductTour";
+import Reveal from "../components/Reveal";
+import Tilt from "../components/Tilt";
 import VideoModal from "../components/VideoModal";
 import Spotlight from "../components/Spotlight";
 import { Card } from "../components/Card";
@@ -168,13 +170,13 @@ export default function Home() {
       {/* PRODUCT */}
       <section id="product" className="section relative">
         <Container>
-          <SectionHeading
+          <Reveal><SectionHeading
             kicker="Why Kryvexis"
             title="Stop the double-capture. Control the full flow."
             desc="Most businesses capture sales in one place and stock in another. Kryvexis brings the flow together so stock and money match — without pain."
-          />
+          /></Reveal>
 
-          <Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
+          <Reveal delay={0.08}><Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
             <div className="glass rounded-2xl p-6">
               <div className="font-bold">Fix stock chaos</div>
               <div className="mut mt-2 text-sm leading-relaxed">See what’s low, what’s moving, and what needs reorder — quickly.</div>
@@ -187,35 +189,43 @@ export default function Home() {
               <div className="font-bold">Clean purchasing</div>
               <div className="mut mt-2 text-sm leading-relaxed">POs, receiving (GRV), and suppliers in one workflow — no guessing.</div>
             </div>
-          </Spotlight>
+          </Spotlight></Reveal>
         </Container>
       </section>
 
       {/* TOUR */}
       <section id="tour" className="section relative">
         <Container>
-          <SectionHeading kicker="Interactive" title="Click through the product" desc="Inventory, Sales, Purchasing — explore the flow your team will use." />
-          <ProductTour />
+          <Reveal><SectionHeading kicker="Interactive" title="Click through the product" desc="Inventory, Sales, Purchasing — explore the flow your team will use." /></Reveal>
+          <Reveal delay={0.10}><ProductTour /></Reveal>
         </Container>
       </section>
 
       {/* FEATURES */}
       <section id="features" className="section relative">
         <Container>
-          <SectionHeading kicker="Built for real roles" title="Features that match your team" desc="Owner, Sales, Buying — each gets the tools they actually need." />
+          <Reveal><SectionHeading kicker="Built for real roles" title="Features that match your team" desc="Owner, Sales, Buying — each gets the tools they actually need." /></Reveal>
           <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
-            {features.map((fx)=>(<Card key={fx.title} title={fx.title} desc={fx.desc} icon={fx.icon} pills={fx.pills} />))}
-          </Spotlight>
+            {features.map((fx,i)=>(
+              <Reveal key={fx.title} delay={0.06 + i*0.04}>
+                <Tilt className="relative rounded-2xl">
+                  <Card title={fx.title} desc={fx.desc} icon={fx.icon} pills={fx.pills} />
+                </Tilt>
+              </Reveal>
+            ))}
+          </Spotlight></Reveal>
         </Container>
       </section>
 
       {/* PRICING */}
       <section id="pricing" className="section relative">
         <Container>
-          <SectionHeading kicker="Tiers" title="Start small. Unlock power when you need it." desc="Choose a tier that matches your workflow today — upgrade when your team grows." />
-          <Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
-            {tiers.map((t)=>(
-              <div key={t.name} className={"glass rounded-2xl p-6 shadow-soft " + (t.popular ? "border-white/25" : "")}>
+          <Reveal><SectionHeading kicker="Tiers" title="Start small. Unlock power when you need it." desc="Choose a tier that matches your workflow today — upgrade when your team grows." /></Reveal>
+          <Reveal delay={0.08}><Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
+            {tiers.map((t,i)=>(
+              <Reveal key={t.name} delay={0.06 + i*0.05}>
+                <Tilt className="relative rounded-2xl">
+                  <div className={"glass rounded-2xl p-6 shadow-soft " + (t.popular ? "border-white/25" : "")}>
                 <div className="flex items-center justify-between">
                   <div className="text-lg font-extrabold">{t.name}</div>
                   {t.popular ? <div className="badge">Most popular</div> : null}
@@ -229,8 +239,10 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <a href="#contact" className={"mt-6 w-full " + (t.popular ? "btn-primary" : "btn-secondary")}>Get pricing</a>
-              </div>
+                  <a href="#contact" className={"mt-6 w-full " + (t.popular ? "btn-primary" : "btn-secondary")}>Get pricing</a>
+                  </div>
+                </Tilt>
+              </Reveal>
             ))}
           </Spotlight>
           <div className="mt-8 text-sm text-white/60">Want Kryvexis to match your exact workflow? We can customize onboarding, import paths, and reports.</div>
@@ -240,15 +252,19 @@ export default function Home() {
       {/* FAQ */}
       <section id="faq" className="section relative">
         <Container>
-          <SectionHeading kicker="Questions" title="FAQ" desc="Quick answers to common questions." />
+          <Reveal><SectionHeading kicker="Questions" title="FAQ" desc="Quick answers to common questions." /></Reveal>
           <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
-            {faqs.map(x=>(
-              <div key={x.q} className="glass rounded-2xl p-6">
+            {faqs.map((x,i)=>(
+              <Reveal key={x.q} delay={0.06 + i*0.03}>
+                <Tilt className="relative rounded-2xl">
+                  <div className="glass rounded-2xl p-6">
                 <div className="font-bold">{x.q}</div>
-                <div className="mut mt-2 text-sm leading-relaxed">{x.a}</div>
-              </div>
+                    <div className="mut mt-2 text-sm leading-relaxed">{x.a}</div>
+                  </div>
+                </Tilt>
+              </Reveal>
             ))}
-          </Spotlight>
+          </Spotlight></Reveal>
         </Container>
       </section>
 
