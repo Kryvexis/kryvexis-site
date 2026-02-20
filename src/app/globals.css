@@ -337,3 +337,35 @@ html{ scroll-behavior: smooth; }
   transform: translate3d(0, var(--py, 0px), 0);
   will-change: transform;
 }
+
+
+/* ===== Hero headline glow ===== */
+@keyframes headlinePulse {
+  0%, 100% { opacity: .55; transform: translateY(0) scale(1); }
+  50% { opacity: .85; transform: translateY(0) scale(1.02); }
+}
+.headline-wrap{ position: relative; }
+.headline-glow{
+  position: absolute;
+  inset: -18px -22px;
+  border-radius: 28px;
+  background:
+    radial-gradient(60% 60% at 35% 35%, rgba(18,161,238,0.28), transparent 62%),
+    radial-gradient(60% 60% at 70% 45%, rgba(34,211,238,0.18), transparent 62%),
+    radial-gradient(70% 70% at 55% 70%, rgba(167,139,250,0.16), transparent 66%);
+  filter: blur(22px);
+  animation: headlinePulse 3.8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+.headline-text{ position: relative; z-index: 1; }
+
+.nav-glowline{
+  position:absolute;
+  left:0; right:0; bottom:-1px;
+  height:2px;
+  background: linear-gradient(90deg, transparent, rgba(18,161,238,0.55), rgba(167,139,250,0.35), transparent);
+  filter: blur(0.2px);
+  opacity:.55;
+  pointer-events:none;
+}

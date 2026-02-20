@@ -81,14 +81,17 @@ export default function Home() {
           <div className="max-w-3xl mx-auto pt-36 md:pt-44 xl:pt-56">
             <div className="badge mb-5"><Wand2 size={14} /> The future operating system for small business</div>
 
-            <motion.h1
-              className="h1 underglow"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
+            <div className="headline-wrap">
+              <div className="headline-glow" aria-hidden />
+              <motion.h1
+              className="h1 underglow headline-text"
+              initial={{ opacity: 0, y: 18, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               Welcome to <span className="text-white">Kryvexis OS</span>.
             </motion.h1>
+            </div>
 
             <motion.p
               className="mut mt-6 text-base md:text-lg leading-relaxed"
@@ -119,9 +122,10 @@ export default function Home() {
           {/* Demo preview moved DOWN for better storytelling */}
           <motion.div
             className="mt-44 lg:mt-56 xl:mt-72"
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.18, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.35 }}
+            transition={{ duration: 0.75, delay: 0.12, ease: "easeOut" }}
           >
             <div className="section-divider mb-8" />
             <div className="grid lg:grid-cols-12 gap-8 items-start">
