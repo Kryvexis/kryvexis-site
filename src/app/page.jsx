@@ -1,10 +1,15 @@
+"use client";
+import { useState } from "react";
 import Nav from "../components/Nav";
 import Aurora from "../components/Aurora";
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
 import { Card } from "../components/Card";
-import { CheckCircle2, Shield, Zap, Boxes, Receipt, Truck, BarChart3, Users, Sparkles, ArrowRight } from "lucide-react";
+import ProductTour from "../components/ProductTour";
+import VideoModal from "../components/VideoModal";
+import Logo from "../components/Logo";
+import { CheckCircle2, Shield, Zap, Receipt, Truck, BarChart3, Boxes, Sparkles, ArrowRight, Play } from "lucide-react";
 
 const features = [
   {
@@ -17,60 +22,56 @@ const features = [
     title: "Quotes → invoices",
     desc: "Convert quotes to invoices in seconds. Sales update stock automatically.",
     icon: Receipt,
-    pills: ["Customer history", "One-click print", "PDF saving"]
+    pills: ["Customer history", "One-click print", "Auto PDF saving"]
   },
   {
     title: "Purchasing & receiving",
-    desc: "Create POs, email the buying team, and receive stock with a clean GRV flow.",
+    desc: "Create POs, notify the buying team, and receive stock with a clean GRV flow.",
     icon: Truck,
     pills: ["PO tracking", "GRV receiving", "Supplier list"]
   },
   {
     title: "Owner dashboard",
-    desc: "Top sales, profit visibility, and performance views without messy spreadsheets.",
+    desc: "Top sales, margin visibility, and daily performance views without messy spreadsheets.",
     icon: BarChart3,
-    pills: ["Top sales per client", "Daily summary", "Exports"]
+    pills: ["Top sales per client", "Daily summary email", "Exports"]
   },
 ];
 
 const tiers = [
-  {
-    name: "Starter",
-    price: "For small teams",
-    points: ["Products & stock", "Sales capture", "Basic invoicing", "Owner dashboard"]
-  },
-  {
-    name: "Premium",
-    price: "For growing operations",
-    points: ["Purchase Orders", "Receiving (GRV)", "Import products", "Team emailing"]
-  },
-  {
-    name: "Enterprise",
-    price: "For advanced control",
-    points: ["Audit trails", "Role-based access", "Exports & reporting", "Custom workflows"]
-  }
+  { name: "Starter", price: "For small teams", points: ["Products & stock", "Sales capture", "Basic invoicing", "Owner dashboard"] },
+  { name: "Premium", price: "For growing operations", points: ["Purchase Orders", "Receiving (GRV)", "Import products", "Team emailing"], popular: true },
+  { name: "Enterprise", price: "For advanced control", points: ["Audit trails", "Role-based access", "Exports & reporting", "Custom workflows"] }
 ];
 
 const faqs = [
   { q: "Is this built for South African businesses?", a: "Yes. Kryvexis is designed for the way small businesses actually work day-to-day — simple, fast, and practical." },
   { q: "Can we start small and upgrade later?", a: "Absolutely. Start on Starter, then unlock Premium/Enterprise features when you need them." },
-  { q: "Do you support printing and PDF invoices?", a: "Yes — one-click printing and automatic PDF saving are part of the roadmap and can be enabled per tier." },
-  { q: "How do we get onboarded?", a: "We can help you load products, connect your workflow, and set up your dashboard in a quick onboarding session." },
-  { q: "Can this work with our POS?", a: "Yes. We can add a simple import flow so you don’t capture sales twice." },
+  { q: "Do you support printing and PDF invoices?", a: "Yes — one-click printing and automatic PDF saving are supported per tier / roadmap." },
+  { q: "How do we get onboarded?", a: "We help you load products, map suppliers, and set up dashboards in a quick onboarding session." },
+  { q: "Can this work with our POS?", a: "Yes. We can add an import flow so you don’t capture sales twice." },
 ];
 
 export default function Home() {
+  const [videoOpen, setVideoOpen] = useState(false);
+
   return (
     <div id="top" className="relative min-h-screen">
       <Aurora />
-      <Nav />
+      <Nav onOpenVideo={()=>setVideoOpen(true)} />
+      <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
       {/* HERO */}
       <section className="section relative">
         <Container>
           <div className="grid md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-7">
-              <div className="badge mb-5"><Sparkles size={14} /> Built to feel like real software</div>
+              <div className="badge mb-5"><Sparkles size={14} /> Premium SaaS look • smooth motion • subtle particles</div>
+
+              <div className="mb-4">
+                <Logo height={44} className="hidden sm:block" />
+              </div>
+
               <h1 className="h1">Inventory, invoicing & purchasing — in one clean workflow.</h1>
               <p className="mut mt-5 text-base md:text-lg leading-relaxed max-w-xl">
                 Kryvexis OS helps small businesses control stock, capture sales, and manage purchase orders without chaos.
@@ -81,11 +82,13 @@ export default function Home() {
                 <a href="#contact" className="btn-primary">
                   Book a demo <ArrowRight size={16} />
                 </a>
-                <a href="#product" className="btn-secondary">View product</a>
+                <button onClick={()=>setVideoOpen(true)} className="btn-secondary">
+                  <Play size={16} /> Watch 60-sec demo
+                </button>
               </div>
 
               <div className="mt-8 flex flex-wrap gap-3 text-sm text-white/70">
-                <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-kx-green" />Fast onboarding</div>
+                <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-kx-blue" />Fast onboarding</div>
                 <div className="flex items-center gap-2"><Shield size={16} className="text-kx-cyan" />Practical security</div>
                 <div className="flex items-center gap-2"><Zap size={16} className="text-kx-purple" />Built for speed</div>
               </div>
@@ -154,7 +157,7 @@ export default function Home() {
               </div>
 
               <div className="mt-4 text-xs text-white/55">
-                *Preview UI for marketing. Your OS web app remains the operational system.
+                *Particles + aurora are subtle on purpose — it reads premium, not noisy.
               </div>
             </div>
           </div>
@@ -187,32 +190,15 @@ export default function Home() {
         </Container>
       </section>
 
-      {/* HOW */}
-      <section id="how" className="section relative">
+      {/* TOUR */}
+      <section id="tour" className="section relative">
         <Container>
           <SectionHeading
-            kicker="Simple setup"
-            title="How it works"
-            desc="Three steps to a system your team actually uses."
+            kicker="Interactive"
+            title="Click through the product"
+            desc="Inventory, Sales, Purchasing — explore the flow your team will use."
           />
-
-          <div className="mt-10 grid md:grid-cols-3 gap-5">
-            <div className="glass rounded-2xl p-6">
-              <div className="badge mb-3">Step 1</div>
-              <div className="font-bold text-lg">Load your products</div>
-              <p className="mut mt-2 text-sm leading-relaxed">Import products or add them manually. Keep categories, suppliers, cost and selling prices aligned.</p>
-            </div>
-            <div className="glass rounded-2xl p-6">
-              <div className="badge mb-3">Step 2</div>
-              <div className="font-bold text-lg">Sell & invoice</div>
-              <p className="mut mt-2 text-sm leading-relaxed">Capture sales, convert quotes to invoices, and track customer purchase history without extra work.</p>
-            </div>
-            <div className="glass rounded-2xl p-6">
-              <div className="badge mb-3">Step 3</div>
-              <div className="font-bold text-lg">Replenish stock</div>
-              <p className="mut mt-2 text-sm leading-relaxed">Create purchase orders, notify the buying team, and receive stock with a GRV flow that makes sense.</p>
-            </div>
-          </div>
+          <ProductTour />
         </Container>
       </section>
 
@@ -225,8 +211,8 @@ export default function Home() {
             desc="Owner, Sales, Buying — each gets the tools they actually need."
           />
           <div className="mt-10 grid md:grid-cols-2 gap-5">
-            {features.map((f)=>(
-              <Card key={f.title} title={f.title} desc={f.desc} icon={f.icon} pills={f.pills} />
+            {features.map((fx)=>(
+              <Card key={fx.title} title={fx.title} desc={fx.desc} icon={fx.icon} pills={fx.pills} />
             ))}
           </div>
         </Container>
@@ -242,22 +228,22 @@ export default function Home() {
           />
 
           <div className="mt-10 grid md:grid-cols-3 gap-5">
-            {tiers.map((t, idx)=>(
-              <div key={t.name} className={"glass rounded-2xl p-6 shadow-soft " + (idx===1 ? "border-white/25" : "")}>
+            {tiers.map((t)=>(
+              <div key={t.name} className={"glass rounded-2xl p-6 shadow-soft " + (t.popular ? "border-white/25" : "")}>
                 <div className="flex items-center justify-between">
                   <div className="text-lg font-extrabold">{t.name}</div>
-                  {idx===1 ? <div className="badge">Most popular</div> : null}
+                  {t.popular ? <div className="badge">Most popular</div> : null}
                 </div>
                 <div className="mt-2 text-sm text-white/65">{t.price}</div>
                 <div className="mt-5 space-y-2 text-sm">
                   {t.points.map(p=>(
                     <div key={p} className="flex items-start gap-2 text-white/80">
-                      <CheckCircle2 size={16} className="mt-0.5 text-kx-green" />
+                      <CheckCircle2 size={16} className="mt-0.5 text-kx-blue" />
                       <span>{p}</span>
                     </div>
                   ))}
                 </div>
-                <a href="#contact" className={"mt-6 w-full " + (idx===1 ? "btn-primary" : "btn-secondary")}>Get pricing</a>
+                <a href="#contact" className={"mt-6 w-full " + (t.popular ? "btn-primary" : "btn-secondary")}>Get pricing</a>
               </div>
             ))}
           </div>
@@ -294,15 +280,15 @@ export default function Home() {
           <div className="glass rounded-2xl p-8 md:p-10 shadow-glow">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
               <div className="max-w-xl">
-                <div className="badge mb-4"><Users size={14}/> Pilot-ready</div>
+                <div className="badge mb-4">Pilot-ready</div>
                 <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight">Want a demo that looks premium?</h3>
                 <p className="mut mt-3 leading-relaxed">
                   Tell us your industry and workflow. We’ll set up a demo with your product categories and a realistic stock flow.
                 </p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  <span className="badge"><Zap size={14}/> Fast onboarding</span>
-                  <span className="badge"><Shield size={14}/> Practical controls</span>
-                  <span className="badge"><Boxes size={14}/> Inventory first</span>
+                  <span className="badge">Fast onboarding</span>
+                  <span className="badge">Practical controls</span>
+                  <span className="badge">Inventory first</span>
                 </div>
               </div>
 
@@ -315,7 +301,7 @@ export default function Home() {
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Business name" />
                     <button className="btn-primary w-full">Send request</button>
                     <div className="text-xs text-white/50">
-                      This form is front-end only for now. Hook it to email/CRM when ready.
+                      This form is UI-only for now. Hook it to email/CRM when ready.
                     </div>
                   </div>
                 </div>

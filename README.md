@@ -1,16 +1,16 @@
-# Kryvexis Next-Level Site (Next.js + Tailwind + Framer Motion)
+# Kryvexis Next-Level Website v3
+- Next.js (App Router) + Tailwind + Framer Motion
+- Electric sweep logo on load
+- Video demo modal (YouTube embed)
+- Interactive product tour tabs
+- Subtle particle/starfield behind aurora
 
-## Run locally
+## Run
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:3000
-
-## Deploy
-- Push to GitHub
-- Import into Vercel (auto deploy on push)
-
-## Notes
-- The contact form is UI-only. Wire it to email/CRM later.
+## Customize
+- Replace the YouTube ID in `src/app/page.jsx` or `src/components/VideoModal.jsx`
+- Replace logo in `public/kryvexis-logo.png`

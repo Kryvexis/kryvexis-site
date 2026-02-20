@@ -1,12 +1,15 @@
+import Starfield from "./Starfield";
+
 export default function Aurora(){
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute -top-32 -left-24 h-[520px] w-[520px] rounded-full blur-3xl opacity-45 animate-aurora"
-           style={{background:"radial-gradient(circle at 30% 30%, rgba(18,161,238,0.55), transparent 60%)"}} />
-      <div className="absolute top-10 -right-24 h-[520px] w-[520px] rounded-full blur-3xl opacity-40 animate-aurora"
-           style={{background:"radial-gradient(circle at 30% 30%, rgba(0,210,255,0.50), transparent 60%)"}} />
-      <div className="absolute -bottom-40 left-1/3 h-[620px] w-[620px] rounded-full blur-3xl opacity-35 animate-aurora"
-           style={{background:"radial-gradient(circle at 30% 30%, rgba(248,248,248,0.22), transparent 60%)"}} />
+      <Starfield />
+      <div className="absolute -top-36 -left-28 h-[560px] w-[560px] rounded-full blur-3xl opacity-45 animate-aurora"
+           style={{background:"radial-gradient(circle at 30% 30%, rgba(18,161,238,0.60), transparent 60%)"}} />
+      <div className="absolute top-8 -right-28 h-[520px] w-[520px] rounded-full blur-3xl opacity-38 animate-aurora"
+           style={{background:"radial-gradient(circle at 30% 30%, rgba(34,211,238,0.55), transparent 60%)"}} />
+      <div className="absolute -bottom-44 left-1/3 h-[640px] w-[640px] rounded-full blur-3xl opacity-34 animate-aurora"
+           style={{background:"radial-gradient(circle at 30% 30%, rgba(167,139,250,0.50), transparent 62%)"}} />
       <div className="absolute inset-0 grid-overlay" />
     </div>
   );
