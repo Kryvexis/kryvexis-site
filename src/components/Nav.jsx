@@ -28,14 +28,15 @@ export default function Nav(){
       <Container className="py-4">
         <div className="flex items-center justify-between">
           <a href="#top" className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl glass shadow-glow grid place-items-center">
-              <span className="font-black text-sm tracking-tight">KX</span>
-            </div>
-            <div className="leading-tight">
-              <div className="font-extrabold tracking-tight">Kryvexis</div>
-              <div className="text-xs text-white/60 -mt-0.5">OS • Business Control</div>
-            </div>
-          </a>
+  <div className="h-10 w-10 rounded-2xl glass shadow-glow grid place-items-center overflow-hidden">
+    <img src="/kryvexis-icon.png" alt="Kryvexis" className="h-8 w-8" />
+  </div>
+  <div className="leading-tight">
+    <img src="/kryvexis-logo.png" alt="Kryvexis" className="h-6 hidden sm:block" />
+    <div className="font-extrabold tracking-tight sm:hidden">Kryvexis</div>
+    <div className="text-xs text-white/60 -mt-0.5">OS • Business Control</div>
+  </div>
+</a>
 
           <div className="hidden md:flex items-center gap-6 text-sm text-white/80">
             {links.map(l=>(

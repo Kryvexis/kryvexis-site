@@ -10,10 +10,11 @@ module.exports = {
           line: "rgba(255,255,255,0.12)",
           text: "rgba(255,255,255,0.92)",
           mut: "rgba(255,255,255,0.70)",
-          green: "#22c55e",
+          silver: "#F8F8F8",
+          green: "#12A1EE",
           lime: "#84cc16",
-          cyan: "#22d3ee",
-          purple: "#a78bfa"
+          cyan: "#00D2FF",
+          purple: "#6D6DFF"
         }
       },
       boxShadow: {

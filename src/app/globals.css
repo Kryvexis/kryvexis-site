@@ -9,13 +9,13 @@ html,body{ height:100%; }
 body{
   @apply bg-kx-bg text-white antialiased;
   background-image:
-    radial-gradient(1200px 700px at 20% 10%, rgba(34,197,94,0.14), transparent 55%),
-    radial-gradient(900px 600px at 80% 20%, rgba(34,211,238,0.12), transparent 55%),
-    radial-gradient(1000px 800px at 60% 90%, rgba(167,139,250,0.12), transparent 55%);
+    radial-gradient(1200px 700px at 20% 10%, rgba(18,161,238,0.16), transparent 55%),
+    radial-gradient(900px 600px at 80% 20%, rgba(0,210,255,0.14), transparent 55%),
+    radial-gradient(1000px 800px at 60% 90%, rgba(109,109,255,0.12), transparent 55%);
 }
 
 /* nicer selection */
-::selection{ background: rgba(34,197,94,0.28); }
+::selection{ background: rgba(18,161,238,0.30); }
 
 /* smooth anchor scroll */
 html{ scroll-behavior: smooth; }
