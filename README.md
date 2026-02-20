@@ -10,3 +10,9 @@ npm run dev
 
 ## Demo video later
 Replace youtubeId in `src/app/page.jsx` when you have a demo.
+
+
+## v13 polish
+- Section edge fade overlays
+- Scroll-driven background drift
+- Micro parallax on headings/cards

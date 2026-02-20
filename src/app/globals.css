@@ -286,3 +286,54 @@ html{ scroll-behavior: smooth; }
   border-color: rgba(18,161,238,0.70);
   box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 14px 60px rgba(0,0,0,0.45);
 }
+
+
+/* ===== Background drift overlay ===== */
+:root{
+  --bg-a-x: 18%;
+  --bg-a-y: 12%;
+  --bg-b-x: 82%;
+  --bg-b-y: 18%;
+  --bg-c-x: 50%;
+  --bg-c-y: 90%;
+  --bg-o1: 0.22;
+  --bg-o2: 0.18;
+  --bg-o3: 0.16;
+}
+.bg-shift{
+  position: fixed;
+  inset: -80px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(900px 520px at var(--bg-a-x) var(--bg-a-y), rgba(18,161,238,var(--bg-o1)), transparent 62%),
+    radial-gradient(900px 520px at var(--bg-b-x) var(--bg-b-y), rgba(34,211,238,var(--bg-o2)), transparent 62%),
+    radial-gradient(900px 620px at var(--bg-c-x) var(--bg-c-y), rgba(167,139,250,var(--bg-o3)), transparent 65%);
+  filter: blur(10px);
+  opacity: .65;
+  mix-blend-mode: screen;
+}
+
+/* Edge fade overlays (Apple-like transitions) */
+.edge-fade{
+  position: fixed;
+  left: 0;
+  right: 0;
+  height: 120px;
+  pointer-events: none;
+  z-index: 60;
+}
+.edge-fade.top{
+  top: 0;
+  background: linear-gradient(to bottom, rgba(6,10,18,0.95), rgba(6,10,18,0));
+}
+.edge-fade.bottom{
+  bottom: 0;
+  background: linear-gradient(to top, rgba(6,10,18,0.92), rgba(6,10,18,0));
+}
+
+/* Micro parallax opt-in */
+[data-parallax]{
+  transform: translate3d(0, var(--py, 0px), 0);
+  will-change: transform;
+}

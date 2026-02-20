@@ -2,7 +2,7 @@ import Starfield from "./Starfield";
 
 export default function Aurora(){
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden z-10">
       <Starfield />
       <div className="absolute -top-36 -left-28 h-[560px] w-[560px] rounded-full blur-3xl opacity-45 animate-aurora"
            style={{background:"radial-gradient(circle at 30% 30%, rgba(18,161,238,0.60), transparent 60%)"}} />

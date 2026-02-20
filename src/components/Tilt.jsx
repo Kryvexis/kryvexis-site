@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useRef } from "react";
 
-export default function Tilt({ children, className="", max=8 }){
+export default function Tilt({ children, className="", max=8, parallax=10 }){
   const ref = useRef(null);
 
   const onMove = useCallback((e)=>{
@@ -30,6 +30,7 @@ export default function Tilt({ children, className="", max=8 }){
       ref={ref}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
+      data-parallax={parallax}
       className={"tilt-card " + className}
     >
       {children}

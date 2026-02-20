@@ -15,6 +15,8 @@ import DashboardShowcase from "../components/DashboardShowcase";
 import Testimonials from "../components/Testimonials";
 import Install from "../components/Install";
 import Founder from "../components/Founder";
+import BackgroundShift from "../components/BackgroundShift";
+import ParallaxFX from "../components/ParallaxFX";
 import ProductTour from "../components/ProductTour";
 import Reveal from "../components/Reveal";
 import Tilt from "../components/Tilt";
@@ -59,6 +61,11 @@ export default function Home() {
 
   return (
     <div id="top" className="relative min-h-screen snapwrap">
+      <BackgroundShift />
+      <ParallaxFX />
+      <div className="bg-shift" aria-hidden />
+      <div className="edge-fade top" aria-hidden />
+      <div className="edge-fade bottom" aria-hidden />
       <Aurora />
       <FloatingLights />
       <ScrollProgress />
@@ -278,7 +285,7 @@ export default function Home() {
                 </Tilt>
               </Reveal>
             ))}
-          </Spotlight></Reveal>
+          </Spotlight>
         </Container>
       </section>
 
@@ -359,7 +366,7 @@ export default function Home() {
                 </Tilt>
               </Reveal>
             ))}
-          </Spotlight></Reveal>
+          </Spotlight>
         </Container>
       </section>
 

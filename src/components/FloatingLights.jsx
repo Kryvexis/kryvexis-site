@@ -22,7 +22,7 @@ export default function FloatingLights(){
   },[]);
 
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+    <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden z-10">
       {lights.map(l=>(
         <motion.div
           key={l.id}
