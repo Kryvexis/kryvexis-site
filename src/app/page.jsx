@@ -316,7 +316,7 @@ export default function Home() {
                 </Tilt>
               </Reveal>
             ))}
-          </Spotlight>
+          </Spotlight></Reveal>
           <div className="mt-8 text-sm text-white/60">Want Kryvexis to match your exact workflow? We can customize onboarding, import paths, and reports.</div>
         </Container>
       </section>
