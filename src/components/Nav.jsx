@@ -30,16 +30,16 @@ export default function Nav({ onOpenVideo }){
       <Container className="py-4">
         <div className="flex items-center justify-between gap-4">
 
-          {/* CLEAN LARGE WORDMARK ONLY */}
-          <a href="#top" className="flex items-center min-w-[220px]">
-            <div className="scale-150 origin-left">
-              <Logo height={44} />
+          {/* BIG PREMIUM WORDMARK */}
+          <a href="#top" className="flex items-center min-w-[320px]">
+            <div className="scale-[2.1] origin-left transition-transform duration-300 hover:scale-[2.2]">
+              <Logo height={54} />
             </div>
           </a>
 
           <div className="hidden lg:flex items-center gap-6 text-sm text-white/80">
             {links.map(l=>(
-              <a key={l.href} href={l.href} className="hover:text-white transition">{l.label}</a>
+              <a key={l.href} href={l.href} className="hover:text-white transition relative after:absolute after:-bottom-1 after:left-0 after:h-[1px] after:w-0 after:bg-white/40 hover:after:w-full after:transition-all">{l.label}</a>
             ))}
           </div>
 
