@@ -6,6 +6,7 @@ import FloatingLights from "../components/FloatingLights";
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
+import WhatsAppButton from "../components/WhatsAppButton";
 import ProductTour from "../components/ProductTour";
 import Reveal from "../components/Reveal";
 import Tilt from "../components/Tilt";
@@ -56,119 +57,143 @@ export default function Home() {
       <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
       {/* FULLSCREEN HERO */}
-      <section className="relative min-h-[92vh] flex items-center">
+      <section className="relative min-h-[92vh] flex items-center flow-section">
         <div className={"hero-beam " + (beam ? "on" : "")} aria-hidden />
         <Container>
-          <div className="grid lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-7">
-              <div className="badge mb-5"><Wand2 size={14} /> The future operating system for small business</div>
+          <div className="max-w-3xl">
+            <div className="badge mb-5"><Wand2 size={14} /> The future operating system for small business</div>
 
-              <motion.h1
-                className="h1"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, ease: "easeOut" }}
-              >
-                Welcome to <span className="text-white">Kryvexis OS</span>.
-              </motion.h1>
+            <motion.h1
+              className="h1 underglow"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              Welcome to <span className="text-white">Kryvexis OS</span>.
+            </motion.h1>
 
-              <motion.p
-                className="mut mt-5 text-base md:text-lg leading-relaxed max-w-xl"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
-              >
-                A clean, fast workflow for <b>Inventory</b>, <b>Invoicing</b>, and <b>Purchasing</b> — built to feel like real software,
-                not messy spreadsheets.
-              </motion.p>
+            <motion.p
+              className="mut mt-6 text-base md:text-lg leading-relaxed"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.08, ease: "easeOut" }}
+            >
+              A clean, fast workflow for <b>Inventory</b>, <b>Invoicing</b>, and <b>Purchasing</b> — built to feel like real software,
+              not messy spreadsheets.
+            </motion.p>
 
-              <div className="mt-7 flex flex-col sm:flex-row gap-3">
-                <a href="#contact" className="btn-primary">
-                  Get early access <ArrowRight size={16} />
-                </a>
-                <button onClick={()=>setVideoOpen(true)} className="btn-secondary">
-                  <Play size={16} /> Watch demo
+            <div className="mt-7 flex flex-col sm:flex-row gap-3">
+              <a href="#contact" className="btn-primary">
+                Get early access <ArrowRight size={16} />
+              </a>
+              <a href="#tour" className="btn-secondary">
+                Explore the product tour <Sparkles size={16} />
+              </a>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3 text-sm text-white/70">
+              <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-kx-blue" />Fast onboarding</div>
+              <div className="flex items-center gap-2"><Shield size={16} className="text-kx-cyan" />Practical security</div>
+              <div className="flex items-center gap-2"><Zap size={16} className="text-kx-purple" />Built for speed</div>
+            </div>
+          </div>
+
+          {/* Demo preview moved DOWN for better storytelling */}
+          <motion.div
+            className="mt-12 lg:mt-16"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, delay: 0.18, ease: "easeOut" }}
+          >
+            <div className="section-divider mb-8" />
+            <div className="grid lg:grid-cols-12 gap-8 items-start">
+              <div className="lg:col-span-5">
+                <div className="text-sm font-semibold text-white/90">A quick look</div>
+                <div className="mut mt-2 text-sm leading-relaxed">
+                  This preview is a marketing UI — your real demo will match your products, customers, and workflow.
+                </div>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  <span className="badge">Inventory</span>
+                  <span className="badge">Quotes</span>
+                  <span className="badge">Invoices</span>
+                  <span className="badge">PO</span>
+                  <span className="badge">GRV</span>
+                </div>
+                <button onClick={()=>setVideoOpen(true)} className="btn-secondary mt-6">
+                  <Play size={16} /> Watch demo (coming soon)
                 </button>
               </div>
 
-              <div className="mt-8 flex flex-wrap gap-3 text-sm text-white/70">
-                <div className="flex items-center gap-2"><CheckCircle2 size={16} className="text-kx-blue" />Fast onboarding</div>
-                <div className="flex items-center gap-2"><Shield size={16} className="text-kx-cyan" />Practical security</div>
-                <div className="flex items-center gap-2"><Zap size={16} className="text-kx-purple" />Built for speed</div>
+              <div className="lg:col-span-7">
+                {/* keep the existing parallax preview from below */}
+                <motion.div style={{ y, rotate: r }} className="relative glass rounded-2xl shadow-glow overflow-hidden will-change-transform">
+                  <div aria-hidden className="absolute -bottom-8 left-12 right-12 h-10 rounded-full bg-kx-blue/40 blur-2xl animate-glowPulse" />
+                  <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+                    <div className="flex items-center gap-2">
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
+                    </div>
+                    <div className="text-xs text-white/60">Kryvexis OS • Preview</div>
+                    <div className="text-xs text-white/60">v1</div>
+                  </div>
+
+                  <div className="p-5">
+                    <div className="grid grid-cols-2 gap-3">
+                      <div className="glass rounded-xl p-4 animate-floatSoft">
+                        <div className="text-xs text-white/60">Today Sales</div>
+                        <div className="mt-2 text-2xl font-extrabold">R 12,480</div>
+                        <div className="mt-2 text-xs text-white/55">+14% vs yesterday</div>
+                      </div>
+                      <div className="glass rounded-xl p-4">
+                        <div className="text-xs text-white/60">Low Stock</div>
+                        <div className="mt-2 text-2xl font-extrabold">7 items</div>
+                        <div className="mt-2 text-xs text-white/55">Reorder suggested</div>
+                      </div>
+                      <div className="glass rounded-xl p-4 col-span-2">
+                        <div className="flex items-center justify-between">
+                          <div className="text-xs text-white/60">Top Sales (Month)</div>
+                          <div className="badge">Live</div>
+                        </div>
+                        <div className="mt-3 space-y-2">
+                          {["Steel Bracket", "Lockset Pro", "Gate Hinge"].map((x,i)=>(
+                            <div key={x} className="flex items-center justify-between text-sm">
+                              <div className="text-white/85">{i+1}. {x}</div>
+                              <div className="text-white/60">R {(i+2)*980}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 glass rounded-xl p-4">
+                      <div className="text-xs text-white/60">Workflow</div>
+                      <div className="mt-2 flex flex-wrap gap-2 text-xs">
+                        <span className="badge">Quote</span>
+                        <span className="badge">Invoice</span>
+                        <span className="badge">Stock Update</span>
+                        <span className="badge">PO</span>
+                        <span className="badge">GRV</span>
+                      </div>
+                    </div>
+
+                    <div className="relative mt-5 h-12 overflow-hidden rounded-xl glass">
+                      <div className="absolute inset-0 opacity-60 bg-gradient-to-r from-transparent via-white/15 to-transparent animate-shimmer" />
+                      <div className="relative h-full flex items-center justify-between px-4 text-xs text-white/70">
+                        <span>Search products, customers, suppliers…</span>
+                        <span className="text-white/50">⌘K</span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
               </div>
             </div>
-
-            {/* Hero preview with extra float + underglow */}
-            <div className="lg:col-span-5">
-              <motion.div style={{ y, rotate: r }} className="relative glass rounded-2xl shadow-glow overflow-hidden will-change-transform">
-                <div aria-hidden className="absolute -bottom-8 left-12 right-12 h-10 rounded-full bg-kx-blue/40 blur-2xl animate-glowPulse" />
-                <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
-                  <div className="flex items-center gap-2">
-                    <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
-                    <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
-                  </div>
-                  <div className="text-xs text-white/60">Kryvexis OS • Preview</div>
-                  <div className="text-xs text-white/60">v1</div>
-                </div>
-
-                <div className="p-5">
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="glass rounded-xl p-4 animate-floatSoft">
-                      <div className="text-xs text-white/60">Today Sales</div>
-                      <div className="mt-2 text-2xl font-extrabold">R 12,480</div>
-                      <div className="mt-2 text-xs text-white/55">+14% vs yesterday</div>
-                    </div>
-                    <div className="glass rounded-xl p-4">
-                      <div className="text-xs text-white/60">Low Stock</div>
-                      <div className="mt-2 text-2xl font-extrabold">7 items</div>
-                      <div className="mt-2 text-xs text-white/55">Reorder suggested</div>
-                    </div>
-                    <div className="glass rounded-xl p-4 col-span-2">
-                      <div className="flex items-center justify-between">
-                        <div className="text-xs text-white/60">Top Sales (Month)</div>
-                        <div className="badge">Live</div>
-                      </div>
-                      <div className="mt-3 space-y-2">
-                        {["Steel Bracket", "Lockset Pro", "Gate Hinge"].map((x,i)=>(
-                          <div key={x} className="flex items-center justify-between text-sm">
-                            <div className="text-white/85">{i+1}. {x}</div>
-                            <div className="text-white/60">R {(i+2)*980}</div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 glass rounded-xl p-4">
-                    <div className="text-xs text-white/60">Workflow</div>
-                    <div className="mt-2 flex flex-wrap gap-2 text-xs">
-                      <span className="badge">Quote</span>
-                      <span className="badge">Invoice</span>
-                      <span className="badge">Stock Update</span>
-                      <span className="badge">PO</span>
-                      <span className="badge">GRV</span>
-                    </div>
-                  </div>
-
-                  <div className="relative mt-5 h-12 overflow-hidden rounded-xl glass">
-                    <div className="absolute inset-0 opacity-60 bg-gradient-to-r from-transparent via-white/15 to-transparent animate-shimmer" />
-                    <div className="relative h-full flex items-center justify-between px-4 text-xs text-white/70">
-                      <span>Search products, customers, suppliers…</span>
-                      <span className="text-white/50">⌘K</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <div className="mt-4 text-xs text-white/55">*More motion + underglow, still clean and premium.</div>
-            </div>
-          </div>
+          </motion.div>
         </Container>
       </section>
 
-      {/* PRODUCT */}
-      <section id="product" className="section relative">
+{/* PRODUCT */}
+      <section id="product" className="section relative flow-section">
         <Container>
           <Reveal><SectionHeading
             kicker="Why Kryvexis"
@@ -194,7 +219,7 @@ export default function Home() {
       </section>
 
       {/* TOUR */}
-      <section id="tour" className="section relative">
+      <section id="tour" className="section relative flow-section">
         <Container>
           <Reveal><SectionHeading kicker="Interactive" title="Click through the product" desc="Inventory, Sales, Purchasing — explore the flow your team will use." /></Reveal>
           <Reveal delay={0.10}><ProductTour /></Reveal>
@@ -202,7 +227,7 @@ export default function Home() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="section relative">
+      <section id="features" className="section relative flow-section">
         <Container>
           <Reveal><SectionHeading kicker="Built for real roles" title="Features that match your team" desc="Owner, Sales, Buying — each gets the tools they actually need." /></Reveal>
           <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
@@ -218,7 +243,7 @@ export default function Home() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="section relative">
+      <section id="pricing" className="section relative flow-section">
         <Container>
           <Reveal><SectionHeading kicker="Tiers" title="Start small. Unlock power when you need it." desc="Choose a tier that matches your workflow today — upgrade when your team grows." /></Reveal>
           <Reveal delay={0.08}><Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
@@ -250,7 +275,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="section relative">
+      <section id="faq" className="section relative flow-section">
         <Container>
           <Reveal><SectionHeading kicker="Questions" title="FAQ" desc="Quick answers to common questions." /></Reveal>
           <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
@@ -269,7 +294,7 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section relative">
+      <section id="contact" className="section relative flow-section">
         <Container>
           <div className="glass rounded-2xl p-8 md:p-10 shadow-glow">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
@@ -286,13 +311,14 @@ export default function Home() {
 
               <div className="w-full md:w-[380px]">
                 <div className="glass rounded-2xl p-5">
-                  <div className="text-sm font-semibold">Request early access</div>
+                  <div className="text-sm font-semibold">Contact Kryvexis</div>
                   <div className="mt-3 grid gap-3">
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Name" />
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Email or WhatsApp" />
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Business name" />
-                    <button className="btn-primary w-full">Send request</button>
-                    <div className="text-xs text-white/50">UI-only for now. Connect it to email/CRM when ready.</div>
+                    <a className="btn-primary w-full text-center" href="mailto:kryvexissolutions@gmail.com?subject=Kryvexis%20OS%20Demo%20Request">Email us</a>
+                    <a className="btn-secondary w-full text-center" href="https://wa.me/27686282874?text=Hi%20Kryvexis!%20I%20would%20like%20a%20demo%20/%20early%20access." target="_blank" rel="noreferrer">WhatsApp us</a>
+                    <div className="text-xs text-white/50">Email: kryvexissolutions@gmail.com • WhatsApp: +27 68 628 2874</div>
                   </div>
                 </div>
               </div>
@@ -300,6 +326,8 @@ export default function Home() {
           </div>
         </Container>
       </section>
+
+      <WhatsAppButton phone="+27686282874" />
 
       <Footer />
     </div>
