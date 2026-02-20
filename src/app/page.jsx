@@ -75,10 +75,10 @@ export default function Home() {
       <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
       {/* FULLSCREEN HERO */}
-      <section className="relative min-h-[110vh] flex items-center flow-section snap-section">
+      <section className="relative min-h-[115vh] flex items-center justify-center flow-section snap-section">
         <div className={"hero-beam " + (beam ? "on" : "")} aria-hidden />
         <Container>
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto pt-24 md:pt-32 xl:pt-40">
             <div className="badge mb-5"><Wand2 size={14} /> The future operating system for small business</div>
 
             <motion.h1
