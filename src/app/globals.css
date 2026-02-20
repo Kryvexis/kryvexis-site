@@ -72,3 +72,84 @@ html{ scroll-behavior: smooth; }
 
 /* Modal */
 .modal-backdrop{ background: rgba(0,0,0,0.62); backdrop-filter: blur(10px); }
+
+
+/* ===== Extra premium motion + lights ===== */
+@keyframes glowPulse {
+  0%,100% { opacity: .30; transform: translateY(0) scale(1); filter: blur(18px); }
+  50%     { opacity: .60; transform: translateY(-6px) scale(1.06); filter: blur(24px); }
+}
+
+@keyframes driftSlow {
+  0%   { transform: translate3d(-10%, -6%, 0) rotate(0deg); }
+  50%  { transform: translate3d(10%, 6%, 0) rotate(10deg); }
+  100% { transform: translate3d(-10%, -6%, 0) rotate(0deg); }
+}
+
+@keyframes floatSoft {
+  0%,100% { transform: translateY(0px); }
+  50%     { transform: translateY(-16px); }
+}
+
+@keyframes beamSweep {
+  0%   { transform: translateX(-130%) skewX(-18deg); opacity: 0; }
+  10%  { opacity: .85; }
+  100% { transform: translateX(190%) skewX(-18deg); opacity: 0; }
+}
+
+@keyframes haloBreath {
+  0%,100% { opacity: .35; transform: scale(1); }
+  50%     { opacity: .55; transform: scale(1.05); }
+}
+
+.animate-glowPulse { animation: glowPulse 6.5s ease-in-out infinite; }
+.animate-driftSlow { animation: driftSlow 18s ease-in-out infinite; }
+.animate-floatSoft { animation: floatSoft 7.5s ease-in-out infinite; }
+.animate-haloBreath { animation: haloBreath 5.5s ease-in-out infinite; }
+
+/* Under-glow line */
+.underglow {
+  position: relative;
+}
+.underglow::after {
+  content:"";
+  position:absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -18px;
+  height: 22px;
+  background: radial-gradient(closest-side, rgba(18,161,238,0.55), transparent 70%);
+  filter: blur(12px);
+  opacity: .55;
+  pointer-events:none;
+}
+
+/* Hero light beams */
+.hero-beam {
+  position:absolute;
+  inset: -40px -60px;
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,0.0) 30%, rgba(255,255,255,0.18) 48%, rgba(18,161,238,0.50) 55%, rgba(255,255,255,0.14) 63%, transparent 82%);
+  mix-blend-mode: screen;
+  filter: blur(10px);
+  opacity: 0;
+  transform: translateX(-130%) skewX(-18deg);
+  pointer-events:none;
+}
+.hero-beam.on {
+  opacity: 1;
+  animation: beamSweep 1.35s ease-in-out .25s 1;
+}
+
+/* Mobile scaling helpers */
+.brand-scale {
+  transform-origin: left center;
+}
+@media (max-width: 640px){
+  .brand-scale { transform: scale(1.45); }
+}
+@media (min-width: 641px) and (max-width: 1024px){
+  .brand-scale { transform: scale(1.85); }
+}
+@media (min-width: 1025px){
+  .brand-scale { transform: scale(2.2); }
+}

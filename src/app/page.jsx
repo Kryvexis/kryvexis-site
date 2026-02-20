@@ -1,7 +1,8 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Aurora from "../components/Aurora";
+import FloatingLights from "../components/FloatingLights";
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
@@ -10,7 +11,7 @@ import VideoModal from "../components/VideoModal";
 import Spotlight from "../components/Spotlight";
 import { Card } from "../components/Card";
 import { motion, useScroll, useTransform } from "../components/Motion";
-import { CheckCircle2, Shield, Zap, Receipt, Truck, BarChart3, Boxes, Sparkles, ArrowRight, Play } from "lucide-react";
+import { CheckCircle2, Shield, Zap, Receipt, Truck, BarChart3, Boxes, Sparkles, ArrowRight, Play, Wand2 } from "lucide-react";
 
 const features = [
   { title: "Live inventory control", desc: "Know what you have, what’s low, and what’s moving — instantly.", icon: Boxes, pills: ["Low-stock alerts", "Stock movements", "Fast search"] },
@@ -35,34 +36,56 @@ const faqs = [
 
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
+  const [beam, setBeam] = useState(false);
   const { scrollY } = useScroll();
-  const y = useTransform(scrollY, [0, 520], [0, 22]);
-  const r = useTransform(scrollY, [0, 520], [0, -1.2]);
+  const y = useTransform(scrollY, [0, 620], [0, 26]);
+  const r = useTransform(scrollY, [0, 620], [0, -1.35]);
+
+  useEffect(()=>{
+    const t = setTimeout(()=>setBeam(true), 150);
+    return ()=>clearTimeout(t);
+  },[]);
 
   return (
     <div id="top" className="relative min-h-screen">
       <Aurora />
+      <FloatingLights />
       <Nav onOpenVideo={()=>setVideoOpen(true)} />
       <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
-      {/* HERO */}
-      <section className="section relative">
+      {/* FULLSCREEN HERO */}
+      <section className="relative min-h-[92vh] flex items-center">
+        <div className={"hero-beam " + (beam ? "on" : "")} aria-hidden />
         <Container>
-          <div className="grid md:grid-cols-12 gap-10 items-center">
-            <div className="md:col-span-7">
-              <div className="badge mb-5"><Sparkles size={14} /> Premium SaaS look • motion • particles</div>
-              <h1 className="h1">Inventory, invoicing & purchasing — in one clean workflow.</h1>
-              <p className="mut mt-5 text-base md:text-lg leading-relaxed max-w-xl">
-                Kryvexis OS helps small businesses control stock, capture sales, and manage purchase orders without chaos.
-                Start simple. Scale when you’re ready.
-              </p>
+          <div className="grid lg:grid-cols-12 gap-10 items-center">
+            <div className="lg:col-span-7">
+              <div className="badge mb-5"><Wand2 size={14} /> The future operating system for small business</div>
+
+              <motion.h1
+                className="h1"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, ease: "easeOut" }}
+              >
+                Welcome to <span className="text-white">Kryvexis OS</span>.
+              </motion.h1>
+
+              <motion.p
+                className="mut mt-5 text-base md:text-lg leading-relaxed max-w-xl"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
+              >
+                A clean, fast workflow for <b>Inventory</b>, <b>Invoicing</b>, and <b>Purchasing</b> — built to feel like real software,
+                not messy spreadsheets.
+              </motion.p>
 
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
                 <a href="#contact" className="btn-primary">
-                  Book a demo <ArrowRight size={16} />
+                  Get early access <ArrowRight size={16} />
                 </a>
                 <button onClick={()=>setVideoOpen(true)} className="btn-secondary">
-                  <Play size={16} /> Watch 60-sec demo
+                  <Play size={16} /> Watch demo
                 </button>
               </div>
 
@@ -73,9 +96,10 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right "app preview" with subtle parallax */}
-            <div className="md:col-span-5">
-              <motion.div style={{ y, rotate: r }} className="glass rounded-2xl shadow-glow overflow-hidden will-change-transform">
+            {/* Hero preview with extra float + underglow */}
+            <div className="lg:col-span-5">
+              <motion.div style={{ y, rotate: r }} className="relative glass rounded-2xl shadow-glow overflow-hidden will-change-transform">
+                <div aria-hidden className="absolute -bottom-8 left-12 right-12 h-10 rounded-full bg-kx-blue/40 blur-2xl animate-glowPulse" />
                 <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
                   <div className="flex items-center gap-2">
                     <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
@@ -88,7 +112,7 @@ export default function Home() {
 
                 <div className="p-5">
                   <div className="grid grid-cols-2 gap-3">
-                    <div className="glass rounded-xl p-4 animate-floaty">
+                    <div className="glass rounded-xl p-4 animate-floatSoft">
                       <div className="text-xs text-white/60">Today Sales</div>
                       <div className="mt-2 text-2xl font-extrabold">R 12,480</div>
                       <div className="mt-2 text-xs text-white/55">+14% vs yesterday</div>
@@ -135,9 +159,7 @@ export default function Home() {
                 </div>
               </motion.div>
 
-              <div className="mt-4 text-xs text-white/55">
-                *Parallax is subtle — it feels premium without distracting.
-              </div>
+              <div className="mt-4 text-xs text-white/55">*More motion + underglow, still clean and premium.</div>
             </div>
           </div>
         </Container>
@@ -248,13 +270,13 @@ export default function Home() {
 
               <div className="w-full md:w-[380px]">
                 <div className="glass rounded-2xl p-5">
-                  <div className="text-sm font-semibold">Request a demo</div>
+                  <div className="text-sm font-semibold">Request early access</div>
                   <div className="mt-3 grid gap-3">
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Name" />
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Email or WhatsApp" />
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Business name" />
                     <button className="btn-primary w-full">Send request</button>
-                    <div className="text-xs text-white/50">This form is UI-only for now. Hook it to email/CRM when ready.</div>
+                    <div className="text-xs text-white/50">UI-only for now. Connect it to email/CRM when ready.</div>
                   </div>
                 </div>
               </div>

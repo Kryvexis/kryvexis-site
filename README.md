@@ -1,15 +1,16 @@
-# Kryvexis Next-Level Website v4
-New improvements:
-- Logo sizing fixed (bigger wordmark in navbar)
-- Removed duplicate tiny hero logo
-- Premium spotlight hover effect on card grids
-- Subtle parallax on the hero app preview
-- Particles + aurora retained
-- Video demo modal + product tour retained
+# Kryvexis Next-Level Website v9
+Upgrades:
+- Full-screen first page hero ("Welcome to Kryvexis OS" + future small business line)
+- More floating motion + drifting lights + underglow
+- Responsive brand scaling (mobile/tablet/desktop)
+- Particles + aurora
+- Electric sweep logo
+- Product tour tabs
+- Video modal placeholder (swap YouTube ID later)
 
 ## Run
 npm install
 npm run dev
 
-## Demo video
-Replace YouTube ID in src/app/page.jsx
+## Replace demo video later
+Edit `src/app/page.jsx` and replace youtubeId with your video ID.
