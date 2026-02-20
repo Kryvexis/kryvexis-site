@@ -53,7 +53,7 @@ export default function Nav({ onOpenVideo }){
             <button className="btn-secondary" onClick={onOpenVideo}>
               <Play size={16} /> Demo (coming soon)
             </button>
-            <a className="btn-primary" href="#contact">
+            <a className="btn-primary" href="https://wa.me/27686282874?text=Hi%20Kryvexis!%20I%20would%20like%20a%20demo%20/%20early%20access." target="_blank" rel="noreferrer">
               Book a demo <ArrowRight size={16} />
             </a>
           </div>

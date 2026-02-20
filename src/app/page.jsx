@@ -15,6 +15,7 @@ import DashboardShowcase from "../components/DashboardShowcase";
 import Testimonials from "../components/Testimonials";
 import Install from "../components/Install";
 import Founder from "../components/Founder";
+import ContactCard from "../components/ContactCard";
 import BackgroundShift from "../components/BackgroundShift";
 import ParallaxFX from "../components/ParallaxFX";
 import ProductTour from "../components/ProductTour";
@@ -74,7 +75,7 @@ export default function Home() {
       <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
       {/* FULLSCREEN HERO */}
-      <section className="relative min-h-[92vh] flex items-center flow-section snap-section">
+      <section className="relative min-h-[110vh] flex items-center flow-section snap-section">
         <div className={"hero-beam " + (beam ? "on" : "")} aria-hidden />
         <Container>
           <div className="max-w-3xl">
@@ -117,7 +118,7 @@ export default function Home() {
 
           {/* Demo preview moved DOWN for better storytelling */}
           <motion.div
-            className="mt-12 lg:mt-16"
+            className="mt-32 lg:mt-40 xl:mt-52"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.18, ease: "easeOut" }}
@@ -387,18 +388,7 @@ export default function Home() {
               </div>
 
               <div className="w-full md:w-[380px]">
-                <div className="glass rounded-2xl p-5">
-                  <div className="text-sm font-semibold">Contact Kryvexis</div>
-                  <div className="mt-3 grid gap-3">
-                    <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Name" />
-                    <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Email or WhatsApp" />
-                    <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Business name" />
-                    <a className="btn-primary w-full text-center" href="mailto:kryvexissolutions@gmail.com?subject=Kryvexis%20OS%20Demo%20Request">Email us</a>
-                    <a className="btn-secondary w-full text-center" href="https://wa.me/27686282874?text=Hi%20Kryvexis!%20I%20would%20like%20a%20demo%20/%20early%20access." target="_blank" rel="noreferrer">WhatsApp us</a>
-                    <div className="text-xs text-white/50">Email: kryvexissolutions@gmail.com • WhatsApp: +27 68 628 2874</div>
-                  </div>
-                </div>
-              </div>
+                <ContactCard />
             </div>
           </div>
         </Container>
