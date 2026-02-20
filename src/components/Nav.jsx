@@ -1,3 +1,4 @@
+
 "use client";
 import Container from "./Container";
 import { motion, AnimatePresence } from "./Motion";
@@ -28,14 +29,12 @@ export default function Nav({ onOpenVideo }){
     <div className={"sticky top-0 z-50 " + (scrolled ? "bg-kx-bg/60 backdrop-blur border-b border-white/10" : "bg-transparent")}>
       <Container className="py-4">
         <div className="flex items-center justify-between gap-4">
-          <a href="#top" className="flex items-center gap-3 min-w-[200px]">
-            <div className={"h-10 w-10 rounded-2xl overflow-hidden flex items-center justify-center " + (scrolled ? "shadow-glow bg-white/5" : "bg-white/5")}>
-              <img src="/icon.png" alt="Kryvexis" className="h-7 w-7" draggable={false} />
+
+          {/* CLEAN LARGE WORDMARK ONLY */}
+          <a href="#top" className="flex items-center min-w-[220px]">
+            <div className="scale-150 origin-left">
+              <Logo height={44} />
             </div>
-            <div className="hidden sm:block scale-125 origin-left">
-              <Logo height={36} />
-            </div>
-            <div className="sm:hidden font-extrabold tracking-tight">Kryvexis</div>
           </a>
 
           <div className="hidden lg:flex items-center gap-6 text-sm text-white/80">
@@ -46,7 +45,7 @@ export default function Nav({ onOpenVideo }){
 
           <div className="hidden lg:flex items-center gap-3">
             <button className="btn-secondary" onClick={onOpenVideo}>
-              <Play size={16} /> Watch 60-sec demo
+              <Play size={16} /> Watch demo
             </button>
             <a className="btn-primary" href="#contact">
               Book a demo <ArrowRight size={16} />
@@ -71,7 +70,7 @@ export default function Nav({ onOpenVideo }){
                   <a key={l.href} href={l.href} onClick={()=>setOpen(false)} className="py-2">{l.label}</a>
                 ))}
                 <button onClick={()=>{ setOpen(false); onOpenVideo?.(); }} className="btn-secondary mt-1">
-                  <Play size={16}/> Watch 60-sec demo
+                  <Play size={16}/> Watch demo
                 </button>
                 <a href="#contact" onClick={()=>setOpen(false)} className="btn-primary mt-1">Book a demo</a>
               </div>
