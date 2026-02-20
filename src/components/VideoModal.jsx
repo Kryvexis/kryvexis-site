@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from "./Motion";
 import { X } from "lucide-react";
 
 export default function VideoModal({ open, onClose, youtubeId="dQw4w9WgXcQ" }){
-  // Replace youtubeId with your real 60-sec demo once you upload it.
   return (
     <AnimatePresence>
       {open && (

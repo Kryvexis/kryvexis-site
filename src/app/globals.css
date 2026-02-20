@@ -14,6 +14,13 @@ body{
 ::selection{ background: rgba(18,161,238,0.28); }
 html{ scroll-behavior: smooth; }
 
+.glass{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
 .grid-overlay{
   background-image:
     linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
@@ -23,33 +30,16 @@ html{ scroll-behavior: smooth; }
   opacity: .22;
 }
 
-.glass{
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.10);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-
-.btn{
-  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition;
-}
-.btn-primary{
-  @apply btn bg-kx-blue text-black hover:brightness-110;
-}
-.btn-secondary{
-  @apply btn glass hover:border-white/20;
-}
-.badge{
-  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-white/80 glass;
-}
-
+.btn{ @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition; }
+.btn-primary{ @apply btn bg-kx-blue text-black hover:brightness-110; }
+.btn-secondary{ @apply btn glass hover:border-white/20; }
+.badge{ @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-white/80 glass; }
 .section{ @apply py-16 md:py-24; }
-
 .h1{ @apply text-4xl md:text-6xl font-extrabold tracking-tight; line-height: 1.02; }
 .h2{ @apply text-2xl md:text-4xl font-bold tracking-tight; }
 .mut{ @apply text-white/70; }
 
-/* Electric sweep for logo */
+/* Electric sweep for wordmark */
 .logo-sweep{ position: relative; display: inline-block; }
 .logo-sweep::after{
   content: "";
@@ -62,10 +52,23 @@ html{ scroll-behavior: smooth; }
   pointer-events: none;
   transform: translateX(-120%) skewX(-18deg);
 }
-.logo-sweep.sweep-on::after{
-  opacity: 1;
-  animation: sweep 1.2s ease-in-out 0.35s 1;
+.logo-sweep.sweep-on::after{ opacity: 1; animation: sweep 1.2s ease-in-out 0.35s 1; }
+
+/* Premium spotlight hover for feature grids */
+.spotlight{
+  position: relative;
+  overflow: hidden;
 }
+.spotlight::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(600px circle at var(--mx, 50%) var(--my, 30%), rgba(18,161,238,0.14), transparent 40%);
+  opacity: 0;
+  transition: opacity .25s ease;
+  pointer-events:none;
+}
+.spotlight:hover::before{ opacity: 1; }
 
 /* Modal */
-.modal-backdrop{ background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); }
+.modal-backdrop{ background: rgba(0,0,0,0.62); backdrop-filter: blur(10px); }

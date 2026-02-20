@@ -13,7 +13,7 @@ export default function Starfield(){
     const DPR = Math.min(2, window.devicePixelRatio || 1);
 
     const stars = [];
-    const STAR_COUNT = 140;
+    const STAR_COUNT = 150;
 
     function resize(){
       w = canvas.clientWidth;
@@ -23,21 +23,20 @@ export default function Starfield(){
       ctx.setTransform(DPR,0,0,DPR,0,0);
     }
 
-    function rnd(a,b){ return a + Math.random()*(b-a); }
+    const rnd = (a,b)=> a + Math.random()*(b-a);
 
     function init(){
       stars.length = 0;
       for (let i=0;i<STAR_COUNT;i++){
         stars.push({
-          x: rnd(0,w),
-          y: rnd(0,h),
-          r: rnd(0.6, 1.6),
-          a: rnd(0.08, 0.28),
-          vx: rnd(-0.015, 0.03),
-          vy: rnd(0.01, 0.05),
+          x: rnd(0,w), y: rnd(0,h),
+          r: rnd(0.55, 1.55),
+          a: rnd(0.06, 0.26),
+          vx: rnd(-0.012, 0.028),
+          vy: rnd(0.008, 0.045),
           tw: rnd(0.002, 0.01),
           t: rnd(0, 1000),
-          hue: Math.random()<0.18 ? rnd(190, 210) : rnd(205, 230) // slight cyan/blue variation
+          hue: Math.random()<0.18 ? rnd(190, 210) : rnd(205, 230)
         });
       }
     }

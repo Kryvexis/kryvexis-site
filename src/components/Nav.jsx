@@ -28,12 +28,12 @@ export default function Nav({ onOpenVideo }){
     <div className={"sticky top-0 z-50 " + (scrolled ? "bg-kx-bg/60 backdrop-blur border-b border-white/10" : "bg-transparent")}>
       <Container className="py-4">
         <div className="flex items-center justify-between gap-4">
-          <a href="#top" className="flex items-center gap-3 min-w-[160px]">
-            <div className="h-10 w-10 rounded-2xl glass shadow-glow grid place-items-center overflow-hidden">
-              <img src="/icon.png" alt="Kryvexis" className="h-8 w-8" draggable={false} />
+          <a href="#top" className="flex items-center gap-3 min-w-[200px]">
+            <div className={"h-10 w-10 rounded-2xl overflow-hidden flex items-center justify-center " + (scrolled ? "shadow-glow bg-white/5" : "bg-white/5")}>
+              <img src="/icon.png" alt="Kryvexis" className="h-7 w-7" draggable={false} />
             </div>
-            <div className="hidden sm:block">
-              <Logo height={28} />
+            <div className="hidden sm:block scale-125 origin-left">
+              <Logo height={36} />
             </div>
             <div className="sm:hidden font-extrabold tracking-tight">Kryvexis</div>
           </a>

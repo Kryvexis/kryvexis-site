@@ -1,41 +1,22 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Nav from "../components/Nav";
 import Aurora from "../components/Aurora";
 import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
-import { Card } from "../components/Card";
 import ProductTour from "../components/ProductTour";
 import VideoModal from "../components/VideoModal";
-import Logo from "../components/Logo";
+import Spotlight from "../components/Spotlight";
+import { Card } from "../components/Card";
+import { motion, useScroll, useTransform } from "../components/Motion";
 import { CheckCircle2, Shield, Zap, Receipt, Truck, BarChart3, Boxes, Sparkles, ArrowRight, Play } from "lucide-react";
 
 const features = [
-  {
-    title: "Live inventory control",
-    desc: "Know what you have, what’s low, and what’s moving — instantly.",
-    icon: Boxes,
-    pills: ["Low-stock alerts", "Stock movements", "Fast search"]
-  },
-  {
-    title: "Quotes → invoices",
-    desc: "Convert quotes to invoices in seconds. Sales update stock automatically.",
-    icon: Receipt,
-    pills: ["Customer history", "One-click print", "Auto PDF saving"]
-  },
-  {
-    title: "Purchasing & receiving",
-    desc: "Create POs, notify the buying team, and receive stock with a clean GRV flow.",
-    icon: Truck,
-    pills: ["PO tracking", "GRV receiving", "Supplier list"]
-  },
-  {
-    title: "Owner dashboard",
-    desc: "Top sales, margin visibility, and daily performance views without messy spreadsheets.",
-    icon: BarChart3,
-    pills: ["Top sales per client", "Daily summary email", "Exports"]
-  },
+  { title: "Live inventory control", desc: "Know what you have, what’s low, and what’s moving — instantly.", icon: Boxes, pills: ["Low-stock alerts", "Stock movements", "Fast search"] },
+  { title: "Quotes → invoices", desc: "Convert quotes to invoices in seconds. Sales update stock automatically.", icon: Receipt, pills: ["Customer history", "One-click print", "Auto PDF saving"] },
+  { title: "Purchasing & receiving", desc: "Create POs, notify the buying team, and receive stock with a clean GRV flow.", icon: Truck, pills: ["PO tracking", "GRV receiving", "Supplier list"] },
+  { title: "Owner dashboard", desc: "Top sales, margin visibility, and daily performance views without messy spreadsheets.", icon: BarChart3, pills: ["Top sales per client", "Daily summary email", "Exports"] },
 ];
 
 const tiers = [
@@ -54,6 +35,9 @@ const faqs = [
 
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 520], [0, 22]);
+  const r = useTransform(scrollY, [0, 520], [0, -1.2]);
 
   return (
     <div id="top" className="relative min-h-screen">
@@ -66,12 +50,7 @@ export default function Home() {
         <Container>
           <div className="grid md:grid-cols-12 gap-10 items-center">
             <div className="md:col-span-7">
-              <div className="badge mb-5"><Sparkles size={14} /> Premium SaaS look • smooth motion • subtle particles</div>
-
-              <div className="mb-4">
-                <Logo height={44} className="hidden sm:block" />
-              </div>
-
+              <div className="badge mb-5"><Sparkles size={14} /> Premium SaaS look • motion • particles</div>
               <h1 className="h1">Inventory, invoicing & purchasing — in one clean workflow.</h1>
               <p className="mut mt-5 text-base md:text-lg leading-relaxed max-w-xl">
                 Kryvexis OS helps small businesses control stock, capture sales, and manage purchase orders without chaos.
@@ -94,9 +73,9 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right "app preview" */}
+            {/* Right "app preview" with subtle parallax */}
             <div className="md:col-span-5">
-              <div className="glass rounded-2xl shadow-glow overflow-hidden">
+              <motion.div style={{ y, rotate: r }} className="glass rounded-2xl shadow-glow overflow-hidden will-change-transform">
                 <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
                   <div className="flex items-center gap-2">
                     <span className="h-2.5 w-2.5 rounded-full bg-white/30" />
@@ -154,10 +133,10 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               <div className="mt-4 text-xs text-white/55">
-                *Particles + aurora are subtle on purpose — it reads premium, not noisy.
+                *Parallax is subtle — it feels premium without distracting.
               </div>
             </div>
           </div>
@@ -173,7 +152,7 @@ export default function Home() {
             desc="Most businesses capture sales in one place and stock in another. Kryvexis brings the flow together so stock and money match — without pain."
           />
 
-          <div className="mt-10 grid md:grid-cols-3 gap-5">
+          <Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
             <div className="glass rounded-2xl p-6">
               <div className="font-bold">Fix stock chaos</div>
               <div className="mut mt-2 text-sm leading-relaxed">See what’s low, what’s moving, and what needs reorder — quickly.</div>
@@ -186,18 +165,14 @@ export default function Home() {
               <div className="font-bold">Clean purchasing</div>
               <div className="mut mt-2 text-sm leading-relaxed">POs, receiving (GRV), and suppliers in one workflow — no guessing.</div>
             </div>
-          </div>
+          </Spotlight>
         </Container>
       </section>
 
       {/* TOUR */}
       <section id="tour" className="section relative">
         <Container>
-          <SectionHeading
-            kicker="Interactive"
-            title="Click through the product"
-            desc="Inventory, Sales, Purchasing — explore the flow your team will use."
-          />
+          <SectionHeading kicker="Interactive" title="Click through the product" desc="Inventory, Sales, Purchasing — explore the flow your team will use." />
           <ProductTour />
         </Container>
       </section>
@@ -205,29 +180,18 @@ export default function Home() {
       {/* FEATURES */}
       <section id="features" className="section relative">
         <Container>
-          <SectionHeading
-            kicker="Built for real roles"
-            title="Features that match your team"
-            desc="Owner, Sales, Buying — each gets the tools they actually need."
-          />
-          <div className="mt-10 grid md:grid-cols-2 gap-5">
-            {features.map((fx)=>(
-              <Card key={fx.title} title={fx.title} desc={fx.desc} icon={fx.icon} pills={fx.pills} />
-            ))}
-          </div>
+          <SectionHeading kicker="Built for real roles" title="Features that match your team" desc="Owner, Sales, Buying — each gets the tools they actually need." />
+          <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
+            {features.map((fx)=>(<Card key={fx.title} title={fx.title} desc={fx.desc} icon={fx.icon} pills={fx.pills} />))}
+          </Spotlight>
         </Container>
       </section>
 
       {/* PRICING */}
       <section id="pricing" className="section relative">
         <Container>
-          <SectionHeading
-            kicker="Tiers"
-            title="Start small. Unlock power when you need it."
-            desc="Choose a tier that matches your workflow today — upgrade when your team grows."
-          />
-
-          <div className="mt-10 grid md:grid-cols-3 gap-5">
+          <SectionHeading kicker="Tiers" title="Start small. Unlock power when you need it." desc="Choose a tier that matches your workflow today — upgrade when your team grows." />
+          <Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
             {tiers.map((t)=>(
               <div key={t.name} className={"glass rounded-2xl p-6 shadow-soft " + (t.popular ? "border-white/25" : "")}>
                 <div className="flex items-center justify-between">
@@ -246,31 +210,23 @@ export default function Home() {
                 <a href="#contact" className={"mt-6 w-full " + (t.popular ? "btn-primary" : "btn-secondary")}>Get pricing</a>
               </div>
             ))}
-          </div>
-
-          <div className="mt-8 text-sm text-white/60">
-            Want Kryvexis to match your exact workflow? We can customize onboarding, import paths, and reports.
-          </div>
+          </Spotlight>
+          <div className="mt-8 text-sm text-white/60">Want Kryvexis to match your exact workflow? We can customize onboarding, import paths, and reports.</div>
         </Container>
       </section>
 
       {/* FAQ */}
       <section id="faq" className="section relative">
         <Container>
-          <SectionHeading
-            kicker="Questions"
-            title="FAQ"
-            desc="Quick answers to common questions."
-          />
-
-          <div className="mt-10 grid md:grid-cols-2 gap-5">
+          <SectionHeading kicker="Questions" title="FAQ" desc="Quick answers to common questions." />
+          <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
             {faqs.map(x=>(
               <div key={x.q} className="glass rounded-2xl p-6">
                 <div className="font-bold">{x.q}</div>
                 <div className="mut mt-2 text-sm leading-relaxed">{x.a}</div>
               </div>
             ))}
-          </div>
+          </Spotlight>
         </Container>
       </section>
 
@@ -282,9 +238,7 @@ export default function Home() {
               <div className="max-w-xl">
                 <div className="badge mb-4">Pilot-ready</div>
                 <h3 className="text-2xl md:text-3xl font-extrabold tracking-tight">Want a demo that looks premium?</h3>
-                <p className="mut mt-3 leading-relaxed">
-                  Tell us your industry and workflow. We’ll set up a demo with your product categories and a realistic stock flow.
-                </p>
+                <p className="mut mt-3 leading-relaxed">Tell us your industry and workflow. We’ll set up a demo with your product categories and a realistic stock flow.</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   <span className="badge">Fast onboarding</span>
                   <span className="badge">Practical controls</span>
@@ -300,9 +254,7 @@ export default function Home() {
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Email or WhatsApp" />
                     <input className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25" placeholder="Business name" />
                     <button className="btn-primary w-full">Send request</button>
-                    <div className="text-xs text-white/50">
-                      This form is UI-only for now. Hook it to email/CRM when ready.
-                    </div>
+                    <div className="text-xs text-white/50">This form is UI-only for now. Hook it to email/CRM when ready.</div>
                   </div>
                 </div>
               </div>

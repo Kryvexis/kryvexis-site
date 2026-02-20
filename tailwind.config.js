@@ -6,21 +6,15 @@ module.exports = {
       colors: {
         kx: {
           bg: "#07090d",
-          card: "rgba(255,255,255,0.06)",
-          line: "rgba(255,255,255,0.12)",
-          text: "rgba(255,255,255,0.92)",
-          mut: "rgba(255,255,255,0.70)",
           blue: "#12A1EE",
           cyan: "#22d3ee",
-          silver: "#c7d2fe",
           purple: "#a78bfa"
         }
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(255,255,255,0.10), 0 20px 90px rgba(0,0,0,0.60)",
+        glow: "0 0 0 1px rgba(255,255,255,0.10), 0 22px 96px rgba(0,0,0,0.62)",
         soft: "0 10px 44px rgba(0,0,0,0.48)"
       },
-      borderRadius: { xl2: "1.25rem" },
       keyframes: {
         floaty: { "0%, 100%": { transform: "translateY(0px)" }, "50%": { transform: "translateY(-10px)" } },
         shimmer: { "0%": { transform: "translateX(-60%)" }, "100%": { transform: "translateX(160%)" } },
@@ -29,10 +23,7 @@ module.exports = {
           "50%": { transform: "translate3d(10%, 10%, 0) rotate(12deg)" },
           "100%": { transform: "translate3d(-20%, -10%, 0) rotate(0deg)" }
         },
-        sweep: {
-          "0%": { transform: "translateX(-120%) skewX(-18deg)" },
-          "100%": { transform: "translateX(180%) skewX(-18deg)" }
-        }
+        sweep: { "0%": { transform: "translateX(-120%) skewX(-18deg)" }, "100%": { transform: "translateX(180%) skewX(-18deg)" } }
       },
       animation: {
         floaty: "floaty 6s ease-in-out infinite",

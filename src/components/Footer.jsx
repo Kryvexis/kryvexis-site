@@ -8,9 +8,7 @@ export default function Footer(){
           <div className="font-extrabold tracking-tight">Kryvexis</div>
           <div className="text-sm text-white/60 mt-1">Inventory • Invoicing • Purchasing</div>
         </div>
-        <div className="text-sm text-white/60">
-          © {new Date().getFullYear()} Kryvexis. All rights reserved.
-        </div>
+        <div className="text-sm text-white/60">© {new Date().getFullYear()} Kryvexis. All rights reserved.</div>
       </Container>
     </footer>
   );
