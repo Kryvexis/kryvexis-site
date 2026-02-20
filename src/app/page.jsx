@@ -78,7 +78,7 @@ export default function Home() {
       <section className="relative min-h-[115vh] flex items-center justify-center flow-section snap-section">
         <div className={"hero-beam " + (beam ? "on" : "")} aria-hidden />
         <Container>
-          <div className="max-w-3xl mx-auto pt-24 md:pt-32 xl:pt-40">
+          <div className="max-w-3xl mx-auto pt-36 md:pt-44 xl:pt-56">
             <div className="badge mb-5"><Wand2 size={14} /> The future operating system for small business</div>
 
             <motion.h1
@@ -118,7 +118,7 @@ export default function Home() {
 
           {/* Demo preview moved DOWN for better storytelling */}
           <motion.div
-            className="mt-32 lg:mt-40 xl:mt-52"
+            className="mt-44 lg:mt-56 xl:mt-72"
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.18, ease: "easeOut" }}
