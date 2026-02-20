@@ -1,16 +1,12 @@
-# Kryvexis Next-Level Website v9
-Upgrades:
-- Full-screen first page hero ("Welcome to Kryvexis OS" + future small business line)
-- More floating motion + drifting lights + underglow
-- Responsive brand scaling (mobile/tablet/desktop)
-- Particles + aurora
-- Electric sweep logo
-- Product tour tabs
-- Video modal placeholder (swap YouTube ID later)
+# Kryvexis Next-Level Website v12
+Added:
+- Apple-like flow: subtle scroll-snap on desktop + right-side section dots + top progress bar
+- New sections: Stats counters, UI Showcase (tabs), Workflow timeline, Testimonials, Install-as-app, Founder story
+- WhatsApp floating button + contact details baked in
 
 ## Run
 npm install
 npm run dev
 
-## Replace demo video later
-Edit `src/app/page.jsx` and replace youtubeId with your video ID.
+## Demo video later
+Replace youtubeId in `src/app/page.jsx` when you have a demo.

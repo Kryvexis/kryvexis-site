@@ -6,12 +6,13 @@ import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
 const links = [
-  { label: "Product", href: "#product" },
+  { label: "Showcase", href: "#showcase" },
+  { label: "Workflow", href: "#workflow" },
   { label: "Tour", href: "#tour" },
   { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
 ];
+
 
 export default function Nav({ onOpenVideo }){
   const [open, setOpen] = useState(false);
@@ -50,7 +51,7 @@ export default function Nav({ onOpenVideo }){
 
           <div className="hidden lg:flex items-center gap-3">
             <button className="btn-secondary" onClick={onOpenVideo}>
-              <Play size={16} /> Watch demo
+              <Play size={16} /> Demo (coming soon)
             </button>
             <a className="btn-primary" href="#contact">
               Book a demo <ArrowRight size={16} />
@@ -75,7 +76,7 @@ export default function Nav({ onOpenVideo }){
                   <a key={l.href} href={l.href} onClick={()=>setOpen(false)} className="py-2">{l.label}</a>
                 ))}
                 <button onClick={()=>{ setOpen(false); onOpenVideo?.(); }} className="btn-secondary mt-1">
-                  <Play size={16}/> Watch demo
+                  <Play size={16}/> Demo (coming soon)
                 </button>
                 <a href="#contact" onClick={()=>setOpen(false)} className="btn-primary mt-1">Book a demo</a>
               </div>

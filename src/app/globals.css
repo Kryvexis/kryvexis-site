@@ -248,3 +248,41 @@ html{ scroll-behavior: smooth; }
   border-color: rgba(34,197,94,0.32);
 }
 .group:hover .wa-glow{ opacity: .78; transform: scale(1.03); }
+
+
+/* ===== Apple-like page flow ===== */
+.snapwrap{
+  scroll-behavior: smooth;
+}
+@media (min-width: 1024px){
+  .snapwrap{
+    scroll-snap-type: y proximity;
+  }
+  .snap-section{
+    scroll-snap-align: start;
+  }
+}
+/* section polish */
+.section{
+  padding-top: 84px;
+  padding-bottom: 84px;
+}
+@media (max-width: 640px){
+  .section{ padding-top: 64px; padding-bottom: 64px; }
+}
+
+/* right-side dots */
+.dot{
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.06);
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+.dot:hover{ transform: scale(1.15); border-color: rgba(255,255,255,0.30); }
+.dot.on{
+  background: rgba(18,161,238,0.55);
+  border-color: rgba(18,161,238,0.70);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.10), 0 14px 60px rgba(0,0,0,0.45);
+}

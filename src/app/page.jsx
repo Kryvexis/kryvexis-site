@@ -7,6 +7,14 @@ import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
+import ScrollProgress from "../components/ScrollProgress";
+import SectionDots from "../components/SectionDots";
+import Stats from "../components/Stats";
+import Workflow from "../components/Workflow";
+import DashboardShowcase from "../components/DashboardShowcase";
+import Testimonials from "../components/Testimonials";
+import Install from "../components/Install";
+import Founder from "../components/Founder";
 import ProductTour from "../components/ProductTour";
 import Reveal from "../components/Reveal";
 import Tilt from "../components/Tilt";
@@ -50,14 +58,16 @@ export default function Home() {
   },[]);
 
   return (
-    <div id="top" className="relative min-h-screen">
+    <div id="top" className="relative min-h-screen snapwrap">
       <Aurora />
       <FloatingLights />
+      <ScrollProgress />
+      <SectionDots />
       <Nav onOpenVideo={()=>setVideoOpen(true)} />
       <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
       {/* FULLSCREEN HERO */}
-      <section className="relative min-h-[92vh] flex items-center flow-section">
+      <section className="relative min-h-[92vh] flex items-center flow-section snap-section">
         <div className={"hero-beam " + (beam ? "on" : "")} aria-hidden />
         <Container>
           <div className="max-w-3xl">
@@ -192,8 +202,38 @@ export default function Home() {
         </Container>
       </section>
 
+{/* STATS */}
+<section id="stats" className="section relative flow-section snap-section">
+  <Container>
+    <Reveal>
+      <SectionHeading kicker="Momentum" title="Built for speed, clarity, and control" desc="These are pilot-level targets — designed to show the direction and the feeling of the product." />
+    </Reveal>
+    <Stats />
+  </Container>
+</section>
+
+{/* SHOWCASE */}
+<section id="showcase" className="section relative flow-section snap-section">
+  <Container>
+    <Reveal>
+      <SectionHeading kicker="Look & feel" title="A cleaner, more realistic Kryvexis preview" desc="Click through key areas — this is how the UI should feel when clients see it." />
+    </Reveal>
+    <DashboardShowcase />
+  </Container>
+</section>
+
+{/* WORKFLOW */}
+<section id="workflow" className="section relative flow-section snap-section">
+  <Container>
+    <Reveal>
+      <SectionHeading kicker="Flow" title="One connected workflow" desc="From quote to invoice to stock and purchasing — everything links so you can trust the numbers." />
+    </Reveal>
+    <Workflow />
+  </Container>
+</section>
+
 {/* PRODUCT */}
-      <section id="product" className="section relative flow-section">
+      <section id="product" className="section relative flow-section snap-section">
         <Container>
           <Reveal><SectionHeading
             kicker="Why Kryvexis"
@@ -219,7 +259,7 @@ export default function Home() {
       </section>
 
       {/* TOUR */}
-      <section id="tour" className="section relative flow-section">
+      <section id="tour" className="section relative flow-section snap-section">
         <Container>
           <Reveal><SectionHeading kicker="Interactive" title="Click through the product" desc="Inventory, Sales, Purchasing — explore the flow your team will use." /></Reveal>
           <Reveal delay={0.10}><ProductTour /></Reveal>
@@ -227,7 +267,7 @@ export default function Home() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" className="section relative flow-section">
+      <section id="features" className="section relative flow-section snap-section">
         <Container>
           <Reveal><SectionHeading kicker="Built for real roles" title="Features that match your team" desc="Owner, Sales, Buying — each gets the tools they actually need." /></Reveal>
           <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
@@ -243,7 +283,7 @@ export default function Home() {
       </section>
 
       {/* PRICING */}
-      <section id="pricing" className="section relative flow-section">
+      <section id="pricing" className="section relative flow-section snap-section">
         <Container>
           <Reveal><SectionHeading kicker="Tiers" title="Start small. Unlock power when you need it." desc="Choose a tier that matches your workflow today — upgrade when your team grows." /></Reveal>
           <Reveal delay={0.08}><Spotlight className="mt-10 grid md:grid-cols-3 gap-5">
@@ -275,7 +315,37 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="section relative flow-section">
+      {/* TESTIMONIALS */}
+<section id="testimonials" className="section relative flow-section snap-section">
+  <Container>
+    <Reveal>
+      <SectionHeading kicker="Social proof" title="Pilot feedback" desc="Placeholders for now — swap with real client quotes once the first pilots run." />
+    </Reveal>
+    <Testimonials />
+  </Container>
+</section>
+
+{/* INSTALL */}
+<section id="install" className="section relative flow-section snap-section">
+  <Container>
+    <Reveal>
+      <SectionHeading kicker="App feel" title="Install Kryvexis like an app" desc="Make it feel like real software on desktop and mobile — perfect for daily use." />
+    </Reveal>
+    <Install />
+  </Container>
+</section>
+
+{/* STORY */}
+<section id="founder" className="section relative flow-section snap-section">
+  <Container>
+    <Reveal>
+      <SectionHeading kicker="Story" title="A product built from real pain" desc="Simple, fast, and designed for the way small businesses actually work." />
+    </Reveal>
+    <Founder />
+  </Container>
+</section>
+
+<section id="faq" className="section relative flow-section snap-section">
         <Container>
           <Reveal><SectionHeading kicker="Questions" title="FAQ" desc="Quick answers to common questions." /></Reveal>
           <Spotlight className="mt-10 grid md:grid-cols-2 gap-5">
@@ -294,7 +364,7 @@ export default function Home() {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" className="section relative flow-section">
+      <section id="contact" className="section relative flow-section snap-section">
         <Container>
           <div className="glass rounded-2xl p-8 md:p-10 shadow-glow">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
