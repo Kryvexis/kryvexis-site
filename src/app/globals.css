@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+  color-scheme: dark;
+}
+html,body{ height:100%; }
+body{
+  @apply bg-kx-bg text-white antialiased;
+  background-image:
+    radial-gradient(1200px 700px at 20% 10%, rgba(34,197,94,0.14), transparent 55%),
+    radial-gradient(900px 600px at 80% 20%, rgba(34,211,238,0.12), transparent 55%),
+    radial-gradient(1000px 800px at 60% 90%, rgba(167,139,250,0.12), transparent 55%);
+}
+
+/* nicer selection */
+::selection{ background: rgba(34,197,94,0.28); }
+
+/* smooth anchor scroll */
+html{ scroll-behavior: smooth; }
+
+/* subtle grid overlay */
+.grid-overlay{
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at 20% 10%, black 10%, transparent 70%);
+  opacity: .25;
+}
+
+.glass{
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+.btn{
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold transition;
+}
+.btn-primary{
+  @apply btn bg-kx-green text-black hover:brightness-110;
+}
+.btn-secondary{
+  @apply btn glass hover:border-white/20;
+}
+.badge{
+  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold text-white/80 glass;
+}
+
+.section{
+  @apply py-16 md:py-24;
+}
+
+.h1{
+  @apply text-4xl md:text-6xl font-extrabold tracking-tight;
+  line-height: 1.02;
+}
+.h2{
+  @apply text-2xl md:text-4xl font-bold tracking-tight;
+}
+.mut{
+  @apply text-white/70;
+}
