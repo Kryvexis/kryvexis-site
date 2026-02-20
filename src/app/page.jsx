@@ -389,6 +389,7 @@ export default function Home() {
 
               <div className="w-full md:w-[380px]">
                 <ContactCard />
+              </div>
             </div>
           </div>
         </Container>
