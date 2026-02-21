@@ -1,23 +1,89 @@
-
 "use client";
 import Container from "./Container";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "./Motion";
+import { ArrowRight, Menu, X, Play } from "lucide-react";
 import { useEffect, useState } from "react";
 import Logo from "./Logo";
 
-export default function Nav(){
-  const [scrolled,setScrolled]=useState(false);
+const links = [
+  { label: "Showcase", href: "#showcase" },
+  { label: "Workflow", href: "#workflow" },
+  { label: "Tour", href: "#tour" },
+  { label: "Features", href: "#features" },
+  { label: "Contact", href: "#contact" },
+];
+
+
+export default function Nav({ onOpenVideo }){
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
   useEffect(()=>{
-    const onScroll=()=>setScrolled(window.scrollY>40);
-    window.addEventListener("scroll",onScroll);
-    return ()=>window.removeEventListener("scroll",onScroll);
+    const onScroll = ()=> setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return ()=> window.removeEventListener("scroll", onScroll);
   },[]);
-  return(
-    <div className={`fixed top-0 left-0 right-0 z-50 transition-all ${scrolled?"backdrop-blur-xl bg-[#020617]/80 border-b border-cyan-400/30 shadow-[0_0_40px_rgba(34,211,238,0.25)]":"bg-transparent"}`}>
-      <Container className="flex items-center justify-between h-16">
-        <Logo/>
-        <a href="#contact" className="px-5 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500 text-black font-semibold shadow-[0_0_25px_rgba(34,211,238,0.6)] hover:scale-105 transition">Book demo</a>
+
+  return (
+    <div className={"sticky top-0 z-50 relative " + (scrolled ? "nav-shell nav-shell--solid" : "nav-shell")}>
+      <Container className="py-4">
+        <div className="nav-glowline" aria-hidden />
+        <div className="flex items-center justify-between gap-4">
+
+          {/* BIG RESPONSIVE BRAND */}
+          <a href="#top" className="flex items-center min-w-[260px] underglow">
+            <div className="brand-scale transition-transform duration-300 hover:scale-[1.08]">
+              <Logo height={76} className="kx-logo" />
+            </div>
+          </a>
+
+          <div className="hidden lg:flex items-center gap-6 text-sm text-white/80">
+            {links.map(l=>(
+              <a
+                key={l.href}
+                href={l.href}
+                className="hover:text-white transition relative after:absolute after:-bottom-1 after:left-0 after:h-[1px] after:w-0 after:bg-white/40 hover:after:w-full after:transition-all"
+              >
+                {l.label}
+              </a>
+            ))}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3">
+            <button className="btn-secondary" onClick={onOpenVideo}>
+              <Play size={16} /> Demo (coming soon)
+            </button>
+            <a className="btn-primary" href="https://wa.me/27686282874?text=Hi%20Kryvexis!%20I%20would%20like%20a%20demo%20/%20early%20access." target="_blank" rel="noreferrer">
+              Book a demo <ArrowRight size={16} />
+            </a>
+          </div>
+
+          <button className="lg:hidden btn-secondary px-3 py-2" onClick={()=>setOpen(v=>!v)} aria-label="Menu">
+            {open ? <X size={18}/> : <Menu size={18}/>}
+          </button>
+        </div>
+
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="lg:hidden mt-4 glass rounded-2xl p-4"
+            >
+              <div className="flex flex-col gap-3 text-white/85">
+                {links.map(l=>(
+                  <a key={l.href} href={l.href} onClick={()=>setOpen(false)} className="py-2">{l.label}</a>
+                ))}
+                <button onClick={()=>{ setOpen(false); onOpenVideo?.(); }} className="btn-secondary mt-1">
+                  <Play size={16}/> Demo (coming soon)
+                </button>
+                <a href="#contact" onClick={()=>setOpen(false)} className="btn-primary mt-1">Book a demo</a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </Container>
     </div>
   );
