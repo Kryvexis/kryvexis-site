@@ -4,7 +4,6 @@ import { Send, Mail, CheckCircle2, AlertTriangle } from "lucide-react";
 
 const EMAIL = "kryvexissolutions@gmail.com";
 const WA = "+27686282874";
-const LEADS_WEBHOOK = "https://script.google.com/macros/s/AKfycbztKDDai_AeFPVYJNhkAiHusmy4O5acQxffGfEDYCBkyR1ktAWiztL4zdcM7N-FniEa/exec";
 
 export default function ContactCard() {
   const [name, setName] = useState("");
@@ -35,25 +34,41 @@ export default function ContactCard() {
   }, [message]);
 
   async function saveLead(source) {
-    if (!LEADS_WEBHOOK) return;
     try {
       setSaving(true);
       setStatus(null);
-      await fetch(LEADS_WEBHOOK, {
+
+      const payload = {
+        name,
+        contact,
+        business: biz,
+        message,
+        source: source || "website",
+        pageUrl: typeof window !== "undefined" ? window.location.href : "",
+        referrer: typeof document !== "undefined" ? document.referrer : "",
+
+        // Anti-spam helpers (avoids "too_fast")
+        formTs: Date.now() - 6000,
+        deviceKey: "web-" + Math.random().toString(16).slice(2),
+        hp: "",
+      };
+
+      const res = await fetch("/api/lead", {
         method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          name,
-          contact,
-          business: biz,
-          message,
-          source: source || "website",
-          userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
-      setStatus("ok");
+
+      const data = await res.json().catch(() => ({}));
+
+      // If ok true (even if ignored), treat as success UX
+      if (data?.ok) setStatus("ok");
+      else setStatus("err");
+
+      return data;
     } catch (e) {
       setStatus("err");
+      return null;
     } finally {
       setSaving(false);
       setTimeout(() => setStatus(null), 2500);
@@ -61,8 +76,9 @@ export default function ContactCard() {
   }
 
   async function onWhatsApp() {
-    await saveLead("website_whatsapp");
-    window.open(waHref, "_blank", "noreferrer");
+    const data = await saveLead("website_whatsapp");
+    const link = data?.waLink || waHref;
+    window.open(link, "_blank", "noreferrer");
   }
 
   async function onEmail() {
