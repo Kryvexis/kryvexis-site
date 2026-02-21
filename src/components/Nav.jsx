@@ -26,12 +26,12 @@ export default function Nav({ onOpenVideo }){
   },[]);
 
   return (
-    <div className={"sticky top-0 z-50 " + (scrolled ? "bg-kx-bg/60 backdrop-blur border-b border-white/10" : "bg-transparent")}>
+    <div className={"sticky top-0 z-50 " + (scrolled ? "header-glass" : "bg-transparent")}>
       <Container className="py-4">
         <div className="flex items-center justify-between gap-4">
 
           {/* BIG RESPONSIVE BRAND */}
-          <a href="#top" className="flex items-center min-w-[220px] underglow">
+          <a href="#top" className="flex items-center min-w-[220px] underglow brand-glow">
             <div className="brand-scale transition-transform duration-300 hover:scale-[2.35]">
               <Logo height={56} />
             </div>
