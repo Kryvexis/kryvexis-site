@@ -1,5 +1,5 @@
-import LeadPopup from "@/components/LeadPopup";
 "use client";
+import LeadPopup from "../components/LeadPopup";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import Aurora from "../components/Aurora";
@@ -56,14 +56,14 @@ export default function Home() {
   const y = useTransform(scrollY, [0, 620], [0, 26]);
   const r = useTransform(scrollY, [0, 620], [0, -1.35]);
 
-  useEffect(()=>{
-    const t = setTimeout(()=>setBeam(true), 150);
-    return (
-      <LeadPopup />
-)=>clearTimeout(t);
-  },[]);
+useEffect(()=>{
+  const t = setTimeout(()=>setBeam(true), 150);
+  return ()=>clearTimeout(t);
+},[]);
 
-  return (
+return (
+  <>
+    <LeadPopup />
     <div id="top" className="relative min-h-screen snapwrap">
       <BackgroundShift />
       <ParallaxFX />
@@ -405,6 +405,7 @@ export default function Home() {
       <WhatsAppButton phone="+27686282874" />
 
       <Footer />
-    </div>
+      </div>
+    </>
   );
 }
