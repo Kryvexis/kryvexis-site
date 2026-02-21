@@ -11,6 +11,7 @@ const links = [
   { label: "Tour", href: "#tour" },
   { label: "Features", href: "#features" },
   { label: "Roadmap", href: "#roadmap" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -19,6 +20,7 @@ export default function Nav({ onOpenVideo }){
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("#top");
+  const compact = scrolled;
 
   useEffect(()=>{
     const onScroll = ()=> setScrolled(window.scrollY > 8);
@@ -48,14 +50,14 @@ export default function Nav({ onOpenVideo }){
   return (
     <div className="sticky top-0 z-50">
       <Container className="py-3">
-        <div className={"relative rounded-2xl px-3 sm:px-4 py-3 " + (scrolled ? "nav-shell nav-shell--solid" : "nav-shell")}>
+        <div className={"relative rounded-2xl px-3 sm:px-4 " + (compact ? "py-2 nav-shell nav-shell--solid" : "py-3 nav-shell")}>
         <div className="nav-glowline" aria-hidden />
-        <div className="flex items-center justify-between gap-4">
+        <div className="nav-content flex items-center justify-between gap-4">
 
           {/* BIG RESPONSIVE BRAND */}
           <a href="#top" className="flex items-center min-w-[230px] underglow">
             <div className="brand-plate brand-scale transition-transform duration-300 hover:scale-[1.05]">
-              <Logo height={64} className="kx-logo" />
+              <Logo height={compact ? 56 : 64} className="kx-logo" priority />
             </div>
           </a>
 

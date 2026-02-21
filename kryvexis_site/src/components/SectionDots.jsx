@@ -10,6 +10,7 @@ export default function SectionDots(){
     { id: "tour", label: "Tour" },
     { id: "features", label: "Features" },
     { id: "roadmap", label: "Roadmap" },
+    { id: "pricing", label: "Pricing" },
     { id: "testimonials", label: "Testimonials" },
     { id: "install", label: "Install" },
     { id: "founder", label: "Story" },

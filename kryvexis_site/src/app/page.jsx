@@ -8,6 +8,7 @@ import Container from "../components/Container";
 import SectionHeading from "../components/SectionHeading";
 import Footer from "../components/Footer";
 import WhatsAppButton from "../components/WhatsAppButton";
+import StickyCTA from "../components/StickyCTA";
 import ScrollProgress from "../components/ScrollProgress";
 import SectionDots from "../components/SectionDots";
 import Stats from "../components/Stats";
@@ -39,6 +40,18 @@ const tiers = [
   { name: "Starter", price: "For small teams", points: ["Products & stock", "Sales capture", "Basic invoicing", "Owner dashboard"] },
   { name: "Premium", price: "For growing operations", points: ["Purchase Orders", "Receiving (GRV)", "Import products", "Team emailing"], popular: true },
   { name: "Enterprise", price: "For advanced control", points: ["Audit trails", "Role-based access", "Exports & reporting", "Custom workflows"] }
+];
+
+const compare = [
+  { feature: "Products & stock", starter: true, premium: true, enterprise: true },
+  { feature: "Quotes → invoices", starter: true, premium: true, enterprise: true },
+  { feature: "One‑click print", starter: true, premium: true, enterprise: true },
+  { feature: "Purchase Orders", starter: false, premium: true, enterprise: true },
+  { feature: "Receiving (GRV)", starter: false, premium: true, enterprise: true },
+  { feature: "Top sales per client", starter: true, premium: true, enterprise: true },
+  { feature: "Role-based access", starter: false, premium: false, enterprise: true },
+  { feature: "Audit trails", starter: false, premium: false, enterprise: true },
+  { feature: "Exports & reporting", starter: false, premium: true, enterprise: true },
 ];
 
 const roadmap = [
@@ -83,6 +96,7 @@ return (
       <ScrollProgress />
       <SectionDots />
       <Nav onOpenVideo={()=>setVideoOpen(true)} />
+      <StickyCTA />
       <VideoModal open={videoOpen} onClose={()=>setVideoOpen(false)} youtubeId="dQw4w9WgXcQ" />
 
       {/* FULLSCREEN HERO */}
@@ -373,6 +387,51 @@ return (
             ))}
           </Spotlight></Reveal>
           <div className="mt-8 text-sm text-white/60">Want Kryvexis to match your exact workflow? We can customize onboarding, import paths, and reports.</div>
+
+          {/* Compare table */}
+          <div className="mt-12 glass rounded-2xl overflow-hidden border border-white/10">
+            <div className="px-6 py-5 border-b border-white/10">
+              <div className="text-sm font-semibold text-white/90">Compare tiers</div>
+              <div className="mut mt-1 text-sm">A quick checklist view to help you decide.</div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="min-w-[760px] w-full text-sm">
+                <thead className="text-white/70">
+                  <tr className="border-b border-white/10">
+                    <th className="text-left px-6 py-4 font-semibold">Feature</th>
+                    <th className="text-left px-6 py-4 font-semibold">Starter</th>
+                    <th className="text-left px-6 py-4 font-semibold">Premium</th>
+                    <th className="text-left px-6 py-4 font-semibold">Enterprise</th>
+                  </tr>
+                </thead>
+                <tbody className="text-white/80">
+                  {compare.map((r)=>{
+                    const Dot = ({ on }) => (
+                      <span className={"inline-flex h-6 w-6 items-center justify-center rounded-full " + (on ? "bg-white/10" : "bg-white/5")}
+                        aria-label={on ? "Included" : "Not included"}
+                      >
+                        <span className={"h-2.5 w-2.5 rounded-full " + (on ? "bg-kx-blue" : "bg-white/25")} />
+                      </span>
+                    );
+                    return (
+                      <tr key={r.feature} className="border-b border-white/5">
+                        <td className="px-6 py-4 text-white/85">{r.feature}</td>
+                        <td className="px-6 py-4"><Dot on={r.starter} /></td>
+                        <td className="px-6 py-4"><Dot on={r.premium} /></td>
+                        <td className="px-6 py-4"><Dot on={r.enterprise} /></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="px-6 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="text-sm text-white/60">Not sure? Tell us your workflow and we’ll recommend the best tier.</div>
+              <a href="#contact" className="btn-primary">Talk to us <ArrowRight size={16} /></a>
+            </div>
+          </div>
         </Container>
       </section>
 
