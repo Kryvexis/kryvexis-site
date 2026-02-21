@@ -1,3 +1,4 @@
+import LeadPopup from "@/components/LeadPopup";
 "use client";
 import { useEffect, useState } from "react";
 import Nav from "../components/Nav";
@@ -57,7 +58,9 @@ export default function Home() {
 
   useEffect(()=>{
     const t = setTimeout(()=>setBeam(true), 150);
-    return ()=>clearTimeout(t);
+    return (
+      <LeadPopup />
+)=>clearTimeout(t);
   },[]);
 
   return (

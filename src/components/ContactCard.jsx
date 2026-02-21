@@ -1,16 +1,18 @@
 "use client";
 import { useMemo, useState } from "react";
-import { Send, Mail, CheckCircle2, AlertTriangle } from "lucide-react";
+import { Send, Mail } from "lucide-react";
+import Toast from "./Toast";
 
 const EMAIL = "kryvexissolutions@gmail.com";
 const WA = "+27686282874";
 
-export default function ContactCard() {
+export default function ContactCard({ variant = "card", onDone }) {
   const [name, setName] = useState("");
   const [contact, setContact] = useState("");
   const [biz, setBiz] = useState("");
   const [saving, setSaving] = useState(false);
-  const [status, setStatus] = useState(null); // "ok" | "err" | null
+
+  const [toast, setToast] = useState({ open: false, kind: "ok", title: "", desc: "" });
 
   const message = useMemo(() => {
     const parts = [
@@ -33,10 +35,13 @@ export default function ContactCard() {
     return `mailto:${EMAIL}?subject=${subj}&body=${body}`;
   }, [message]);
 
+  function fireToast(kind, title, desc) {
+    setToast({ open: true, kind, title, desc });
+  }
+
   async function saveLead(source) {
     try {
       setSaving(true);
-      setStatus(null);
 
       const payload = {
         name,
@@ -48,7 +53,7 @@ export default function ContactCard() {
         referrer: typeof document !== "undefined" ? document.referrer : "",
 
         // Anti-spam helpers (avoids "too_fast")
-        formTs: Date.now() - 6000,
+        formTs: Date.now() - 6500,
         deviceKey: "web-" + Math.random().toString(16).slice(2),
         hp: "",
       };
@@ -61,89 +66,100 @@ export default function ContactCard() {
 
       const data = await res.json().catch(() => ({}));
 
-      // If ok true (even if ignored), treat as success UX
-      if (data?.ok) setStatus("ok");
-      else setStatus("err");
+      if (data?.ok) {
+        const note = data?.ignored ? `Saved (note: ${data.reason || "filtered"})` : "Saved to leads sheet";
+        fireToast("ok", "Request received", note);
+        onDone?.(data);
+      } else {
+        fireToast("err", "Could not save", "Still opening WhatsApp / Email.");
+      }
 
       return data;
-    } catch (e) {
-      setStatus("err");
+    } catch {
+      fireToast("err", "Could not save", "Still opening WhatsApp / Email.");
       return null;
     } finally {
       setSaving(false);
-      setTimeout(() => setStatus(null), 2500);
     }
   }
 
   async function onWhatsApp() {
+    if (!contact.trim()) {
+      fireToast("err", "Add contact details", "Please enter Email or WhatsApp number.");
+      return;
+    }
+
     const data = await saveLead("website_whatsapp");
     const link = data?.waLink || waHref;
-    window.open(link, "_blank", "noreferrer");
+    setTimeout(() => window.open(link, "_blank", "noreferrer"), 250);
   }
 
   async function onEmail() {
+    if (!contact.trim()) {
+      fireToast("err", "Add contact details", "Please enter Email or WhatsApp number.");
+      return;
+    }
+
     await saveLead("website_email");
-    window.location.href = mailHref;
+    setTimeout(() => (window.location.href = mailHref), 250);
   }
 
   return (
-    <div className="glass rounded-2xl p-5">
-      <div className="text-sm font-semibold">Contact Kryvexis</div>
+    <>
+      <Toast
+        open={toast.open}
+        kind={toast.kind}
+        title={toast.title}
+        desc={toast.desc}
+        onClose={() => setToast((t) => ({ ...t, open: false }))}
+      />
 
-      <div className="mt-3 grid gap-3">
-        <input
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25"
-          placeholder="Name"
-        />
-        <input
-          value={contact}
-          onChange={(e) => setContact(e.target.value)}
-          className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25"
-          placeholder="Email or WhatsApp"
-        />
-        <input
-          value={biz}
-          onChange={(e) => setBiz(e.target.value)}
-          className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25"
-          placeholder="Business name"
-        />
+      <div className={variant === "modal" ? "" : "glass rounded-2xl p-5"}>
+        {variant !== "modal" ? <div className="text-sm font-semibold">Contact Kryvexis</div> : null}
 
-        <button
-          type="button"
-          onClick={onWhatsApp}
-          className="btn-primary w-full inline-flex items-center justify-center gap-2 disabled:opacity-70"
-          disabled={saving}
-        >
-          <Send size={16} /> {saving ? "Saving…" : "Send on WhatsApp"}
-        </button>
+        <div className="mt-3 grid gap-3">
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25"
+            placeholder="Name"
+          />
+          <input
+            value={contact}
+            onChange={(e) => setContact(e.target.value)}
+            className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25"
+            placeholder="Email or WhatsApp"
+          />
+          <input
+            value={biz}
+            onChange={(e) => setBiz(e.target.value)}
+            className="glass rounded-xl px-4 py-3 text-sm outline-none focus:border-white/25"
+            placeholder="Business name"
+          />
 
-        <button
-          type="button"
-          onClick={onEmail}
-          className="btn-secondary w-full inline-flex items-center justify-center gap-2 disabled:opacity-70"
-          disabled={saving}
-        >
-          <Mail size={16} /> Email instead
-        </button>
+          <button
+            type="button"
+            onClick={onWhatsApp}
+            className="btn-primary w-full inline-flex items-center justify-center gap-2 disabled:opacity-70"
+            disabled={saving}
+          >
+            <Send size={16} /> {saving ? "Saving…" : "Send on WhatsApp"}
+          </button>
 
-        <div className="flex items-center gap-2 text-xs">
-          {status === "ok" ? (
-            <>
-              <CheckCircle2 size={14} className="text-kx-cyan" />
-              <span className="text-white/60">Saved to leads sheet</span>
-            </>
-          ) : status === "err" ? (
-            <>
-              <AlertTriangle size={14} className="text-yellow-300" />
-              <span className="text-white/60">Could not save lead (still opening)</span>
-            </>
-          ) : (
-            <span className="text-white/50">Email: {EMAIL} • WhatsApp: +27 68 628 2874</span>
-          )}
+          <button
+            type="button"
+            onClick={onEmail}
+            className="btn-secondary w-full inline-flex items-center justify-center gap-2 disabled:opacity-70"
+            disabled={saving}
+          >
+            <Mail size={16} /> Email instead
+          </button>
+
+          <div className="text-xs text-white/50">
+            Email: {EMAIL} • WhatsApp: +27 68 628 2874
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
