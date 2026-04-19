@@ -76,7 +76,7 @@ nav.scl{background:rgba(10,14,18,.88);backdrop-filter:blur(22px);border-color:rg
 .burg.on b:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
 .burg.on b:nth-child(2){opacity:0}
 .burg.on b:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mnav{position:fixed;inset:0;z-index:450;background:rgba(2,4,8,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;opacity:0;visibility:hidden;transition:.4s}
+.mnav{position:fixed;inset:0;z-index:650;background:rgba(2,4,8,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;opacity:0;visibility:hidden;transition:.4s;padding:7rem 1.5rem 2rem}
 .mnav.on{opacity:1;visibility:visible}
 .mnav a{font-family:var(--fd);font-size:clamp(1.8rem,6vw,2.6rem);color:#f0f4f8;text-decoration:none;letter-spacing:.04em;transition:.2s}
 .mnav a:hover{color:#c8d8e4}
@@ -85,6 +85,40 @@ nav.scl{background:rgba(10,14,18,.88);backdrop-filter:blur(22px);border-color:rg
 #ann em{font-style:normal;color:#fff;font-weight:500}
 #annx{position:absolute;right:1rem;cursor:pointer;color:#6888a0;font-size:1rem;line-height:1}
 #annx:hover{color:#fff}
+body.no-scroll{overflow:hidden}
+@media(max-width:768px){
+  #ann{display:none}
+  nav{padding:.85rem 1rem}
+  .nlog{font-size:1.55rem;gap:.38rem;align-items:center}
+  .nonl{font-size:.42rem;letter-spacing:.06em}
+  .burg{position:relative;z-index:700}
+  #hero{padding:8.5rem 1rem 4rem;min-height:auto}
+  .hi{gap:2rem}
+  .heye{font-size:.88rem}
+  .hh1{font-size:clamp(3rem,16vw,4.8rem);line-height:.94}
+  .hrule{margin:.7rem 0 1rem}
+  .hrt{font-size:.46rem;letter-spacing:.12em}
+  .htype{min-height:auto;font-size:.84rem;line-height:1.6;margin-bottom:1.2rem}
+  .hcards{grid-template-columns:1fr 1fr;gap:.55rem;margin-bottom:1.2rem}
+  .hcard{padding:.75rem .8rem}
+  .hcard h3{font-size:.68rem}
+  .hcard p{font-size:.6rem}
+  .hbtns{gap:.55rem}
+  .btp,.bts{flex:1;justify-content:center;padding:.85rem 1rem;font-size:.82rem}
+  .hcons{margin-top:1rem;gap:.9rem}
+  .spanel{max-width:100%;height:340px}
+  .sec{padding:4rem 1rem}
+  #book{padding:5rem 1rem}
+  .fiq{padding:1rem 1rem}
+  .fiai{padding:0 1rem 1rem;padding-top:.8rem}
+}
+@media(max-width:480px){
+  .hcards{grid-template-columns:1fr}
+  .hbtns{flex-direction:column}
+  .hcons{flex-direction:column;align-items:flex-start}
+  .mnav a{font-size:clamp(1.5rem,8vw,2.2rem)}
+}
+
 
 /* ═══════════════════════════════════════════════════════
    CONTENT LAYERS
@@ -449,11 +483,11 @@ footer{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.1);pad
 <section id="faq" style="padding:5.5rem 2rem"><div class="si">
   <div class="shd c rv"><span class="zlbl">Network Switch Room · FAQ</span><h2 class="sh">Frequently Asked</h2><p class="ss">Clear answers to the questions we hear most often.</p></div>
   <div class="flist">
-    <div class="fi rv"><div class="fiq" onclick="tog(this)"><span class="fiqt">What does Kryvexis Solutions offer?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Kryvexis Solutions offers technical support, device and connectivity help, career document services, and website design support for individuals and businesses.</div></div></div>
-    <div class="fi rv d1"><div class="fiq" onclick="tog(this)"><span class="fiqt">How do I get started?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">The easiest way is to send a WhatsApp message or use the contact form with a short explanation of what you need. From there you get guidance on the next step.</div></div></div>
-    <div class="fi rv d2"><div class="fiq" onclick="tog(this)"><span class="fiqt">Do you work only in Johannesburg?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Kryvexis is based in Johannesburg, with some services available remotely depending on the type of support needed.</div></div></div>
-    <div class="fi rv"><div class="fiq" onclick="tog(this)"><span class="fiqt">Do you offer website maintenance?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Yes. Website updates and maintenance can be arranged depending on the project and what ongoing support is needed.</div></div></div>
-    <div class="fi rv d1"><div class="fiq" onclick="tog(this)"><span class="fiqt">Is the contact form secure?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Yes. Form submissions are validated on the server, rate-limited, sanitised, and can be delivered by email without exposing private credentials in the browser.</div></div></div>
+    <div class="fi rv"><div class="fiq"><span class="fiqt">What does Kryvexis Solutions offer?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Kryvexis Solutions offers technical support, device and connectivity help, career document services, and website design support for individuals and businesses.</div></div></div>
+    <div class="fi rv d1"><div class="fiq"><span class="fiqt">How do I get started?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">The easiest way is to send a WhatsApp message or use the contact form with a short explanation of what you need. From there you get guidance on the next step.</div></div></div>
+    <div class="fi rv d2"><div class="fiq"><span class="fiqt">Do you work only in Johannesburg?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Kryvexis is based in Johannesburg, with some services available remotely depending on the type of support needed.</div></div></div>
+    <div class="fi rv"><div class="fiq"><span class="fiqt">Do you offer website maintenance?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Yes. Website updates and maintenance can be arranged depending on the project and what ongoing support is needed.</div></div></div>
+    <div class="fi rv d1"><div class="fiq"><span class="fiqt">Is the contact form secure?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Yes. Form submissions are validated on the server, rate-limited, sanitised, and can be delivered by email without exposing private credentials in the browser.</div></div></div>
   </div></div>
 </div></section>
 
@@ -1285,8 +1319,8 @@ let mi=0;
 function nextMsg(){if(mi>=msgs.length){setTimeout(()=>document.getElementById('ldr').classList.add('off'),400);return}const d=document.createElement('div');d.className='ll';d.textContent=msgs[mi];ltEl.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'));if(msgs[mi].includes('[OK]'))d.classList.add('ok');ltEl.scrollTop=ltEl.scrollHeight;mi++;lpfEl.style.width=Math.round(mi/msgs.length*100)+'%';lpctEl.textContent=Math.round(mi/msgs.length*100)+'%';setTimeout(nextMsg,mi===1?100:mi<msgs.length?255:480)}
 setTimeout(nextMsg,350);
 
-function tnav(){document.getElementById('burg').classList.toggle('on');document.getElementById('mnav').classList.toggle('on')}
-function cnav(){document.getElementById('burg').classList.remove('on');document.getElementById('mnav').classList.remove('on')}
+function tnav(){const burg=document.getElementById('burg');const menu=document.getElementById('mnav');const open=!menu.classList.contains('on');burg.classList.toggle('on',open);menu.classList.toggle('on',open);document.body.classList.toggle('no-scroll',open)}
+function cnav(){document.getElementById('burg').classList.remove('on');document.getElementById('mnav').classList.remove('on');document.body.classList.remove('no-scroll')}
 const zones=['hero','services','how','testi','pricing','faq','contact'];
 function updateZNav(){let cur='hero';zones.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.55)cur=id});document.querySelectorAll('.zn').forEach(z=>z.classList.toggle('on',z.dataset.sec===cur))}
 document.querySelectorAll('.zn').forEach(z=>z.addEventListener('click',()=>{const t=document.getElementById(z.dataset.sec);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}));
@@ -1298,7 +1332,13 @@ if(words.length)setTimeout(typeStep,3400);
 const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('vis');io.unobserve(e.target)})},{threshold:.1});
 document.querySelectorAll('.rv,.sve,.step,.wc,.tc,.pc,.fi').forEach(el=>io.observe(el));
 io.observe(document.getElementById('stats'));
-function tog(btn){const fi=btn.closest('.fi'),ans=fi.querySelector('.fia'),open=fi.classList.contains('open');document.querySelectorAll('.fi.open').forEach(f=>{f.classList.remove('open');f.querySelector('.fia').style.maxHeight='0'});if(!open){fi.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px'}}
+function tog(btn){const fi=btn.closest('.fi');if(!fi)return;const ans=fi.querySelector('.fia');const open=fi.classList.contains('open');document.querySelectorAll('.fi.open').forEach(f=>{f.classList.remove('open');f.querySelector('.fia').style.maxHeight='0'});if(!open){fi.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px'}}
+
+document.querySelectorAll('.fiq').forEach(q=>{q.setAttribute('role','button');q.setAttribute('tabindex','0');q.addEventListener('click',()=>tog(q));q.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();tog(q)}})});
+
+window.addEventListener('resize',()=>{if(window.innerWidth>768){cnav();}document.querySelectorAll('.fi.open .fia').forEach(ans=>{ans.style.maxHeight=ans.scrollHeight+'px'})});
+
+document.addEventListener('click',e=>{if(e.target.closest('#mnav a'))cnav();});
 async function sbf(e){e.preventDefault();const form=e.target;const m=document.getElementById('fmsg');const btn=document.getElementById('submitBtn');m.textContent='';btn.disabled=true;btn.textContent='Sending...';try{const fd=new FormData(form);const payload=Object.fromEntries(fd.entries());const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await res.json();if(!res.ok)throw new Error(data.message||'Something went wrong.');m.textContent=data.message||'Your message has been sent successfully.';form.reset()}catch(err){m.textContent=err.message||'Unable to send your message right now.'}finally{btn.disabled=false;btn.textContent='Send Message'}}
 const contactForm=document.getElementById('contactForm');if(contactForm)contactForm.addEventListener('submit',sbf);
 </script>

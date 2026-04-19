@@ -12,19 +12,5 @@
     "emailReason": "smtp_not_configured",
     "ip": "::1",
     "userAgent": "curl/8.10.1"
-  },
-  {
-    "id": "c2e04c49-b031-4ee2-a94c-15c6da2eeff4",
-    "createdAt": "2026-04-19T15:40:34.191Z",
-    "name": "Anonie Gerhardus Meyer",
-    "phone": "0718781898",
-    "email": "antoniemeyer@icloud.com",
-    "service": "Website Design",
-    "message": "Testing contact form properly",
-    "company": "",
-    "emailSent": true,
-    "emailReason": null,
-    "ip": "::1",
-    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36"
   }
 ]
