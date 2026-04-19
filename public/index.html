@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Kryvexis Solutions — Tech Support & Website Services Johannesburg</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --fd:'Playfair Display',serif;--fb:'DM Sans',sans-serif;--fm:'JetBrains Mono',monospace;
+  --g:#22c55e;--a:#f59e0b;--r:10px;--r2:6px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--fb);background:#6a7278;color:#1a2028;overflow-x:hidden;cursor:none}
+
+#ca,#cb{position:fixed;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);border-radius:50%}
+#ca{width:5px;height:5px;background:#fff;top:0;left:0;mix-blend-mode:difference}
+#cb{width:30px;height:30px;top:0;left:0;border:1.5px solid rgba(255,255,255,.5);transition:all .18s}
+body.lh #cb{width:46px;height:46px}
+
+#pb{position:fixed;top:0;left:0;height:2px;z-index:10002;width:0%;pointer-events:none;background:#fff}
+#cvs{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* Zone pill */
+#zpill{position:fixed;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:20;pointer-events:none;display:flex;align-items:center;gap:.65rem;background:rgba(10,14,18,.6);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:.44rem 1.2rem .44rem .85rem;font-family:var(--fm);font-size:.52rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.75);white-space:nowrap}
+#zpd{width:6px;height:6px;border-radius:50%;background:var(--g);box-shadow:0 0 8px var(--g);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* Loader */
+#ldr{position:fixed;inset:0;z-index:10001;background:#03050a;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:opacity 1s,visibility 1s}
+#ldr.off{opacity:0;visibility:hidden;pointer-events:none}
+.lw{width:min(480px,90vw);display:flex;flex-direction:column;gap:1rem}
+.lk{font-family:var(--fd);font-weight:700;font-size:clamp(2rem,7vw,2.8rem);color:#f0f4f8;letter-spacing:.1em}
+.ls{font-family:var(--fm);font-size:.54rem;color:#6888a0;letter-spacing:.28em;text-transform:uppercase}
+.ltm{background:rgba(0,0,0,.9);border:1px solid rgba(255,255,255,.08);border-radius:var(--r2);overflow:hidden;position:relative}
+.ltb{position:absolute;top:0;left:0;right:0;height:25px;background:rgba(8,10,14,.92);border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:center;padding:0 .8rem;gap:.35rem}
+.ld{width:8px;height:8px;border-radius:50%}
+.ld.r{background:#ff5f57}.ld.y{background:#febc2e}.ld.g{background:#28c840}
+.lb{padding:1rem 1.1rem .8rem;font-family:var(--fm);font-size:.62rem;line-height:1.9;min-height:136px}
+.ll{display:block;color:#3a7a50;opacity:0;transition:opacity .18s}
+.ll.on{opacity:1}.ll.ok{color:var(--g)}.ll.ok::after{content:' [OK]'}
+.lpb{height:2px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.lpf{height:100%;background:rgba(255,255,255,.5);width:0%;transition:width .1s}
+.lpct{font-family:var(--fm);font-size:.52rem;color:#6888a0;text-align:right}
+
+/* Zone nav */
+#znav{position:fixed;right:1.4rem;top:50%;transform:translateY(-50%);z-index:200;display:flex;flex-direction:column;gap:.65rem;align-items:flex-end}
+.zn{display:flex;align-items:center;gap:.5rem;cursor:pointer;opacity:.22;transition:.3s}
+.zn:hover{opacity:.65}.zn.on{opacity:1}
+.znd{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,.5);transition:all .2s;flex-shrink:0}
+.zn.on .znd{width:6px;height:6px;background:rgba(0,0,0,.75);box-shadow:0 0 5px rgba(0,0,0,.3)}
+.znl{font-size:.43rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(0,0,0,.6);white-space:nowrap;opacity:0;transition:.2s;font-family:var(--fm);pointer-events:none}
+.zn:hover .znl,.zn.on .znl{opacity:1}
+@media(max-width:768px){#znav{display:none}}
+
+#fwa{position:fixed;bottom:2rem;right:2rem;z-index:400;width:54px;height:54px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;text-decoration:none;box-shadow:0 4px 18px rgba(37,211,102,.4);transition:all .3s}
+#fwa:hover{transform:scale(1.1) translateY(-2px)}
+#fwa svg{width:25px;height:25px;fill:#fff}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:.95rem 2rem;transition:background .5s,border-color .5s;border-bottom:1px solid transparent}
+nav.scl{background:rgba(10,14,18,.88);backdrop-filter:blur(22px);border-color:rgba(255,255,255,.1)}
+.nlog{font-family:var(--fd);font-weight:700;font-size:1.1rem;color:#fff;letter-spacing:.05em;text-decoration:none;display:flex;align-items:center;gap:.55rem;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.nonl{display:flex;align-items:center;gap:.3rem;font-family:var(--fm);font-size:.5rem;color:var(--g);letter-spacing:.08em}
+.nonld{width:5px;height:5px;border-radius:50%;background:var(--g);animation:pulse 2s ease-in-out infinite}
+.nlinks{display:none}
+@media(min-width:900px){
+  .nlinks{display:flex;gap:2rem;align-items:center}
+  .nlinks a{color:rgba(255,255,255,.6);font-size:.75rem;letter-spacing:.04em;text-decoration:none;transition:color .2s;text-shadow:0 1px 6px rgba(0,0,0,.4)}
+  .nlinks a:hover{color:#fff}
+  .ncta{border:1px solid rgba(255,255,255,.25)!important;border-radius:5px!important;padding:.42rem 1.1rem!important;color:#fff!important;background:rgba(0,0,0,.35);backdrop-filter:blur(8px);transition:all .2s!important}
+  .ncta:hover{background:rgba(0,0,0,.5)!important}
+}
+.burg{width:40px;height:40px;border:1px solid rgba(255,255,255,.22);border-radius:var(--r2);background:rgba(0,0,0,.35);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:5px;cursor:pointer;backdrop-filter:blur(8px)}
+.burg b{display:block;width:16px;height:1.5px;background:#fff;border-radius:2px;transition:.3s}
+.burg.on b:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.burg.on b:nth-child(2){opacity:0}
+.burg.on b:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.mnav{position:fixed;inset:0;z-index:450;background:rgba(2,4,8,.97);backdrop-filter:blur(24px);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2.5rem;opacity:0;visibility:hidden;transition:.4s}
+.mnav.on{opacity:1;visibility:visible}
+.mnav a{font-family:var(--fd);font-size:clamp(1.8rem,6vw,2.6rem);color:#f0f4f8;text-decoration:none;letter-spacing:.04em;transition:.2s}
+.mnav a:hover{color:#c8d8e4}
+
+#ann{background:rgba(10,14,18,.65);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.12);padding:.48rem 2rem;display:flex;align-items:center;justify-content:center;gap:.75rem;font-size:.67rem;color:#c8d8e4;position:relative;z-index:490;font-family:var(--fm)}
+#ann em{font-style:normal;color:#fff;font-weight:500}
+#annx{position:absolute;right:1rem;cursor:pointer;color:#6888a0;font-size:1rem;line-height:1}
+#annx:hover{color:#fff}
+
+/* ═══════════════════════════════════════════════════════
+   CONTENT LAYERS
+   
+   KEY INSIGHT: The canvas background is BRIGHT (light gray,
+   like a real data center). So content panels need to be 
+   DARK glass to be readable — reversed from all previous versions.
+   Text is WHITE on dark glass, floating over bright background.
+═══════════════════════════════════════════════════════ */
+section{position:relative;z-index:2}
+
+/* Dark glass panels that float over bright background */
+.g{background:rgba(8,12,16,.55);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.15);border-radius:var(--r)}
+
+.zlbl{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--fm);font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:.72rem}
+.zlbl::before{content:'';width:10px;height:1px;background:rgba(255,255,255,.35)}
+.sh{font-family:var(--fd);font-weight:700;font-size:clamp(1.85rem,5vw,3rem);color:#fff;line-height:1.08;text-shadow:0 2px 20px rgba(0,0,0,.85)}
+.ss{font-size:.88rem;font-weight:300;color:rgba(255,255,255,.55);line-height:1.88;margin-top:.58rem}
+.shd{margin-bottom:2.8rem}.shd.c{text-align:center}.shd.c .ss{max-width:480px;margin:.58rem auto 0}
+.si{max-width:1080px;margin:0 auto}
+.sec{padding:5.5rem 2rem}
+
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s,transform .55s}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+.rv.vis{opacity:1;transform:none}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* Hero */
+#hero{min-height:100vh;display:flex;align-items:center;padding:9rem 2rem 5rem}
+.hi{max-width:1080px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr;gap:4rem;align-items:center}
+@media(min-width:960px){.hi{grid-template-columns:1fr 355px}}
+.heye{font-family:var(--fd);font-style:italic;font-weight:400;font-size:clamp(.92rem,2.5vw,1.2rem);color:rgba(255,255,255,.6);animation:fin .8s .2s both;display:block;margin-bottom:.1em;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.hh1{font-family:var(--fd);font-weight:700;font-size:clamp(3.5rem,11vw,7rem);color:#fff;line-height:.95;animation:fin .8s .3s both;margin-bottom:.15em;text-shadow:0 4px 40px rgba(0,0,0,.9),0 0 80px rgba(0,0,0,.7)}
+.hrule{display:flex;align-items:center;gap:.82rem;margin:1.1rem 0;animation:fin .8s .45s both}
+.hrule::before{content:'';width:25px;height:1px;background:rgba(255,255,255,.3)}
+.hrt{font-family:var(--fm);font-size:.54rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.htype{font-size:clamp(.86rem,2vw,.96rem);font-weight:300;color:rgba(255,255,255,.55);line-height:1.85;margin-bottom:1.7rem;animation:fin .8s .55s both;min-height:3em;text-shadow:0 1px 10px rgba(0,0,0,.7)}
+.htype em{color:rgba(255,255,255,.88);font-style:normal;font-weight:400}
+.tcurs{display:inline-block;width:2px;height:.9em;background:#fff;vertical-align:middle;margin-left:1px;animation:tcb .7s step-end infinite;opacity:.7}
+@keyframes tcb{from,to{opacity:.7}50%{opacity:0}}
+.avb{display:inline-flex;align-items:center;gap:.48rem;border:1px solid rgba(34,197,94,.3);border-radius:4px;padding:.28rem .8rem .28rem .5rem;background:rgba(34,197,94,.12);font-family:var(--fm);font-size:.55rem;letter-spacing:.1em;color:rgba(34,197,94,.9);margin-bottom:1.3rem;animation:fin .7s .1s both}
+.avd{width:6px;height:6px;border-radius:50%;background:var(--g);animation:pulse 2s ease-in-out infinite}
+
+.hcards{display:grid;grid-template-columns:1fr 1fr;gap:.48rem;margin-bottom:1.65rem;animation:fin .8s .65s both}
+.hcard{background:rgba(8,12,16,.52);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:.78rem .9rem;transition:.25s;cursor:default;position:relative;overflow:hidden}
+.hcard::before{content:'';position:absolute;top:0;left:0;width:2px;height:100%;background:rgba(255,255,255,.15);transition:.25s}
+.hcard:hover{background:rgba(8,12,16,.68);border-color:rgba(255,255,255,.22)}
+.hcard:hover::before{background:rgba(255,255,255,.5)}
+.hcard h3{font-size:.74rem;font-weight:500;color:#fff;margin-bottom:.15rem;line-height:1.4;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.hcard p{font-size:.65rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.5}
+
+.btp{display:inline-flex;align-items:center;gap:.55rem;padding:.82rem 1.6rem;border-radius:5px;font-family:var(--fb);font-size:.84rem;font-weight:500;text-decoration:none;cursor:pointer;transition:all .25s;background:rgba(240,245,248,.92);color:#080e14;border:none}
+.btp:hover{background:#fff;transform:translateY(-1px);box-shadow:0 6px 24px rgba(0,0,0,.4)}
+.bts{display:inline-flex;align-items:center;gap:.48rem;padding:.82rem 1.6rem;border-radius:5px;font-family:var(--fb);font-size:.84rem;font-weight:400;text-decoration:none;cursor:pointer;transition:all .25s;background:rgba(8,12,16,.45);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.22);color:#fff}
+.bts:hover{background:rgba(8,12,16,.62);transform:translateY(-1px)}
+.hbtns{display:flex;gap:.68rem;flex-wrap:wrap;animation:fin .8s .8s both}
+.hcons{display:flex;gap:1.4rem;flex-wrap:wrap;margin-top:1.35rem;animation:fin .8s .95s both}
+.hcon{display:flex;align-items:center;gap:.42rem;text-decoration:none;color:rgba(255,255,255,.45);font-size:.72rem;transition:color .2s;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.hcon:hover{color:#fff}
+.hcon strong{color:rgba(255,255,255,.72);font-weight:500}
+.wsv{flex-shrink:0}
+
+/* Server panel */
+.spanel{width:100%;max-width:360px;height:460px;background:rgba(6,10,14,.72);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);display:flex;flex-direction:column;overflow:hidden}
+.spt{background:rgba(4,8,12,.82);border-bottom:1px solid rgba(255,255,255,.1);padding:.56rem .84rem;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sptl{font-family:var(--fm);font-size:.46rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.35)}
+.spds{display:flex;gap:.3rem}.spd{width:8px;height:8px;border-radius:50%}
+.spd.r{background:#ff5f57}.spd.y{background:#febc2e}.spd.g{background:#28c840}
+.spb{flex:1;padding:.72rem .84rem;display:flex;flex-direction:column;gap:.42rem;overflow:hidden;min-height:0}
+.spr{display:flex;gap:.38rem;flex:1;min-height:0}
+.su{flex:1;background:rgba(2,5,9,.68);border:1px solid rgba(255,255,255,.08);border-radius:var(--r2);padding:.42rem .52rem;position:relative;display:flex;flex-direction:column;gap:.22rem;overflow:hidden}
+.su::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:rgba(255,255,255,.1)}
+.su.ok::before{background:var(--g)}.su.warn::before{background:var(--a)}
+.sled{position:absolute;right:.42rem;top:.42rem;width:4px;height:4px;border-radius:50%;animation:pulse var(--bd,2s) ease-in-out infinite}
+.sled.g{background:var(--g);box-shadow:0 0 5px var(--g)}
+.sled.a{background:var(--a);box-shadow:0 0 5px var(--a)}
+.slbl{font-family:var(--fm);font-size:.44rem;letter-spacing:.06em;color:rgba(255,255,255,.3);text-transform:uppercase}
+.sbar{height:2px;background:rgba(255,255,255,.05);border-radius:1px;overflow:hidden}
+.sbf{height:100%;border-radius:1px;animation:sbp var(--pb,4s) ease-in-out infinite alternate}
+.sbf.g{background:var(--g)}.sbf.a{background:var(--a)}.sbf.b{background:#60a5fa}
+@keyframes sbp{from{width:var(--mn,20%)}to{width:var(--mx,85%)}}
+.sval{font-family:var(--fm);font-size:.44rem;color:rgba(255,255,255,.45)}
+.smini{width:100%;height:46px;display:block;opacity:.48;flex-shrink:0}
+.spft{background:rgba(4,8,12,.82);border-top:1px solid rgba(255,255,255,.08);padding:.44rem .84rem;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.spfi{display:flex;align-items:center;gap:.28rem;font-family:var(--fm);font-size:.44rem;color:rgba(255,255,255,.32)}
+.spfd{width:4px;height:4px;border-radius:50%}
+
+/* Marquee */
+.mqw{position:relative;z-index:3;overflow:hidden;background:rgba(8,12,16,.58);backdrop-filter:blur(10px);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);padding:.5rem 0}
+.mqt{display:flex;gap:3rem;white-space:nowrap;animation:mqr 44s linear infinite}
+.mqt:hover{animation-play-state:paused}
+.mqi{font-family:var(--fm);font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.38);display:inline-flex;align-items:center;gap:.65rem}
+.mqi::before{content:'';width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0}
+@keyframes mqr{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* Stats */
+#stats{background:rgba(8,12,16,.55);backdrop-filter:blur(14px);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.sgrid{max-width:1080px;margin:0 auto;padding:2.2rem 2rem;display:grid;grid-template-columns:repeat(2,1fr)}
+@media(min-width:640px){.sgrid{grid-template-columns:repeat(4,1fr)}}
+.scell{text-align:center;padding:1.5rem 1rem;border-right:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1)}
+.scell:nth-child(2){border-right:none}.scell:nth-child(3){border-bottom:none}.scell:last-child{border-right:none;border-bottom:none}
+@media(min-width:640px){.scell{border-bottom:none}.scell:nth-child(2){border-right:1px solid rgba(255,255,255,.1)}.scell:last-child{border-right:none}}
+.snum{font-family:var(--fd);font-weight:700;font-size:clamp(1.8rem,4.5vw,2.7rem);color:#fff;line-height:1;margin-bottom:.28rem;text-shadow:0 2px 16px rgba(0,0,0,.8)}
+.slbl2{font-family:var(--fm);font-size:.5rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+
+/* All content cards — dark glass on bright bg */
+.sve{display:grid;grid-template-columns:44px 1fr;gap:1.5rem;background:rgba(8,12,16,.5);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.13);border-radius:var(--r);padding:1.8rem 1.6rem;margin-bottom:.75rem;position:relative;overflow:hidden;transition:.25s}
+.sve::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:rgba(255,255,255,.15);transition:.25s}
+.sve:hover{background:rgba(8,12,16,.65);border-color:rgba(255,255,255,.2)}
+.sve:hover::before{background:rgba(255,255,255,.5)}
+.svn{font-family:var(--fd);font-weight:700;font-size:2.4rem;color:rgba(255,255,255,.07);line-height:1;padding-top:.28rem}
+.svb h2{font-family:var(--fd);font-weight:600;font-size:clamp(1.2rem,3vw,1.7rem);color:#fff;margin-bottom:.3rem;line-height:1.15;text-shadow:0 2px 16px rgba(0,0,0,.8)}
+.svb>p{font-size:.84rem;font-weight:300;color:rgba(255,255,255,.5);line-height:1.85;margin-bottom:1.2rem;max-width:500px}
+.svfs{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:.4rem}
+.svf{display:flex;align-items:flex-start;gap:.46rem;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--r2);padding:.6rem .78rem;transition:.2s}
+.svf:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.18)}
+.svfd{width:4px;height:4px;border-radius:50%;background:var(--g);flex-shrink:0;margin-top:.42rem}
+.svf p{font-size:.72rem;font-weight:300;color:rgba(255,255,255,.7);line-height:1.5}
+@media(max-width:560px){.sve{grid-template-columns:1fr}.svn{font-size:2rem}}
+
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:.82rem}
+.step{background:rgba(8,12,16,.5);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.13);border-radius:var(--r);padding:1.7rem 1.3rem;transition:.25s;position:relative;overflow:hidden}
+.step:hover{background:rgba(8,12,16,.65);border-color:rgba(255,255,255,.2)}
+.stpic{width:42px;height:42px;border-radius:var(--r2);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;margin-bottom:.95rem}
+.stpic svg{width:18px;height:18px;stroke:rgba(255,255,255,.7);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.stn2{position:absolute;top:1.2rem;right:1.2rem;font-family:var(--fd);font-size:2.4rem;font-weight:700;color:rgba(255,255,255,.04);line-height:1}
+.step h3{font-family:var(--fd);font-size:1.15rem;font-weight:600;color:#fff;margin-bottom:.4rem;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.step p{font-size:.76rem;font-weight:300;color:rgba(255,255,255,.48);line-height:1.82}
+
+.whyg{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:.82rem}
+.wc{padding:1.35rem 1.25rem;border:1px solid rgba(255,255,255,.13);border-radius:var(--r);background:rgba(8,12,16,.5);backdrop-filter:blur(16px);transition:.25s}
+.wc:hover{background:rgba(8,12,16,.65);border-color:rgba(255,255,255,.2)}
+.wci{width:32px;height:32px;border-radius:var(--r2);background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;margin-bottom:.82rem}
+.wci svg{width:13px;height:13px;stroke:rgba(255,255,255,.65);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.wc h3{font-family:var(--fd);font-size:1.06rem;font-weight:600;color:#fff;margin-bottom:.3rem;text-shadow:0 2px 8px rgba(0,0,0,.8)}
+.wc p{font-size:.74rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.75}
+
+.tgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:.82rem}
+.tc{background:rgba(8,12,16,.5);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.13);border-radius:var(--r);padding:1.5rem;transition:.25s}
+.tc:hover{background:rgba(8,12,16,.65);border-color:rgba(255,255,255,.2)}
+.tcst{color:var(--a);font-size:.75rem;letter-spacing:2px;margin-bottom:.82rem}
+.tcq{font-family:var(--fd);font-style:italic;font-weight:400;font-size:.9rem;color:rgba(255,255,255,.68);line-height:1.82;margin-bottom:1.05rem}
+.tcq::before{content:'\201C';font-size:1.55rem;color:rgba(255,255,255,.15);line-height:0;vertical-align:-.46rem;margin-right:.1rem}
+.tcau{display:flex;align-items:center;gap:.72rem}
+.tcav{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:.65rem;color:rgba(255,255,255,.55);flex-shrink:0}
+.tcnm{font-size:.78rem;font-weight:500;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.tclc{font-size:.62rem;color:rgba(255,255,255,.38);font-family:var(--fm)}
+
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(228px,1fr));gap:.82rem}
+.pc{background:rgba(8,12,16,.5);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.13);border-radius:var(--r);padding:1.85rem 1.6rem;transition:.25s;position:relative;overflow:hidden}
+.pc:hover{background:rgba(8,12,16,.65);border-color:rgba(255,255,255,.2)}
+.pc.feat{background:rgba(8,12,16,.6);border-color:rgba(255,255,255,.2)}
+.pc.feat::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:rgba(255,255,255,.45)}
+.pcbg{display:inline-block;font-family:var(--fm);font-size:.46rem;letter-spacing:.13em;color:rgba(255,255,255,.6);background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:4px;padding:.18rem .6rem;text-transform:uppercase;margin-bottom:.6rem}
+.pc h3{font-family:var(--fd);font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.25rem;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.pcd{font-size:.68rem;color:rgba(255,255,255,.4);font-weight:300;margin-bottom:1rem;line-height:1.6}
+.pcp{font-family:var(--fd);font-weight:700;font-size:1.95rem;color:#fff;line-height:1;margin-bottom:.25rem;text-shadow:0 2px 10px rgba(0,0,0,.8)}
+.pcp sub{font-size:.84rem;font-weight:300;color:rgba(255,255,255,.4)}
+.pcn{font-family:var(--fm);font-size:.5rem;color:rgba(255,255,255,.3);margin-bottom:1.3rem}
+.pc ul{list-style:none;display:flex;flex-direction:column;gap:.42rem;margin-bottom:1.55rem}
+.pc ul li{font-size:.74rem;font-weight:300;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:.5rem;padding:.26rem 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.pc ul li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--g);flex-shrink:0}
+.pc .btp,.pc .bts{width:100%;justify-content:center}
+
+.flist{display:flex;flex-direction:column;gap:.4rem;max-width:700px;margin:0 auto}
+.fi{background:rgba(8,12,16,.5);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.13);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+.fi.open{border-color:rgba(255,255,255,.22)}
+.fiq{display:flex;justify-content:space-between;align-items:center;padding:1.02rem 1.3rem;cursor:pointer;gap:1rem}
+.fiqt{font-size:.84rem;font-weight:400;color:#fff;line-height:1.5;text-shadow:0 1px 6px rgba(0,0,0,.8)}
+.fiic{width:20px;height:20px;border:1px solid rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:.3s;font-size:.8rem;color:rgba(255,255,255,.5)}
+.fi.open .fiic{border-color:rgba(255,255,255,.4);color:#fff;transform:rotate(45deg)}
+.fia{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1)}
+.fiai{padding:0 1.3rem 1rem;font-size:.8rem;font-weight:300;color:rgba(255,255,255,.45);line-height:1.9;border-top:1px solid rgba(255,255,255,.07);padding-top:.8rem}
+
+.cgrid{display:grid;grid-template-columns:1fr;gap:2.8rem}
+@media(min-width:840px){.cgrid{grid-template-columns:1fr 1fr}}
+.cinfo{display:flex;flex-direction:column;gap:1.15rem}
+.cii{display:flex;align-items:flex-start;gap:.85rem}
+.ciic{width:40px;height:40px;border:1px solid rgba(255,255,255,.18);border-radius:var(--r2);background:rgba(8,12,16,.55);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ciic svg{width:15px;height:15px;stroke:rgba(255,255,255,.62);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.ciil{font-family:var(--fm);font-size:.48rem;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-bottom:.2rem}
+.ciiv{font-size:.84rem;color:#fff;text-decoration:none;transition:color .2s;display:block;text-shadow:0 1px 8px rgba(0,0,0,.8)}
+.ciiv:hover{color:rgba(255,255,255,.75)}
+.ciis{font-size:.62rem;color:rgba(255,255,255,.35)}
+.bwa{display:inline-flex;align-items:center;gap:.6rem;padding:.82rem 1.3rem;border-radius:5px;font-size:.8rem;font-weight:500;text-decoration:none;cursor:pointer;transition:all .25s;background:rgba(37,211,102,.14);border:1px solid rgba(37,211,102,.35);color:#fff}
+.bwa:hover{background:rgba(37,211,102,.24);border-color:#25d366;transform:translateY(-1px)}
+.waops{margin-top:.4rem;display:flex;flex-direction:column;gap:.5rem}
+.wanote{font-family:var(--fm);font-size:.52rem;color:rgba(255,255,255,.28)}
+.avsig{display:inline-flex;align-items:center;gap:.36rem;font-family:var(--fm);font-size:.54rem;color:rgba(34,197,94,.72);margin-top:.6rem}
+.cform{display:flex;flex-direction:column;gap:.76rem}
+.crow{display:grid;grid-template-columns:1fr 1fr;gap:.76rem}
+@media(max-width:480px){.crow{grid-template-columns:1fr}}
+.cf{display:flex;flex-direction:column;gap:.28rem}
+.cf label{font-family:var(--fm);font-size:.48rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.32)}
+.cf input,.cf textarea,.cf select{background:rgba(4,8,12,.6);border:1px solid rgba(255,255,255,.14);border-radius:var(--r2);padding:.72rem .9rem;color:#fff;font-family:var(--fb);font-size:.82rem;font-weight:300;outline:none;transition:border-color .2s;width:100%;resize:vertical}
+.cf input::placeholder,.cf textarea::placeholder{color:rgba(255,255,255,.25)}
+.cf input:focus,.cf textarea:focus,.cf select:focus{border-color:rgba(255,255,255,.28)}
+.cf select option{background:#080c12}
+.cf textarea{min-height:105px}
+.cfsbtn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:.88rem 1.85rem;border-radius:5px;font-family:var(--fb);font-size:.83rem;font-weight:500;cursor:pointer;border:none;background:rgba(240,245,248,.9);color:#060c12;transition:all .25s;width:100%;margin-top:.26rem}
+.cfsbtn:hover{background:#fff;transform:translateY(-1px);box-shadow:0 6px 22px rgba(0,0,0,.5)}
+#fmsg{text-align:center;font-family:var(--fm);font-size:.62rem;color:var(--g);min-height:1.4em;margin-top:.26rem}
+
+#book{padding:7rem 2rem;text-align:center}
+.bkc{max-width:580px;margin:0 auto}
+.bkh{font-family:var(--fd);font-style:italic;font-weight:400;font-size:clamp(2rem,6.5vw,4.5rem);color:#fff;line-height:1.05;text-shadow:0 4px 30px rgba(0,0,0,.9)}
+.bkh strong{font-style:normal;font-weight:700;display:block}
+.bks{font-size:.86rem;font-weight:300;color:rgba(255,255,255,.48);line-height:1.88;max-width:400px;margin:1.2rem auto 2.1rem}
+.bkb{display:flex;gap:.82rem;justify-content:center;flex-wrap:wrap}
+.btwl{display:inline-flex;align-items:center;gap:.68rem;padding:.96rem 2rem;border-radius:5px;font-size:.87rem;font-weight:500;text-decoration:none;transition:all .25s;background:rgba(37,211,102,.14);border:1px solid rgba(37,211,102,.38);color:#fff}
+.btwl:hover{background:rgba(37,211,102,.24);border-color:#25d366;transform:translateY(-2px)}
+.btel{display:inline-flex;align-items:center;gap:.62rem;padding:.96rem 2rem;border-radius:5px;font-size:.87rem;font-weight:400;text-decoration:none;transition:all .25s;background:rgba(8,12,16,.45);border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8)}
+.btel:hover{background:rgba(8,12,16,.62);transform:translateY(-2px)}
+
+footer{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.1);padding:4.5rem 2rem 2.8rem;background:rgba(4,8,12,.94);backdrop-filter:blur(24px)}
+.fgrid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr;gap:2.8rem;margin-bottom:2.8rem}
+@media(min-width:640px){.fgrid{grid-template-columns:1.8fr 1fr 1fr}}
+.flogo{font-family:var(--fd);font-weight:700;font-size:1.18rem;color:#fff;letter-spacing:.04em;margin-bottom:.6rem}
+.fdesc{font-size:.76rem;font-weight:300;color:rgba(255,255,255,.35);line-height:1.85;max-width:290px;margin-bottom:1.05rem}
+.fsoc{display:flex;gap:.55rem}
+.fsc{width:30px;height:30px;border-radius:var(--r2);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:.2s}
+.fsc:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}
+.fsc svg{width:13px;height:13px;stroke:rgba(255,255,255,.45);fill:none;stroke-width:1.5;transition:stroke .2s}
+.fsc:hover svg{stroke:#fff}
+.fscwa svg{fill:#25d366;stroke:none!important}
+.fcol h4{font-family:var(--fm);font-size:.48rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:.82rem}
+.fcol ul{list-style:none;display:flex;flex-direction:column;gap:.46rem}
+.fcol ul li a,.fcol ul li span{font-size:.76rem;font-weight:300;color:rgba(255,255,255,.44);text-decoration:none;transition:color .2s;display:block}
+.fcol ul li a:hover{color:#fff}
+.fonl{color:rgba(34,197,94,.68)!important}
+.fbot{max-width:1080px;margin:0 auto;border-top:1px solid rgba(255,255,255,.07);padding-top:1.6rem;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+.fcopy{font-family:var(--fm);font-size:.54rem;color:rgba(255,255,255,.26)}
+</style>
+</head>
+<body>
+<div id="ca"></div><div id="cb"></div>
+<div id="pb"></div>
+<canvas id="cvs"></canvas>
+<div id="zpill"><div id="zpd"></div><span id="zpt">Cold Aisle · Entry Corridor</span></div>
+
+<a href="https://wa.me/27686282874" id="fwa"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+<div id="znav">
+  <div class="zn on" data-sec="hero"><span class="znl">Entry</span><div class="znd"></div></div>
+  <div class="zn" data-sec="services"><span class="znl">Services</span><div class="znd"></div></div>
+  <div class="zn" data-sec="how"><span class="znl">Process</span><div class="znd"></div></div>
+  <div class="zn" data-sec="testi"><span class="znl">Reviews</span><div class="znd"></div></div>
+  <div class="zn" data-sec="pricing"><span class="znl">Pricing</span><div class="znd"></div></div>
+  <div class="zn" data-sec="faq"><span class="znl">FAQ</span><div class="znd"></div></div>
+  <div class="zn" data-sec="contact"><span class="znl">Contact</span><div class="znd"></div></div>
+</div>
+
+<div id="ldr">
+  <div class="lw">
+    <div><div class="lk">Kryvexis</div><div class="ls" style="margin-top:.2rem">Server Room · Johannesburg</div></div>
+    <div class="ltm"><div class="ltb"><div class="ld r"></div><div class="ld y"></div><div class="ld g"></div></div><div class="lb" id="lterm"></div></div>
+    <div style="display:flex;flex-direction:column;gap:.34rem"><div class="lpb"><div class="lpf" id="lpf"></div></div><div class="lpct" id="lpct">0%</div></div>
+  </div>
+</div>
+
+<div class="mnav" id="mnav">
+  <a href="#hero" onclick="cnav()">Home</a><a href="#services" onclick="cnav()">Services</a>
+  <a href="#how" onclick="cnav()">How It Works</a><a href="#pricing" onclick="cnav()">Pricing</a>
+  <a href="#faq" onclick="cnav()">FAQ</a><a href="#contact" onclick="cnav()">Contact</a>
+</div>
+
+<div id="ann">🔧 <em>Now available</em> technical support, CV help, and modern website services <span id="annx" onclick="this.parentElement.remove()">✕</span></div>
+
+<nav id="nav">
+  <a href="#hero" class="nlog">Kryvexis<div class="nonl"><div class="nonld"></div>Online</div></a>
+  <div class="nlinks"><a href="#services">Services</a><a href="#how">Process</a><a href="#testi">Reviews</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a><a href="#contact" class="ncta">Contact</a></div>
+  <div class="burg" id="burg" onclick="tnav()"><b></b><b></b><b></b></div>
+</nav>
+
+<section id="hero">
+  <div class="hi">
+    <div>
+      <div class="avb"><div class="avd"></div> Johannesburg-based · WhatsApp-first support</div>
+      <span class="heye">Step into the</span>
+      <h1 class="hh1">Kryvexis<br><span style="font-style:italic;font-weight:400;font-size:.5em;color:rgba(255,255,255,.38)">Server Room</span></h1>
+      <div class="hrule"><span class="hrt">Fast · Reliable · Expert · Johannesburg</span></div>
+      <div class="htype">Practical technical support and modern digital services for individuals, professionals, and small businesses.<span id="typed" style="display:none"></span><span class="tcurs" style="display:none"></span></div>
+      <div class="hcards">
+        <div class="hcard"><h3>Performance &amp; Virus Help</h3><p>Malware removal, speed &amp; security</p></div>
+        <div class="hcard"><h3>Software &amp; Wi-Fi</h3><p>Software install, Wi-Fi &amp; printers</p></div>
+        <div class="hcard"><h3>CV &amp; LinkedIn</h3><p>Career docs &amp; Windows upgrades</p></div>
+        <div class="hcard"><h3>Website Design</h3><p>Data backup &amp; custom websites</p></div>
+      </div>
+      <div class="hbtns"><a href="https://wa.me/27686282874" class="btp">Book on WhatsApp</a><a href="#services" class="bts">Explore Services ↓</a></div>
+      <div class="hcons">
+        <a href="https://wa.me/27686282874" class="hcon"><svg class="wsv" width="13" height="13" viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><strong>WhatsApp</strong>&nbsp;068 628 2874</a>
+        <a href="mailto:kryvexissolutions@gmail.com" class="hcon"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg><strong>Email</strong>&nbsp;kryvexissolutions@gmail.com</a>
+      </div>
+    </div>
+    <div id="pwrap" style="display:flex;justify-content:center">
+      <div class="spanel">
+        <div class="spt"><span class="sptl">System Monitor — JHB-01</span><div class="spds"><div class="spd r"></div><div class="spd y"></div><div class="spd g"></div></div></div>
+        <div class="spb">
+          <div class="spr"><div class="su ok"><div class="sled g" style="--bd:1.2s"></div><div class="slbl">CPU Node A</div><div class="sbar"><div class="sbf b" style="--pb:3.2s;--mn:55%;--mx:82%"></div></div><div class="sval">72%</div></div><div class="su ok"><div class="sled g" style="--bd:.8s"></div><div class="slbl">CPU Node B</div><div class="sbar"><div class="sbf b" style="--pb:2.9s;--mn:40%;--mx:74%"></div></div><div class="sval">64%</div></div></div>
+          <div class="spr"><div class="su ok"><div class="sled g" style="--bd:2.1s"></div><div class="slbl">Memory</div><div class="sbar"><div class="sbf g" style="--pb:5.4s;--mn:48%;--mx:68%"></div></div><div class="sval">58%</div></div><div class="su warn"><div class="sled a" style="--bd:1.5s"></div><div class="slbl">Storage</div><div class="sbar"><div class="sbf a" style="--pb:7.2s;--mn:74%;--mx:80%"></div></div><div class="sval">77%</div></div><div class="su ok"><div class="sled g" style="--bd:.5s"></div><div class="slbl">Network</div><div class="sbar"><div class="sbf g" style="--pb:2.2s;--mn:18%;--mx:88%"></div></div><div class="sval">↑↓</div></div></div>
+          <div class="spr" style="flex:1.4"><div class="su ok" style="flex:1"><div class="sled g" style="--bd:3s"></div><div class="slbl">Security Core</div><div class="sbar"><div class="sbf g" style="--pb:6s;--mn:90%;--mx:98%"></div></div><div class="sbar"><div class="sbf b" style="--pb:3.5s;--mn:60%;--mx:79%"></div></div><div class="sbar"><div class="sbf b" style="--pb:4.2s;--mn:40%;--mx:70%"></div></div><div class="sval">Firewall: Active</div></div></div>
+          <div class="spr"><div class="su ok"><div class="sled g" style="--bd:1.9s"></div><div class="slbl">Uplink</div><div class="sbar"><div class="sbf g" style="--pb:2.5s;--mn:78%;--mx:95%"></div></div></div><div class="su ok"><div class="sled g" style="--bd:2.6s"></div><div class="slbl">Backup</div><div class="sbar"><div class="sbf b" style="--pb:5.8s;--mn:28%;--mx:52%"></div></div></div></div>
+          <canvas class="smini" id="smini"></canvas>
+        </div>
+        <div class="spft"><div class="spfi"><div class="spfd" style="background:var(--g)"></div>4 Nodes Online</div><div class="spfi"><div class="spfd" style="background:var(--a)"></div>1 Warning</div><div class="spfi" id="clk">00:00:00</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="mqw"><div class="mqt" id="mqt"></div></div>
+<section id="stats"><div class="sgrid">
+  <div class="scell rv"><div class="snum">JHB</div><div class="slbl2">Based in Johannesburg</div></div>
+  <div class="scell rv d1"><div class="snum">Direct</div><div class="slbl2">WhatsApp Communication</div></div>
+  <div class="scell rv d2"><div class="snum">4</div><div class="slbl2">Core Service Areas</div></div>
+  <div class="scell rv d3"><div class="snum">Modern</div><div class="slbl2">Professional Presentation</div></div>
+</div></section>
+
+<section id="services" class="sec"><div class="si">
+  <div class="shd rv"><span class="zlbl">Hot Aisle · Services Wing</span><h2 class="sh">Practical support,<br>digital polish, and business websites</h2><p class="ss">A more grounded service mix for people and businesses that need technical help, stronger presentation, and a cleaner online presence.</p></div>
+  <div class="sve rv"><div class="svn">01</div><div class="svb"><h2>Performance &amp; Virus Help</h2><p>Your machine running slow or acting suspiciously? We eliminate every virus, malware and bloatware — then optimise your system until it runs faster than the day you bought it.</p><div class="svfs"><div class="svf"><div class="svfd"></div><p>Deep virus &amp; malware removal</p></div><div class="svf"><div class="svfd"></div><p>Full system performance tune-up</p></div><div class="svf"><div class="svfd"></div><p>Complete security scanning</p></div><div class="svf"><div class="svfd"></div><p>Startup &amp; boot speed fix</p></div></div></div></div>
+  <div class="sve rv d1"><div class="svn">02</div><div class="svb"><h2>Device &amp; Wi-Fi Help</h2><p>Wi-Fi dropping? Software refusing to install? Printer offline? We handle every device and network challenge. Android, iPhone, laptop, printer — we speak all their languages.</p><div class="svfs"><div class="svf"><div class="svfd"></div><p>Wi-Fi troubleshooting &amp; setup</p></div><div class="svf"><div class="svfd"></div><p>Software installation</p></div><div class="svf"><div class="svfd"></div><p>Printer &amp; peripheral setup</p></div><div class="svf"><div class="svfd"></div><p>Android &amp; iPhone support</p></div></div></div></div>
+  <div class="sve rv d2"><div class="svn">03</div><div class="svb"><h2>CV &amp; LinkedIn Services</h2><p>Land that job. We write ATS-optimised CVs and polished LinkedIn profiles that get you noticed — plus Windows upgrades and data transfers handled with care.</p><div class="svfs"><div class="svf"><div class="svfd"></div><p>Professional CV writing</p></div><div class="svf"><div class="svfd"></div><p>LinkedIn profile optimisation</p></div><div class="svf"><div class="svfd"></div><p>Windows upgrade advice</p></div><div class="svf"><div class="svfd"></div><p>Secure data backup &amp; transfer</p></div></div></div></div>
+  <div class="sve rv d3"><div class="svn">04</div><div class="svb"><h2>Website Design</h2><p>Your 24/7 digital storefront. We build fast, beautiful, mobile-ready websites tailored to your brand — with domain &amp; hosting guidance and full business tech support.</p><div class="svfs"><div class="svf"><div class="svfd"></div><p>Custom website design</p></div><div class="svf"><div class="svfd"></div><p>Business tech consultation</p></div><div class="svf"><div class="svfd"></div><p>Domain &amp; hosting setup</p></div><div class="svf"><div class="svfd"></div><p>Ongoing maintenance options</p></div></div></div></div>
+</div></section>
+
+<section id="how" class="sec"><div class="si">
+  <div class="shd c rv"><span class="zlbl">Network Operations Center</span><h2 class="sh">How It Works</h2><p class="ss">A simple process designed to keep communication clear and the next step obvious.</p></div>
+  <div class="steps">
+    <div class="step rv"><div class="stn2">01</div><div class="stpic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h3>Send an enquiry</h3><p>Reach out on WhatsApp or email with a short explanation of what you need help with.</p></div>
+    <div class="step rv d1"><div class="stn2">02</div><div class="stpic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><h3>Get a clear response</h3><p>You get practical feedback, scope or pricing guidance where needed, and a clear next step before work begins.</p></div>
+    <div class="step rv d2"><div class="stn2">03</div><div class="stpic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><h3>Move forward properly</h3><p>The work is completed with a focus on clean communication, practical results, and a more professional final outcome.</p></div>
+  </div>
+</div></section>
+<section id="why" style="padding:2rem 2rem 5.5rem"><div class="si">
+  <div class="whyg">
+    <div class="wc rv"><div class="wci"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><h3>Responsive and direct</h3><p>WhatsApp-first communication keeps things simple and personal instead of sending you through a call-centre style process.</p></div>
+    <div class="wc rv d1"><div class="wci"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>100% Transparent</h3><p>Quote before we start. No hidden fees. No upsells. Always honest.</p></div>
+    <div class="wc rv d2"><div class="wci"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="5"/><path d="M3 21a9 9 0 0 1 18 0"/></svg></div><h3>Real Experts</h3><p>You talk directly to the person fixing your problem. No scripts.</p></div>
+    <div class="wc rv d3"><div class="wci"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><h3>Johannesburg based</h3><p>Built around a local identity with support that can be handled directly or remotely depending on the job.</p></div>
+  </div>
+</div></section>
+
+<section id="testi" style="padding:5.5rem 2rem"><div class="si">
+  <div class="shd c rv"><span class="zlbl">Patch Panel Bay · Why Kryvexis</span><h2 class="sh">Why clients choose Kryvexis</h2><p class="ss">A cleaner standard, direct communication, and practical help without unnecessary complexity.</p></div>
+  <div class="tgrid">
+    <div class="tc rv"><div class="tcst">01</div><p class="tcq">Clear communication from the start, with practical help and straightforward next steps.</p><div class="tcau"><div class="tcav">K</div><div><div class="tcnm">Clear guidance</div><div class="tclc">Practical, professional, direct</div></div></div></div>
+    <div class="tc rv d1"><div class="tcst">02</div><p class="tcq">A more polished and modern presentation than the usual small business tech service site.</p><div class="tcau"><div class="tcav">K</div><div><div class="tcnm">Stronger presentation</div><div class="tclc">Premium visual standard</div></div></div></div>
+    <div class="tc rv d2"><div class="tcst">03</div><p class="tcq">Support across technical issues, digital presentation, and business website needs in one place.</p><div class="tcau"><div class="tcav">K</div><div><div class="tcnm">Connected services</div><div class="tclc">Support, CVs, websites</div></div></div></div>
+  </div>
+</div></section>
+
+<section id="pricing" class="sec"><div class="si">
+  <div class="shd c rv"><span class="zlbl">UPS Room · Power Distribution</span><h2 class="sh">Simple pricing guidance</h2><p class="ss">Clear starting points for support, career documents, and website work. Final pricing depends on scope.</p></div>
+  <div class="pgrid">
+    <div class="pc rv"><h3>Technical Support</h3><p class="pcd">For troubleshooting, setup, and common technical fixes</p><div class="pcp">From R150</div><div class="pcn">Quoted based on the issue</div><ul><li>Malware cleanup</li><li>Wi-Fi troubleshooting</li><li>Software installation</li><li>Printer setup</li></ul><a href="https://wa.me/27686282874" class="bts">Enquire Now</a></div>
+    <div class="pc feat rv d1"><div class="pcbg">Popular</div><h3>Career Services</h3><p class="pcd">For CV improvements and LinkedIn presentation</p><div class="pcp">From R300</div><div class="pcn">Quoted based on scope</div><ul><li>CV improvements</li><li>LinkedIn updates</li><li>Formatting and structure</li><li>Professional presentation</li></ul><a href="https://wa.me/27686282874" class="btp">Enquire Now</a></div>
+    <div class="pc rv d2"><h3>Website Projects</h3><p class="pcd">For business websites and custom digital work</p><div class="pcp" style="font-size:1.5rem;padding:.3rem 0">Custom<sub> quote</sub></div><div class="pcn">Based on pages, features, and scope</div><ul><li>Business website design</li><li>Landing pages</li><li>Domain and hosting guidance</li><li>Maintenance options</li><li>Technical support add-ons</li></ul><a href="https://wa.me/27686282874" class="bts">Request a Quote</a></div>
+  </div>
+</div></section>
+
+<section id="faq" style="padding:5.5rem 2rem"><div class="si">
+  <div class="shd c rv"><span class="zlbl">Network Switch Room · FAQ</span><h2 class="sh">Frequently Asked</h2><p class="ss">Clear answers to the questions we hear most often.</p></div>
+  <div class="flist">
+    <div class="fi rv"><div class="fiq" onclick="tog(this)"><span class="fiqt">What does Kryvexis Solutions offer?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Kryvexis Solutions offers technical support, device and connectivity help, career document services, and website design support for individuals and businesses.</div></div></div>
+    <div class="fi rv d1"><div class="fiq" onclick="tog(this)"><span class="fiqt">How do I get started?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">The easiest way is to send a WhatsApp message or use the contact form with a short explanation of what you need. From there you get guidance on the next step.</div></div></div>
+    <div class="fi rv d2"><div class="fiq" onclick="tog(this)"><span class="fiqt">Do you work only in Johannesburg?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Kryvexis is based in Johannesburg, with some services available remotely depending on the type of support needed.</div></div></div>
+    <div class="fi rv"><div class="fiq" onclick="tog(this)"><span class="fiqt">Do you offer website maintenance?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Yes. Website updates and maintenance can be arranged depending on the project and what ongoing support is needed.</div></div></div>
+    <div class="fi rv d1"><div class="fiq" onclick="tog(this)"><span class="fiqt">Is the contact form secure?</span><span class="fiic">+</span></div><div class="fia"><div class="fiai">Yes. Form submissions are validated on the server, rate-limited, sanitised, and can be delivered by email without exposing private credentials in the browser.</div></div></div>
+  </div></div>
+</div></section>
+
+<section id="contact" class="sec"><div class="si">
+  <div class="shd rv"><span class="zlbl">Command Center · Contact</span><h2 class="sh">Get in Touch</h2><p class="ss">Send a message, WhatsApp us, or email. The form below is wired for real backend submission and email delivery.</p></div>
+  <div class="cgrid">
+    <div class="cinfo rv">
+      <div class="cii"><div class="ciic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><div><div class="ciil">WhatsApp (Fastest)</div><a href="https://wa.me/27686282874" class="ciiv">068 628 2874</a><div class="ciis">Fastest channel for direct communication</div></div></div>
+      <div class="cii"><div class="ciic"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></div><div><div class="ciil">Email</div><a href="mailto:kryvexissolutions@gmail.com" class="ciiv">kryvexissolutions@gmail.com</a><div class="ciis">Professional email enquiries</div></div></div>
+      <div class="cii"><div class="ciic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="ciil">Location</div><span class="ciiv" style="cursor:default">Johannesburg, South Africa</span><div class="ciis">Greater JHB &amp; Pretoria · Remote nationwide</div></div></div>
+      <div class="waops"><a href="https://wa.me/27686282874?text=Hi%20Kryvexis!%20I%20need%20help%20with:" class="bwa">Open WhatsApp Now</a><div class="wanote">Opens with a pre-filled message</div></div>
+      <div class="avsig"><div class="avd"></div> Secure contact flow · Ready for enquiries</div>
+    </div>
+    <div class="rv d1">
+      <form class="cform" id="contactForm">
+        <div class="crow"><div class="cf"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required/></div><div class="cf"><label>Phone / WhatsApp</label><input type="tel" name="phone" placeholder="e.g. 068 628 2874"/></div></div>
+        <div class="cf"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com" required/></div>
+        <div class="cf"><label>Service Needed</label><select name="service" required><option value="">Select a service...</option><option>Technical Support</option><option>Device &amp; Wi-Fi Help</option><option>CV &amp; LinkedIn Services</option><option>Website Design</option><option>Business Tech Support</option><option>Other / Not Sure</option></select></div>
+        <div class="cf"><label>Tell Us More</label><textarea name="message" placeholder="Describe your problem or project..." required></textarea></div><input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" />
+        <button type="submit" class="cfsbtn" id="submitBtn">Send Message</button>
+        <div id="fmsg"></div>
+      </form>
+    </div>
+  </div>
+</div></section>
+
+<section id="book"><div class="bkc">
+  <span class="zlbl rv" style="justify-content:center">Ready to Start</span>
+  <h2 class="bkh rv">Ready to<strong>Level Up?</strong></h2>
+  <p class="bks rv">Reach out directly on WhatsApp or send a proper enquiry through the secure form.</p>
+  <div class="bkb rv"><a href="https://wa.me/27686282874" class="btwl">Book on WhatsApp</a><a href="mailto:kryvexissolutions@gmail.com" class="btel">Send an Email</a></div>
+</div></section>
+
+<footer><div class="fgrid">
+  <div><div class="flogo">Kryvexis Solutions</div><p class="fdesc">Technical support, digital presentation help, and modern website services for individuals and businesses across Johannesburg.</p><div class="fsoc"><a href="https://wa.me/27686282874" class="fsc fscwa"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a><a href="mailto:kryvexissolutions@gmail.com" class="fsc"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></a></div></div>
+  <div class="fcol"><h4>Services</h4><ul><li><a href="#services">Performance &amp; Virus Help</a></li><li><a href="#services">Device &amp; Wi-Fi Help</a></li><li><a href="#services">CV &amp; LinkedIn Services</a></li><li><a href="#services">Website Design</a></li></ul></div>
+  <div class="fcol"><h4>Contact</h4><ul><li><a href="https://wa.me/27686282874">WhatsApp: 068 628 2874</a></li><li><a href="mailto:kryvexissolutions@gmail.com">kryvexissolutions@gmail.com</a></li><li><span>Johannesburg, South Africa</span></li><li><span class="fonl">● Available Now</span></li></ul></div>
+</div><div class="fbot"><div class="fcopy">© 2025 Kryvexis Solutions · All rights reserved</div><div class="fcopy">Johannesburg, South Africa</div></div></footer>
+
+<script>
+/* ─── CURSOR ─── */
+const CA=document.getElementById('ca'),CB=document.getElementById('cb');
+let MX=0,MY=0,RX=0,RY=0;
+document.addEventListener('mousemove',e=>{MX=e.clientX;MY=e.clientY;CA.style.left=MX+'px';CA.style.top=MY+'px'});
+(function r(){RX+=(MX-RX)*.1;RY+=(MY-RY)*.1;CB.style.left=RX+'px';CB.style.top=RY+'px';requestAnimationFrame(r)})();
+document.querySelectorAll('a,button,.hcard,.sve,.tc,.pc,.step,.wc,.fi').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('lh'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('lh'));
+});
+
+/* ═══════════════════════════════════════════════════════════════
+   PHOTOREALISTIC DATA CENTER — CORRECT LIGHT PHYSICS
+   
+   The fundamental truth about real data centers:
+   They are BRIGHT. Almost office-level brightness.
+   
+   Correct color values (from actual data center photography):
+   
+   COLD AISLE:
+   • Background/walls:  RGB(155, 162, 168)  — medium gray
+   • Ceiling tiles:     RGB(205, 210, 214)  — light gray
+   • Fluorescent strip: RGB(248, 252, 255)  — near white
+   • Floor tile A:      RGB(180, 188, 194)  — light gray
+   • Floor tile B:      RGB(168, 175, 181)  — slightly darker gray  
+   • Grout lines:       RGB(118, 125, 131)  — medium gray
+   • Rack body:         RGB(16, 18, 20)     — near black
+   
+   RESULT: Black racks DRAMATICALLY contrast against bright room.
+   
+   NO dark vignette over the whole canvas.
+   Just soft edge-only darkening.
+═══════════════════════════════════════════════════════════════ */
+const cvs=document.getElementById('cvs');
+const ctx=cvs.getContext('2d');
+let W,H,frame=0,camZ=0,tgtZ=0,scF=0;
+
+// LED system — only real data center colours
+const LEDS=Array.from({length:320},(_,i)=>({
+  c:i%17===0?'r':i%6===0?'a':'g',
+  t:Math.random()*6.28,
+  sp:.4+Math.random()*1.2
+}));
+function ledRGB(i){
+  const l=LEDS[i%LEDS.length];
+  const b=.45+.5*Math.sin(frame*.04*l.sp+l.t);
+  if(l.c==='g')return[48,218,82,b];
+  if(l.c==='a')return[255,162,0,b];
+  return[250,55,45,b];
+}
+
+function rsz(){W=cvs.width=innerWidth;H=cvs.height=innerHeight}
+rsz();addEventListener('resize',rsz);
+
+/* ─── SHARED DRAWING PRIMITIVES ─── */
+
+// Perspective floor with tiles and grout
+function drawFloor(VX,VY,fov,off,gs,r1,g1,b1,r2,g2,b2,rG,gG,bG,fogEnd=820){
+  const COLS=14;
+  for(let d=gs-off%gs;d<fogEnd+gs;d+=gs){
+    const sc=fov/(fov+d),y=VY+(H-VY)*(1-sc),xsp=W*.94*sc;
+    const scN=fov/(fov+d+gs),yN=VY+(H-VY)*(1-scN),xspN=W*.94*scN;
+    const fog=Math.max(0,1-d/fogEnd);
+    for(let c=0;c<COLS;c++){
+      const x0=VX+(c/COLS-.5)*2*xsp, x1=VX+((c+1)/COLS-.5)*2*xsp;
+      const x0n=VX+(c/COLS-.5)*2*xspN, x1n=VX+((c+1)/COLS-.5)*2*xspN;
+      const alt=(c+Math.floor(d/gs))%2;
+      ctx.fillStyle=alt?`rgba(${r1},${g1},${b1},${fog})`:`rgba(${r2},${g2},${b2},${fog})`;
+      ctx.beginPath();ctx.moveTo(x0,y);ctx.lineTo(x1,y);ctx.lineTo(x1n,yN);ctx.lineTo(x0n,yN);ctx.closePath();ctx.fill();
+    }
+    // Grout lines
+    for(let c=0;c<=COLS;c++){
+      const xv=VX+(c/COLS-.5)*2*xsp, xvn=VX+(c/COLS-.5)*2*xspN;
+      ctx.beginPath();ctx.moveTo(xv,y);ctx.lineTo(xvn,yN);
+      ctx.strokeStyle=`rgba(${rG},${gG},${bG},${fog})`;ctx.lineWidth=1.5;ctx.stroke();
+    }
+    ctx.beginPath();ctx.moveTo(VX-xsp,y);ctx.lineTo(VX+xsp,y);
+    ctx.strokeStyle=`rgba(${rG},${gG},${bG},${fog})`;ctx.lineWidth=1.5;ctx.stroke();
+  }
+}
+
+// Perspective ceiling with fluorescent panels
+function drawCeiling(VX,VY,fov,off,gs,panR,panG,panB,strR,strG,strB,fogEnd=660){
+  for(let d=gs-off%gs;d<fogEnd;d+=gs){
+    const sc=fov/(fov+d),y=VY-VY*(1-sc),xsp=W*.91*sc;
+    const scN=fov/(fov+d+gs),yN=VY-VY*(1-scN),xspN=W*.91*scN;
+    const fog=Math.max(0,1-d/(fogEnd*.92));
+    const isStrip=Math.floor(d/gs)%3===2;
+    // Panel
+    ctx.fillStyle=isStrip?`rgba(${strR},${strG},${strB},${fog})`:`rgba(${panR},${panG},${panB},${fog})`;
+    ctx.beginPath();ctx.moveTo(VX-xsp,y);ctx.lineTo(VX+xsp,y);ctx.lineTo(VX+xspN,yN);ctx.lineTo(VX-xspN,yN);ctx.closePath();ctx.fill();
+    if(isStrip){
+      // Bloom — the fluorescent tube itself is brighter in the center
+      const bl=ctx.createLinearGradient(VX-xsp*.6,y,VX+xsp*.6,y);
+      bl.addColorStop(0,'transparent');
+      bl.addColorStop(.28,`rgba(${strR},${strG},${strB},${fog*.82})`);
+      bl.addColorStop(.72,`rgba(${strR},${strG},${strB},${fog*.82})`);
+      bl.addColorStop(1,'transparent');
+      ctx.fillStyle=bl;
+      ctx.beginPath();ctx.moveTo(VX-xsp*.6,y);ctx.lineTo(VX+xsp*.6,y);ctx.lineTo(VX+xspN*.6,yN);ctx.lineTo(VX-xspN*.6,yN);ctx.closePath();ctx.fill();
+    }
+    // Panel border
+    ctx.beginPath();ctx.moveTo(VX-xsp,y);ctx.lineTo(VX+xsp,y);
+    ctx.strokeStyle=`rgba(${panR-30},${panG-28},${panB-26},${fog*.7})`;ctx.lineWidth=.8;ctx.stroke();
+  }
+}
+
+// Full rack pair at depth z
+function drawRackPair(VX,VY,fov,z,al,rackIdx,corrW=.268,rackHFrac=.88){
+  const sc=fov/(fov+z);
+  const rh=H*rackHFrac*sc;
+  const ry2=VY-rh*.63,rbot=VY+rh*.18;
+  
+  for(let side=0;side<2;side++){
+    const s=side===0?-1:1;
+    const x1=VX+s*(W*(.5-corrW*.08))*sc;
+    const x2=VX+s*(W*(.5+corrW*.08))*sc;
+    const rw=Math.abs(x2-x1),lx=Math.min(x1,x2);
+    
+    // Rack body — near-black powder coat
+    ctx.fillStyle=`rgba(16,18,20,${al*.99})`;
+    ctx.fillRect(lx,ry2,rw,rbot-ry2);
+    
+    // Top-edge metal highlight (ceiling light hitting the top)
+    ctx.fillStyle=`rgba(68,74,80,${al*.65})`;
+    ctx.fillRect(lx,ry2,rw,1.8);
+    
+    // Vertical metal frame strips
+    ctx.fillStyle=`rgba(40,44,48,${al*.82})`;
+    ctx.fillRect(lx,ry2,2.2,rbot-ry2);
+    ctx.fillRect(lx+rw-2.2,ry2,2.2,rbot-ry2);
+    
+    // Base shadow
+    ctx.fillStyle=`rgba(6,7,8,${al*.92})`;
+    ctx.fillRect(lx,rbot-2,rw,2);
+    
+    // 1U panels
+    const UNITS=15;
+    const uH=(rbot-ry2)/UNITS;
+    for(let u=0;u<UNITS;u++){
+      const uy=ry2+u*uH;
+      // Very subtle alternating shade
+      ctx.fillStyle=`rgba(${u%2?'20,22,25':'17,19,22'},${al*.97})`;
+      ctx.fillRect(lx+2.2,uy+.4,rw-4.4,uH-.7);
+      
+      // Vent slot perforations (horizontal bars)
+      if(uH>5){
+        ctx.fillStyle=`rgba(7,8,9,${al*.62})`;
+        ctx.fillRect(lx+rw*.1,uy+uH*.28,rw*.68,Math.max(.8,uH*.13));
+        ctx.fillRect(lx+rw*.1,uy+uH*.58,rw*.68,Math.max(.8,uH*.13));
+      }
+      
+      // STATUS LED — the ONLY vivid colour in the scene
+      const li=rackIdx*UNITS*2+side*UNITS+u;
+      const [lr,lg,lb,lbrt]=ledRGB(li);
+      const ledX=lx+(side===0?rw*.865:rw*.135);
+      const ledY=uy+uH*.5;
+      const lrad=Math.max(1.5,2.6*sc);
+      
+      // Halo on rack face (real LEDs cast light on nearby surfaces)
+      const halo=ctx.createRadialGradient(ledX,ledY,0,ledX,ledY,lrad*4);
+      halo.addColorStop(0,`rgba(${lr},${lg},${lb},${al*lbrt*.22})`);
+      halo.addColorStop(1,'transparent');
+      ctx.fillStyle=halo;
+      ctx.fillRect(ledX-lrad*4,ledY-lrad*4,lrad*8,lrad*8);
+      
+      // LED core
+      ctx.fillStyle=`rgba(${lr},${lg},${lb},${al*lbrt*.95})`;
+      ctx.beginPath();ctx.arc(ledX,ledY,lrad,0,6.28);ctx.fill();
+      
+      // Activity LED (amber, blink-pattern)
+      if(uH>7){
+        const l2=LEDS[(li+1)%LEDS.length];
+        const ab=.08+.8*(Math.sin(frame*.16*l2.sp+l2.t)>.28?1:0);
+        ctx.fillStyle=`rgba(255,162,0,${al*ab*.62})`;
+        ctx.beginPath();ctx.arc(ledX+(side===0?-8:8)*sc,ledY,Math.max(.8,1.6*sc),0,6.28);ctx.fill();
+      }
+      
+      // Unit separator
+      ctx.fillStyle=`rgba(7,8,9,${al*.88})`;
+      ctx.fillRect(lx+2.2,uy+uH-.3,rw-4.4,.5);
+    }
+    
+    // Side cable management channel (recessed)
+    const cx=side===0?lx-5.5*sc:lx+rw;
+    ctx.fillStyle=`rgba(10,12,14,${al*.95})`;
+    ctx.fillRect(cx,ry2,5*sc,rbot-ry2);
+    // Cables in channel
+    const cCols=[[35,48,32],[25,32,52],[50,28,28],[46,46,24],[28,32,50]];
+    for(let c=0;c<4;c++){
+      const [cr,cg,cb]=cCols[c];
+      ctx.fillStyle=`rgba(${cr},${cg},${cb},${al*.7})`;
+      ctx.fillRect(cx+c*1.1*sc,ry2+4,Math.max(.8,sc),(rbot-ry2)*.9);
+    }
+    
+    // Rack side face (perspective depth shadow)
+    const shadowX=side===0?lx-3.5:lx+rw;
+    const sg=ctx.createLinearGradient(shadowX+(side===0?0:3.5),0,shadowX+(side===0?-3.5:0),0);
+    sg.addColorStop(0,`rgba(0,0,0,${al*.35})`);sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg;ctx.fillRect(side===0?shadowX-3:shadowX,ry2,3.5,rbot-ry2);
+  }
+}
+
+// Overhead cable tray
+function drawTray(VX,VY,fov,d,cables=[[35,52,32],[25,35,55],[52,28,28],[50,50,22],[28,35,55]]){
+  const sc=fov/(fov+d),fog=Math.max(0,1-d/640);
+  const ty=VY-VY*.64*sc,tw=W*.55*sc;
+  ctx.fillStyle=`rgba(26,30,34,${fog*.95})`;
+  ctx.fillRect(VX-tw/2,ty-5.5*sc,tw,10*sc);
+  ctx.strokeStyle=`rgba(48,54,60,${fog*.68})`;ctx.lineWidth=.8;
+  ctx.strokeRect(VX-tw/2,ty-5.5*sc,tw,10*sc);
+  cables.forEach(([cr,cg,cb],i)=>{
+    ctx.fillStyle=`rgba(${cr},${cg},${cb},${fog*.78})`;
+    ctx.fillRect(VX-tw/2+tw*(i*.17+.04),ty-4.5*sc,tw*.14,8*sc);
+  });
+}
+
+/* ═══════════════════════════════════════
+   SCENE 0 — COLD AISLE ENTRY CORRIDOR
+   
+   This is the reference scene. Colors from
+   actual data center photography.
+   Bright lit corridor, dark racks, gray floor/ceiling.
+═══════════════════════════════════════ */
+function S0(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.41,fov=700,gs=74,off=camZ%gs;
+  
+  // ── BACKGROUND — fill canvas with mid-gray (the far wall)
+  ctx.fillStyle='#9aa2a8';
+  ctx.fillRect(0,0,W,H);
+  
+  // ── VANISHING POINT — blindingly bright (converging fluorescent lights)
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,Math.min(W,H)*.38);
+  vp.addColorStop(0,'rgba(255,255,255,1)');
+  vp.addColorStop(.08,'rgba(252,254,255,.95)');
+  vp.addColorStop(.22,'rgba(240,246,250,.75)');
+  vp.addColorStop(.5,'rgba(200,210,218,.35)');
+  vp.addColorStop(1,'rgba(140,150,158,0)');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  // ── CEILING — light gray tiles with brilliant fluorescent strips
+  // (near-white: 210,215,218 panel, 252,254,255 strip)
+  drawCeiling(VX,VY,fov,off,gs,210,215,218,252,254,255);
+  
+  // ── FLOOR — light gray raised floor tiles
+  // (tile A: 182,190,196, tile B: 172,180,186, grout: 122,128,134)
+  drawFloor(VX,VY,fov,off,gs,182,190,196,172,180,186,122,128,134);
+  
+  // ── SERVER RACKS — near-black against bright environment (THE contrast)
+  const RACK=22,GS=74;
+  for(let i=0;i<RACK;i++){
+    let z=(i*GS+(GS-off%GS))%930;if(z<12)continue;
+    const al=Math.min(1,z/155)*Math.max(0,1-z/730);if(al<.01)continue;
+    drawRackPair(VX,VY,fov,z,al,i);
+  }
+  
+  // ── CABLE TRAYS overhead
+  [80,228,376].forEach(base=>{
+    const d=base+(gs-off%gs);if(d<10||d>660)return;
+    drawTray(VX,VY,fov,d);
+  });
+  
+  // ── CENTRAL OVERHEAD LIGHT BEAM
+  // The fluorescent strip running down the center of the ceiling
+  // creates a brilliant vertical beam at the camera axis
+  const beam=ctx.createLinearGradient(VX,0,VX,VY);
+  beam.addColorStop(0,'rgba(255,255,252,1)');
+  beam.addColorStop(.25,'rgba(255,255,250,.55)');
+  beam.addColorStop(.7,'rgba(255,255,248,.15)');
+  beam.addColorStop(1,'rgba(255,255,248,0)');
+  ctx.save();
+  ctx.shadowColor='rgba(255,255,240,.25)';ctx.shadowBlur=18;
+  ctx.fillStyle=beam;
+  ctx.beginPath();ctx.moveTo(VX-2,0);ctx.lineTo(VX+2,0);ctx.lineTo(VX+1.5,VY);ctx.lineTo(VX-1.5,VY);ctx.closePath();ctx.fill();
+  ctx.restore();
+  
+  // ── FLOOR LIGHT REFLECTION (central strip)
+  const flr=ctx.createLinearGradient(VX,VY,VX,H);
+  flr.addColorStop(0,'rgba(255,255,250,.32)');
+  flr.addColorStop(.18,'rgba(255,255,248,0)');
+  ctx.fillStyle=flr;
+  ctx.beginPath();ctx.moveTo(VX-3,VY);ctx.lineTo(VX+3,VY);ctx.lineTo(VX+160,H);ctx.lineTo(VX-160,H);ctx.closePath();ctx.fill();
+  
+  // ── RACK SHADOWS ON FLOOR (subtle dark stripes from rack bases)
+  for(let side=0;side<2;side++){
+    const s=side===0?-1:1;
+    const sg=ctx.createLinearGradient(VX+s*W*.2,VY,VX+s*W*.2,H);
+    sg.addColorStop(0,'rgba(0,0,0,.18)');sg.addColorStop(.35,'rgba(0,0,0,0)');
+    ctx.fillStyle=sg;
+    ctx.fillRect(VX+s*W*.14,VY,W*.18*(s>0?1:-1)>0?W*.18:-W*.18,H-VY);
+  }
+  
+  // ── CEILING LIGHT SPILL ONTO UPPER WALLS (subtle warm area above racks)
+  const csp=ctx.createLinearGradient(0,0,0,VY*.5);
+  csp.addColorStop(0,'rgba(240,244,248,.12)');csp.addColorStop(1,'rgba(240,244,248,0)');
+  ctx.fillStyle=csp;ctx.fillRect(0,0,W,VY*.5);
+  
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════
+   SCENE 1 — HOT AISLE
+   Back of racks, warm exhaust air, cable bundles.
+   Still relatively lit but warmer tone.
+═══════════════════════════════════════ */
+function S1(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.42,fov=680,gs=76,off=camZ%gs;
+  
+  // Background — warm tan (exhaust heat gives amber cast)
+  ctx.fillStyle='#827054';
+  ctx.fillRect(0,0,W,H);
+  
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,W*.38);
+  vp.addColorStop(0,'rgba(255,220,160,.75)');
+  vp.addColorStop(.2,'rgba(230,185,110,.45)');
+  vp.addColorStop(.55,'rgba(180,140,70,.15)');
+  vp.addColorStop(1,'transparent');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  // Ceiling — warm lit
+  drawCeiling(VX,VY,fov,off,gs,145,122,88,190,165,115);
+  // Floor — warm gray-brown
+  drawFloor(VX,VY,fov,off,gs,105,88,66,90,75,55,55,44,30);
+  
+  // Back of racks with cable bundles
+  const CABLES=[[185,45,45],[45,132,60],[45,82,192],[202,168,30],[132,45,165],[45,168,165],[200,105,45],[190,190,45]];
+  const RACK=20,GS=76,CW=.265;
+  for(let i=0;i<RACK;i++){
+    let z=(i*GS+(GS-off%GS))%910;if(z<12)continue;
+    const sc=fov/(fov+z),al=Math.min(1,z/155)*Math.max(0,1-z/700);if(al<.01)continue;
+    const rh=H*.86*sc,ry2=VY-rh*.60,rbot=VY+rh*.19;
+    for(let side=0;side<2;side++){
+      const s=side===0?-1:1;
+      const x1=VX+s*(W*(.5-CW*.08))*sc,x2=VX+s*(W*(.5+CW*.08))*sc;
+      const rw=Math.abs(x2-x1),lx=Math.min(x1,x2);
+      // Rear panel
+      ctx.fillStyle=`rgba(12,8,5,${al*.98})`;ctx.fillRect(lx,ry2,rw,rbot-ry2);
+      const UNITS=15,uH=(rbot-ry2)/UNITS;
+      for(let u=0;u<UNITS;u++){
+        const uy=ry2+u*uH;
+        ctx.fillStyle=`rgba(18,13,8,${al*.88})`;ctx.fillRect(lx+2,uy+.4,rw-4,uH-.7);
+        // Perforation slots
+        for(let v=0;v<3;v++){ctx.fillStyle=`rgba(28,20,12,${al*.6})`;ctx.fillRect(lx+4,uy+uH*(v+.2)/3.5,rw-8,Math.max(.8,uH*.13))}
+        // PDU LED
+        const [lr,lg,lb,lbrt]=ledRGB(i*UNITS*2+side*UNITS+u);
+        ctx.fillStyle=`rgba(${lr},${lg},${lb},${al*lbrt*.9})`;
+        ctx.beginPath();ctx.arc(lx+rw*.5,uy+uH*.5,Math.max(1,2*sc),0,6.28);ctx.fill();
+      }
+      // ── COLORFUL CABLE BUNDLES — the hot aisle's defining feature
+      const nC=Math.max(6,Math.round(rw/5.5));
+      for(let c=0;c<nC;c++){
+        const [cr,cg,cb]=CABLES[(i*3+c)%CABLES.length];
+        const cx2=lx+rw*(c+.5)/nC,cw=Math.max(2.2,rw/nC*.7*sc);
+        ctx.fillStyle=`rgba(${cr},${cg},${cb},${al*.88})`;
+        ctx.fillRect(cx2-cw/2,ry2,cw,rbot-ry2+40*sc);
+      }
+      ctx.strokeStyle=`rgba(28,18,10,${al*.5})`;ctx.lineWidth=.8;ctx.strokeRect(lx,ry2,rw,rbot-ry2);
+    }
+  }
+  // Strong amber ambient wash
+  const amb=ctx.createRadialGradient(VX,H*.2,0,VX,H*.2,H*.75);
+  amb.addColorStop(0,'rgba(130,75,14,.32)');amb.addColorStop(.6,'rgba(88,50,8,.14)');amb.addColorStop(1,'transparent');
+  ctx.fillStyle=amb;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════
+   SCENE 2 — NOC (NETWORK OPERATIONS CENTER)
+   Bright green screens, workstations, video wall.
+═══════════════════════════════════════ */
+function S2(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.44,fov=680,gs=90,off=camZ%gs;
+  
+  ctx.fillStyle='#304032';
+  ctx.fillRect(0,0,W,H);
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,W*.38);
+  vp.addColorStop(0,'rgba(160,240,150,.38)');vp.addColorStop(.35,'rgba(90,175,80,.15)');vp.addColorStop(1,'transparent');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  drawCeiling(VX,VY,fov,off,gs,60,82,55,85,115,75);
+  drawFloor(VX,VY,fov,off,gs,36,50,32,28,40,26,16,24,14);
+  
+  // Workstation desks
+  const DESKS=9,DGS=102;
+  for(let i=0;i<DESKS;i++){
+    let z=(i*DGS+(DGS-off%DGS))%880;if(z<22)continue;
+    const sc=fov/(fov+z),al=Math.min(1,z/140)*Math.max(0,1-z/660);if(al<.01)continue;
+    const bY=VY+(H-VY)*(1-sc)*1.06,dH=15*sc;
+    for(let ds=0;ds<2;ds++){
+      const dx=VX+(ds===0?-1:1)*(W*.22*sc),dw=W*.35*sc;
+      ctx.fillStyle=`rgba(22,32,20,${al*.9})`;ctx.fillRect(dx-dw/2,bY-dH*3.2,dw,dH);
+      ctx.strokeStyle=`rgba(36,52,30,${al*.5})`;ctx.lineWidth=.7;ctx.strokeRect(dx-dw/2,bY-dH*3.2,dw,dH);
+      const mons=Math.max(1,Math.round(2*sc));
+      for(let m=0;m<mons;m++){
+        const mang=((m/(Math.max(1,mons-1)))-.5)*1.1;
+        const mx=dx+Math.sin(mang)*dw*.4,mw=Math.max(10,dw*.19),mh=mw*.65,mt=bY-dH*3.2-mh-3*sc;
+        ctx.fillStyle=`rgba(10,15,10,${al*.95})`;ctx.fillRect(mx-mw/2,mt,mw,mh);
+        ctx.fillStyle=`rgba(12,28,12,${al*.9})`;ctx.fillRect(mx-mw/2+1,mt+1,mw-2,mh-2);
+        const sg=ctx.createRadialGradient(mx,mt+mh/2,0,mx,mt+mh/2,mw*.55);
+        sg.addColorStop(0,`rgba(38,175,58,${al*.45})`);sg.addColorStop(.6,`rgba(22,115,38,${al*.18})`);sg.addColorStop(1,'transparent');
+        ctx.fillStyle=sg;ctx.fillRect(mx-mw/2+1,mt+1,mw-2,mh-2);
+        if(mw>15&&al>.4){for(let l=0;l<4;l++){ctx.fillStyle=`rgba(55,210,75,${al*.28})`;ctx.fillRect(mx-mw/2+2,mt+2+l*(mh-4)/4.5,mw*(0.3+Math.random()*.45),Math.max(.7,mh*.06))}}
+        ctx.strokeStyle=`rgba(26,52,24,${al*.5})`;ctx.lineWidth=.6;ctx.strokeRect(mx-mw/2,mt,mw,mh);
+        ctx.fillStyle=`rgba(48,218,82,${al*.88})`;ctx.beginPath();ctx.arc(mx+mw/2-2.5*sc,mt+mh-2.5*sc,Math.max(.8,1.5*sc),0,6.28);ctx.fill();
+      }
+    }
+  }
+  // Video wall
+  for(let r=0;r<2;r++){for(let c=0;c<3;c++){
+    const dep=510,sc=fov/(fov+dep),pw=W*.14*sc,ph=pw*.62;
+    const px=VX+(c-1)*pw*1.07,py=VY-(r+.55)*ph*1.1-.18*(H-VY);
+    ctx.fillStyle='rgba(6,14,6,.95)';ctx.fillRect(px-pw/2,py-ph/2,pw,ph);
+    const sg=ctx.createRadialGradient(px,py,0,px,py,pw*.58);
+    sg.addColorStop(0,'rgba(32,150,55,.38)');sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg;ctx.fillRect(px-pw/2,py-ph/2,pw,ph);
+    if(pw>16){for(let l=0;l<4;l++){ctx.fillStyle='rgba(52,205,72,.25)';ctx.fillRect(px-pw*.42,py-ph/2+2+l*(ph-4)/4.5,pw*(0.3+Math.random()*.42),Math.max(.7,ph*.06))}}
+    ctx.strokeStyle='rgba(22,58,22,.5)';ctx.lineWidth=.7;ctx.strokeRect(px-pw/2,py-ph/2,pw,ph);
+    ctx.fillStyle='rgba(3,8,3,.95)';ctx.fillRect(px-pw/2,py-ph/2-1.5,pw,1.5);ctx.fillRect(px-pw/2-1.5,py-ph/2,1.5,ph);
+  }}
+  const ga=ctx.createRadialGradient(VX,H*.25,0,VX,H*.25,W*.55);
+  ga.addColorStop(0,'rgba(20,72,28,.24)');ga.addColorStop(.6,'rgba(14,50,20,.1)');ga.addColorStop(1,'transparent');
+  ctx.fillStyle=ga;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════
+   SCENE 3 — PATCH PANEL BAY
+   Colorful cables everywhere, dense ports.
+═══════════════════════════════════════ */
+function S3(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.43,fov=700,gs=68,off=camZ%gs;
+  const CABLES=[[188,45,45],[45,135,62],[45,82,196],[205,170,30],[135,45,168],[45,170,168],[202,108,45],[192,192,45]];
+  
+  ctx.fillStyle='#322a42';ctx.fillRect(0,0,W,H);
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,W*.38);
+  vp.addColorStop(0,'rgba(210,190,255,.3)');vp.addColorStop(.4,'rgba(150,130,210,.08)');vp.addColorStop(1,'transparent');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  drawCeiling(VX,VY,fov,off,gs,58,52,78,80,72,110);
+  drawFloor(VX,VY,fov,off,gs,32,26,44,26,20,36,16,12,24);
+  
+  const RACK=24,GS=66,CW=.265;
+  for(let i=0;i<RACK;i++){
+    let z=(i*GS+(GS-off%GS))%900;if(z<10)continue;
+    const sc=fov/(fov+z),al=Math.min(1,z/155)*Math.max(0,1-z/700);if(al<.01)continue;
+    const rh=H*.86*sc,ry2=VY-rh*.60,rbot=VY+rh*.19;
+    for(let side=0;side<2;side++){
+      const s=side===0?-1:1;
+      const x1=VX+s*(W*(.5-CW*.08))*sc,x2=VX+s*(W*(.5+CW*.08))*sc;
+      const rw=Math.abs(x2-x1),lx=Math.min(x1,x2);
+      ctx.fillStyle=`rgba(10,8,14,${al*.96})`;ctx.fillRect(lx,ry2,rw,rbot-ry2);
+      const rows=12,rowH=(rbot-ry2)/rows;
+      for(let row=0;row<rows;row++){
+        const ry=ry2+row*rowH;
+        ctx.fillStyle=`rgba(15,12,20,${al*.78})`;ctx.fillRect(lx+2,ry+.4,rw-4,rowH-.6);
+        const ports=Math.max(2,Math.round(rw/6));
+        for(let p=0;p<ports;p++){
+          const px=lx+rw*(p+.5)/ports;
+          ctx.fillStyle=`rgba(4,3,8,${al*.88})`;ctx.fillRect(px-2.5*sc,ry+rowH*.16,5*sc,rowH*.62);
+          ctx.strokeStyle=`rgba(32,26,44,${al*.42})`;ctx.lineWidth=.5;ctx.strokeRect(px-2.5*sc,ry+rowH*.16,5*sc,rowH*.62);
+          const [lr,lg,lb,lbrt]=ledRGB(i*rows*ports+side*rows*ports+row*ports+p);
+          ctx.fillStyle=`rgba(${lr},${lg},${lb},${al*lbrt*.92})`;
+          ctx.beginPath();ctx.arc(px,ry+rowH*.88,Math.max(.7,1.5*sc),0,6.28);ctx.fill();
+        }
+        // Cable beziers to side loom
+        const nC=Math.max(1,Math.round(rw/16));
+        for(let c=0;c<nC;c++){
+          const [cr,cg,cb]=CABLES[(i*3+row*2+c)%CABLES.length];
+          const cxc=lx+rw*(c+.5)/nC,cw=Math.max(1.6,2.6*sc);
+          const tx=side===0?lx-17*sc:lx+rw+17*sc;
+          ctx.strokeStyle=`rgba(${cr},${cg},${cb},${al*.8})`;ctx.lineWidth=cw;
+          ctx.beginPath();ctx.moveTo(cxc,ry+rowH*.62);ctx.bezierCurveTo(cxc,ry+rowH*1.42,tx,ry+rowH*1.82,tx,ry+rowH*3.3);ctx.stroke();
+        }
+      }
+      ctx.strokeStyle=`rgba(24,18,36,${al*.52})`;ctx.lineWidth=.8;ctx.strokeRect(lx,ry2,rw,rbot-ry2);
+      // Side cable loom — VERY visible, colourful
+      const loomX=side===0?lx-10*sc:lx+rw;
+      ctx.fillStyle=`rgba(5,4,9,${al*.92})`;ctx.fillRect(loomX-2*sc,ry2,10*sc+2,rbot-ry2);
+      for(let c=0;c<8;c++){
+        const [cr,cg,cb]=CABLES[(i+c*2)%CABLES.length];
+        ctx.fillStyle=`rgba(${cr},${cg},${cb},${al*.82})`;
+        ctx.fillRect(loomX+(c*.9-2)*sc,ry2+2,Math.max(.9,sc),(rbot-ry2)*.94);
+      }
+    }
+  }
+  [68,200,336].forEach(base=>{const d=base+(gs-off%gs);if(d<10||d>640)return;drawTray(VX,VY,fov,d,CABLES.slice(0,5))});
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════
+   SCENE 4 — UPS ROOM
+   Large industrial battery cabinets.
+   Warm concrete floor, amber LEDs.
+═══════════════════════════════════════ */
+function S4(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.43,fov=660,gs=112,off=camZ%gs;
+  
+  ctx.fillStyle='#8a7858';ctx.fillRect(0,0,W,H);
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,W*.38);
+  vp.addColorStop(0,'rgba(255,235,165,.42)');vp.addColorStop(.35,'rgba(210,172,95,.18)');vp.addColorStop(1,'transparent');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  // Industrial ceiling — halide fixtures
+  for(let d=gs-off%gs;d<700;d+=gs){
+    const sc=fov/(fov+d),y=VY-VY*(1-sc),xsp=W*.88*sc;
+    const scN=fov/(fov+d+gs),yN=VY-VY*(1-scN),xspN=W*.88*scN;
+    const fog=Math.max(0,1-d/660);
+    const isL=Math.floor(d/gs)%2===0;
+    ctx.fillStyle=`rgba(${isL?'172,150,108':'92,76,52'},${fog*.94})`;
+    ctx.beginPath();ctx.moveTo(VX-xsp,y);ctx.lineTo(VX+xsp,y);ctx.lineTo(VX+xspN,yN);ctx.lineTo(VX-xspN,yN);ctx.closePath();ctx.fill();
+    if(isL){
+      const fg=ctx.createLinearGradient(VX-xsp*.5,y,VX+xsp*.5,y);
+      fg.addColorStop(0,'transparent');fg.addColorStop(.3,`rgba(255,248,215,${fog*.58})`);fg.addColorStop(.7,`rgba(255,248,215,${fog*.58})`);fg.addColorStop(1,'transparent');
+      ctx.fillStyle=fg;ctx.beginPath();ctx.moveTo(VX-xsp*.5,y);ctx.lineTo(VX+xsp*.5,y);ctx.lineTo(VX+xspN*.5,yN);ctx.lineTo(VX-xspN*.5,yN);ctx.closePath();ctx.fill();
+    }
+    ctx.beginPath();ctx.moveTo(VX-xsp,y);ctx.lineTo(VX+xsp,y);
+    ctx.strokeStyle=`rgba(52,42,28,${fog*.8})`;ctx.lineWidth=1;ctx.stroke();
+  }
+  // Concrete floor
+  drawFloor(VX,VY,fov,off,gs,100,86,66,85,72,54,50,40,28);
+  
+  // BIG UPS CABINETS (wider/taller than racks)
+  const UNITS=10,UGS=115,UW=.22;
+  for(let i=0;i<UNITS;i++){
+    let z=(i*UGS+(UGS-off%UGS))%920;if(z<15)continue;
+    const sc=fov/(fov+z),al=Math.min(1,z/138)*Math.max(0,1-z/678);if(al<.01)continue;
+    const uh=H*.92*sc,uy2=VY-uh*.64,ubot=VY+uh*.2;
+    for(let side=0;side<2;side++){
+      const s=side===0?-1:1;
+      const x1=VX+s*(W*(.5-UW*.07))*sc,x2=VX+s*(W*(.5+UW*.2))*sc;
+      const uw=Math.abs(x2-x1),lx=Math.min(x1,x2);
+      // Brushed steel body
+      const gg=ctx.createLinearGradient(lx,0,lx+uw,0);
+      gg.addColorStop(0,`rgba(28,25,22,${al*.98})`);gg.addColorStop(.3,`rgba(52,48,42,${al*.95})`);gg.addColorStop(.7,`rgba(46,42,36,${al*.95})`);gg.addColorStop(1,`rgba(22,20,17,${al*.98})`);
+      ctx.fillStyle=gg;ctx.fillRect(lx,uy2,uw,ubot-uy2);
+      // Highlight edges
+      ctx.fillStyle=`rgba(88,82,68,${al*.72})`;ctx.fillRect(lx,uy2,2,ubot-uy2);ctx.fillRect(lx+uw-2,uy2,2,ubot-uy2);
+      ctx.fillStyle=`rgba(98,92,76,${al*.58})`;ctx.fillRect(lx,uy2,uw,2);
+      ctx.strokeStyle=`rgba(56,52,44,${al*.65})`;ctx.lineWidth=1;ctx.strokeRect(lx,uy2,uw,ubot-uy2);
+      // Ventilation (lower 55%)
+      const vY=uy2+(ubot-uy2)*.44;
+      for(let v=0;v<10;v++){
+        const vy=vY+(v*(ubot-vY)/10);
+        ctx.fillStyle=`rgba(13,11,9,${al*.74})`;ctx.fillRect(lx+uw*.06,vy+.8,uw*.88,Math.max(1.2,(ubot-vY)/11));
+        ctx.strokeStyle=`rgba(34,30,24,${al*.4})`;ctx.lineWidth=.6;ctx.strokeRect(lx+uw*.06,vy+.8,uw*.88,Math.max(1.2,(ubot-vY)/11));
+      }
+      // LCD display
+      const dY=uy2+uw*.06,dH=uw*.14;
+      ctx.fillStyle=`rgba(5,10,5,${al*.95})`;ctx.fillRect(lx+uw*.04,dY,uw*.92,dH);
+      const dg=ctx.createRadialGradient(lx+uw*.5,dY+dH/2,0,lx+uw*.5,dY+dH/2,uw*.45);
+      dg.addColorStop(0,`rgba(32,168,64,${al*.30})`);dg.addColorStop(1,'transparent');
+      ctx.fillStyle=dg;ctx.fillRect(lx+uw*.04,dY,uw*.92,dH);
+      // BIG STATUS LEDs — amber/green, very visible
+      [{c:'g',x:.12},{c:'g',x:.24},{c:'a',x:.36},{c:'a',x:.48},{c:'g',x:.6},{c:'g',x:.72},{c:'g',x:.86}].forEach((l,li)=>{
+        const LED=LEDS[(i*14+side*7+li)%LEDS.length];
+        const glo=.52+.45*Math.sin(frame*.04*LED.sp+LED.t+l.x*3.14);
+        const lc=l.c==='g'?[42,220,82]:[255,165,0];
+        const ledX=lx+uw*l.x,ledY=dY+dH*2.12,lR=Math.max(2,3.5*sc);
+        const halo=ctx.createRadialGradient(ledX,ledY,0,ledX,ledY,lR*4);
+        halo.addColorStop(0,`rgba(${lc[0]},${lc[1]},${lc[2]},${al*glo*.36})`);halo.addColorStop(1,'transparent');
+        ctx.fillStyle=halo;ctx.fillRect(ledX-lR*4,ledY-lR*4,lR*8,lR*8);
+        ctx.fillStyle=`rgba(${lc[0]},${lc[1]},${lc[2]},${al*glo*.96})`;
+        ctx.beginPath();ctx.arc(ledX,ledY,lR,0,6.28);ctx.fill();
+      });
+      // Warning stripe
+      const strY=ubot-8*sc,strW=uw/8;
+      for(let st=0;st<8;st++){ctx.fillStyle=st%2?`rgba(205,158,0,${al*.62})`:`rgba(8,7,5,${al*.78})`;ctx.fillRect(lx+st*strW,strY,strW,7*sc)}
+    }
+  }
+  const amb=ctx.createRadialGradient(VX,H*.28,0,VX,H*.28,W*.68);
+  amb.addColorStop(0,'rgba(135,82,15,.34)');amb.addColorStop(.55,'rgba(92,55,8,.15)');amb.addColorStop(1,'transparent');
+  ctx.fillStyle=amb;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════
+   SCENE 5 — SWITCH ROOM
+   Hundreds of tiny blinking port LEDs. Blue ambient.
+═══════════════════════════════════════ */
+function S5(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.43,fov=710,gs=62,off=camZ%gs;
+  
+  ctx.fillStyle='#182438';ctx.fillRect(0,0,W,H);
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,W*.38);
+  vp.addColorStop(0,'rgba(148,192,255,.32)');vp.addColorStop(.38,'rgba(85,140,225,.1)');vp.addColorStop(1,'transparent');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  drawCeiling(VX,VY,fov,off,gs,42,56,88,62,85,130);
+  drawFloor(VX,VY,fov,off,gs,20,28,48,16,22,38,9,14,24);
+  
+  const RACK=28,GS=60,CW=.252;
+  for(let i=0;i<RACK;i++){
+    let z=(i*GS+(GS-off%GS))%900;if(z<10)continue;
+    const sc=fov/(fov+z),al=Math.min(1,z/155)*Math.max(0,1-z/710);if(al<.01)continue;
+    const rh=H*.86*sc,ry2=VY-rh*.59,rbot=VY+rh*.18;
+    for(let side=0;side<2;side++){
+      const s=side===0?-1:1;
+      const x1=VX+s*(W*(.5-CW*.08))*sc,x2=VX+s*(W*(.5+CW*.08))*sc;
+      const rw=Math.abs(x2-x1),lx=Math.min(x1,x2);
+      ctx.fillStyle=`rgba(8,12,22,${al*.96})`;ctx.fillRect(lx,ry2,rw,rbot-ry2);
+      ctx.strokeStyle=`rgba(22,34,60,${al*.55})`;ctx.lineWidth=.8;ctx.strokeRect(lx,ry2,rw,rbot-ry2);
+      // DENSE LED MATRIX
+      const rows=20,cols=Math.max(4,Math.round(rw/3.5)),rowH=(rbot-ry2)/rows;
+      for(let row=0;row<rows;row++){
+        const ry=ry2+row*rowH;
+        ctx.fillStyle=`rgba(10,16,28,${al*.75})`;ctx.fillRect(lx+1,ry+.25,rw-2,rowH-.42);
+        if(sc>0.05){
+          for(let col=0;col<cols;col++){
+            const px=lx+rw*(col+.5)/cols;
+            const li=(i*rows*cols*2+side*rows*cols+row*cols+col)%LEDS.length;
+            const l=LEDS[li];
+            const glo=.12+.84*(Math.sin(frame*.08*l.sp+l.t)>.15?1:0);
+            if(glo>.2){
+              const [lr,lg,lb]=ledRGB(li);
+              if(glo>.62&&sc>.1){
+                const halo=ctx.createRadialGradient(px,ry+rowH*.5,0,px,ry+rowH*.5,3.8*sc);
+                halo.addColorStop(0,`rgba(${lr},${lg},${lb},${al*glo*.38})`);halo.addColorStop(1,'transparent');
+                ctx.fillStyle=halo;ctx.fillRect(px-3.8*sc,ry,7.6*sc,rowH);
+              }
+              ctx.fillStyle=`rgba(${lr},${lg},${lb},${al*glo*.92})`;
+              ctx.beginPath();ctx.arc(px,ry+rowH*.5,Math.max(.55,1.3*sc),0,6.28);ctx.fill();
+            }
+          }
+        }
+        ctx.fillStyle=`rgba(5,8,16,${al*.85})`;ctx.fillRect(lx+1,ry+rowH-.22,rw-2,.4);
+      }
+      ctx.fillStyle=`rgba(40,56,90,${al*.56})`;ctx.fillRect(lx,ry2,1.5,rbot-ry2);ctx.fillRect(lx+rw-1.5,ry2,1.5,rbot-ry2);
+    }
+  }
+  [60,182,306].forEach(base=>{const d=base+(gs-off%gs);if(d<10||d>630)return;drawTray(VX,VY,fov,d,[[38,78,196],[28,112,52],[175,38,38],[28,150,150],[150,118,24]])});
+  const ba=ctx.createRadialGradient(VX,H*.25,0,VX,H*.25,W*.6);
+  ba.addColorStop(0,'rgba(15,30,90,.28)');ba.addColorStop(.58,'rgba(9,19,62,.13)');ba.addColorStop(1,'transparent');
+  ctx.fillStyle=ba;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+/* ═══════════════════════════════════════
+   SCENE 6 — COMMAND CENTER
+   Curved consoles, blue monitor glow, big video wall.
+═══════════════════════════════════════ */
+function S6(alpha){
+  if(alpha<=0)return;
+  ctx.save();ctx.globalAlpha=alpha;
+  const VX=W/2,VY=H*.43,fov=680,gs=92,off=camZ%gs;
+  
+  ctx.fillStyle='#22304a';ctx.fillRect(0,0,W,H);
+  const vp=ctx.createRadialGradient(VX,VY,0,VX,VY,W*.38);
+  vp.addColorStop(0,'rgba(155,195,255,.38)');vp.addColorStop(.35,'rgba(95,145,228,.14)');vp.addColorStop(1,'transparent');
+  ctx.fillStyle=vp;ctx.fillRect(0,0,W,H);
+  
+  drawCeiling(VX,VY,fov,off,gs,42,54,80,65,88,130);
+  // Polished reflective floor
+  drawFloor(VX,VY,fov,off,gs,26,34,58,20,28,48,11,16,30);
+  
+  // Command consoles
+  const CONS=8,CGS=108;
+  for(let i=0;i<CONS;i++){
+    let z=(i*CGS+(CGS-off%CGS))%900;if(z<22)continue;
+    const sc=fov/(fov+z),al=Math.min(1,z/138)*Math.max(0,1-z/680);if(al<.01)continue;
+    const bY=VY+(H-VY)*(1-sc),dH=16*sc,dw=W*.66*sc,dy=bY-dH*3.2;
+    ctx.fillStyle=`rgba(14,20,36,${al*.92})`;
+    ctx.beginPath();ctx.ellipse(VX,dy+dH*.62,dw/2,dH*.64,0,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle=`rgba(42,62,98,${al*.45})`;ctx.lineWidth=2;
+    ctx.beginPath();ctx.ellipse(VX,dy+dH*.62,dw/2,dH*.64,0,0,Math.PI*2);ctx.stroke();
+    const mons=Math.max(2,Math.round(4*sc));
+    for(let m=0;m<mons;m++){
+      const mang=((m/(Math.max(1,mons-1)))-.5)*1.18;
+      const mx=VX+Math.sin(mang)*dw*.42,mw=Math.max(10,dw*.17),mh=mw*.63,mt=dy-18*sc-Math.abs(mang)*5*sc;
+      ctx.fillStyle=`rgba(8,12,20,${al*.96})`;ctx.fillRect(mx-mw/2,mt,mw,mh);
+      ctx.fillStyle=`rgba(10,20,36,${al*.9})`;ctx.fillRect(mx-mw/2+1,mt+1,mw-2,mh-2);
+      const mg=ctx.createRadialGradient(mx,mt+mh/2,0,mx,mt+mh/2,mw*.56);
+      mg.addColorStop(0,`rgba(20,82,205,${al*.45})`);mg.addColorStop(.55,`rgba(14,58,148,${al*.2})`);mg.addColorStop(1,'transparent');
+      ctx.fillStyle=mg;ctx.fillRect(mx-mw/2+1,mt+1,mw-2,mh-2);
+      if(mw>16&&al>.4){for(let l=0;l<3;l++){ctx.fillStyle=`rgba(68,135,240,${al*.28})`;ctx.fillRect(mx-mw/2+2,mt+2+l*(mh-4)/3.5,mw*(0.28+Math.random()*.42),Math.max(.7,mh*.06))}}
+      ctx.strokeStyle=`rgba(26,42,78,${al*.5})`;ctx.lineWidth=.7;ctx.strokeRect(mx-mw/2,mt,mw,mh);
+      // Screen glow on desk
+      const dgl=ctx.createRadialGradient(mx,mt+mh,0,mx,mt+mh,mw*.62);
+      dgl.addColorStop(0,`rgba(20,82,205,${al*.15})`);dgl.addColorStop(1,'transparent');
+      ctx.fillStyle=dgl;ctx.fillRect(mx-mw*.62,mt+mh*.4,mw*1.24,dH*2);
+      ctx.fillStyle=`rgba(48,220,82,${al*.88})`;ctx.beginPath();ctx.arc(mx+mw/2-2.5*sc,mt+mh-2.5*sc,Math.max(.8,1.5*sc),0,6.28);ctx.fill();
+    }
+  }
+  // Large video wall — 4×3
+  for(let r=0;r<3;r++){for(let c=0;c<4;c++){
+    const dep=445,sc=fov/(fov+dep),pw=W*.12*sc,ph=pw*.59;
+    const px=VX+(c-1.5)*pw*1.06,py=VY-(r+.65)*ph*1.08-.17*(H-VY);
+    ctx.fillStyle='rgba(4,8,16,.98)';ctx.fillRect(px-pw/2-2,py-ph/2-2,pw+4,ph+4);
+    ctx.fillStyle='rgba(8,16,30,.96)';ctx.fillRect(px-pw/2,py-ph/2,pw,ph);
+    const sg=ctx.createRadialGradient(px,py,0,px,py,pw*.58);
+    sg.addColorStop(0,'rgba(18,78,205,.38)');sg.addColorStop(.5,'rgba(12,54,152,.18)');sg.addColorStop(1,'transparent');
+    ctx.fillStyle=sg;ctx.fillRect(px-pw/2,py-ph/2,pw,ph);
+    if(pw>18){for(let l=0;l<4;l++){ctx.fillStyle='rgba(62,130,242,.24)';ctx.fillRect(px-pw*.42,py-ph/2+2+l*(ph-4)/4.5,pw*(0.26+Math.random()*.4),Math.max(.7,ph*.06))}}
+    ctx.strokeStyle='rgba(24,48,95,.44)';ctx.lineWidth=.7;ctx.strokeRect(px-pw/2,py-ph/2,pw,ph);
+    ctx.fillStyle='rgba(2,5,12,.98)';ctx.fillRect(px-pw/2,py-ph/2-2,pw,2);ctx.fillRect(px-pw/2-2,py-ph/2,2,ph);
+  }}
+  // Floor reflection of screens
+  const flrGl=ctx.createLinearGradient(VX,VY,VX,H);
+  flrGl.addColorStop(0,'rgba(18,68,188,.22)');flrGl.addColorStop(.28,'rgba(18,68,188,0)');
+  ctx.fillStyle=flrGl;ctx.fillRect(VX-W*.42,VY,W*.84,H-VY);
+  const ba=ctx.createRadialGradient(VX,H*.28,0,VX,H*.28,W*.62);
+  ba.addColorStop(0,'rgba(13,30,85,.22)');ba.addColorStop(.62,'rgba(8,19,58,.1)');ba.addColorStop(1,'transparent');
+  ctx.fillStyle=ba;ctx.fillRect(0,0,W,H);
+  ctx.restore();
+}
+
+/* ─── SCENE TABLE ─── */
+const SCENES=[
+  {id:'hero',    name:'Cold Aisle  ·  Entry Corridor',      draw:S0},
+  {id:'services',name:'Hot Aisle  ·  Services Wing',         draw:S1},
+  {id:'how',     name:'Network Operations Center',           draw:S2},
+  {id:'testi',   name:'Patch Panel Bay  ·  Client Reviews',  draw:S3},
+  {id:'pricing', name:'UPS Room  ·  Power Distribution',     draw:S4},
+  {id:'faq',     name:'Network Switch Room  ·  FAQ',          draw:S5},
+  {id:'contact', name:'Command Center  ·  Contact',          draw:S6},
+];
+const SMAP={hero:0,services:1,how:2,why:2,testi:3,pricing:4,faq:5,contact:6,book:6};
+let lastPill='';
+
+function getTarget(){
+  let t=0;
+  ['hero','services','how','testi','pricing','faq','contact','book'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el&&el.getBoundingClientRect().top<innerHeight*.62)t=SMAP[id]||0;
+  });
+  return t;
+}
+
+function render(){
+  ctx.clearRect(0,0,W,H);
+  const tgt=getTarget();
+  scF+=(tgt-scF)*.038;
+  const fl=Math.floor(scF),cl=Math.min(SCENES.length-1,fl+1);
+  const bl=scF-fl;
+  // Crossfade
+  SCENES[fl].draw(1-bl);
+  if(cl!==fl)SCENES[cl].draw(bl);
+  
+  // ── ONLY EDGE VIGNETTE — center stays fully bright
+  // This is the key change: we DO NOT darken the center at all
+  const vg=ctx.createRadialGradient(W/2,H/2,Math.min(W,H)*.5,W/2,H/2,Math.min(W,H)*1.0);
+  vg.addColorStop(0,'transparent');
+  vg.addColorStop(.85,'transparent');
+  vg.addColorStop(1,'rgba(0,0,0,.52)');
+  ctx.fillStyle=vg;ctx.fillRect(0,0,W,H);
+  
+  frame++;LEDS.forEach(l=>l.t+=.016*l.sp);
+  const ni=Math.round(Math.max(0,Math.min(SCENES.length-1,scF)));
+  if(SCENES[ni].name!==lastPill){lastPill=SCENES[ni].name;document.getElementById('zpt').textContent=lastPill}
+}
+
+function animate(){camZ+=(tgtZ-camZ)*.065;render();requestAnimationFrame(animate)}
+animate();
+
+window.addEventListener('scroll',()=>{
+  const max=document.body.scrollHeight-innerHeight,pct=scrollY/max;
+  tgtZ=pct*480;
+  document.getElementById('pb').style.width=(pct*100)+'%';
+  document.getElementById('nav').classList.toggle('scl',scrollY>60);
+  updateZNav();
+});
+
+// Sparkline
+const smc=document.getElementById('smini');
+if(smc){
+  const smx=smc.getContext('2d');const pts=Array.from({length:60},()=>Math.random()*50+25);
+  function dSp(){smc.width=smc.offsetWidth;smc.height=smc.offsetHeight;const sw=smc.width,sh=smc.height;pts.shift();pts.push(Math.random()*50+25);smx.clearRect(0,0,sw,sh);smx.beginPath();pts.forEach((p,i)=>{const x=i/59*sw,y=sh-p/100*sh;i===0?smx.moveTo(x,y):smx.lineTo(x,y)});smx.strokeStyle='rgba(34,197,94,.55)';smx.lineWidth=1.1;smx.stroke();smx.lineTo(sw,sh);smx.lineTo(0,sh);smx.closePath();smx.fillStyle='rgba(34,197,94,.05)';smx.fill()}
+  setInterval(dSp,250);
+}
+function chkP(){const p=document.getElementById('pwrap');if(p)p.style.display=innerWidth>=960?'flex':'none'}
+chkP();addEventListener('resize',chkP);
+function tick(){const n=new Date();document.getElementById('clk').textContent=n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0')+':'+n.getSeconds().toString().padStart(2,'0')}
+tick();setInterval(tick,1000);
+
+// Loader
+const ltEl=document.getElementById('lterm'),lpfEl=document.getElementById('lpf'),lpctEl=document.getElementById('lpct');
+const msgs=['$ system boot initiated...','$ mounting /dev/sda1 — [OK]','$ antivirus kernel loaded [OK]','$ firewall: applied [OK]','$ network interface: up [OK]','$ storage arrays: online [OK]','$ 4 service nodes: active [OK]','$ security core: armed [OK]','$ jhb-01.kryvexis: connected [OK]','$ all services nominal [OK]','$ welcome to kryvexis server room.'];
+let mi=0;
+function nextMsg(){if(mi>=msgs.length){setTimeout(()=>document.getElementById('ldr').classList.add('off'),400);return}const d=document.createElement('div');d.className='ll';d.textContent=msgs[mi];ltEl.appendChild(d);requestAnimationFrame(()=>d.classList.add('on'));if(msgs[mi].includes('[OK]'))d.classList.add('ok');ltEl.scrollTop=ltEl.scrollHeight;mi++;lpfEl.style.width=Math.round(mi/msgs.length*100)+'%';lpctEl.textContent=Math.round(mi/msgs.length*100)+'%';setTimeout(nextMsg,mi===1?100:mi<msgs.length?255:480)}
+setTimeout(nextMsg,350);
+
+function tnav(){document.getElementById('burg').classList.toggle('on');document.getElementById('mnav').classList.toggle('on')}
+function cnav(){document.getElementById('burg').classList.remove('on');document.getElementById('mnav').classList.remove('on')}
+const zones=['hero','services','how','testi','pricing','faq','contact'];
+function updateZNav(){let cur='hero';zones.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<innerHeight*.55)cur=id});document.querySelectorAll('.zn').forEach(z=>z.classList.toggle('on',z.dataset.sec===cur))}
+document.querySelectorAll('.zn').forEach(z=>z.addEventListener('click',()=>{const t=document.getElementById(z.dataset.sec);if(t)t.scrollIntoView({behavior:'smooth',block:'start'})}));
+document.getElementById('mqt').innerHTML=[...['Virus Removal','Wi-Fi Setup','Software Install','CV Writing','LinkedIn Profile','Windows Upgrade','Data Backup','Website Design','Business Support','Printer Setup','Performance Boost','Career Advice','iPhone Help','Android Help'],...['Virus Removal','Wi-Fi Setup','Software Install','CV Writing','LinkedIn Profile','Windows Upgrade','Data Backup','Website Design','Business Support','Printer Setup','Performance Boost','Career Advice','iPhone Help','Android Help']].map(t=>`<div class="mqi">${t}</div>`).join('');
+const words=[];
+let wi=0,ci=0,del=false;const tdEl=document.getElementById('typed');
+function typeStep(){if(!words.length)return;const w=words[wi];if(!del){tdEl.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(typeStep,1800);return}setTimeout(typeStep,68)}else{tdEl.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;setTimeout(typeStep,380);return}setTimeout(typeStep,32)}}
+if(words.length)setTimeout(typeStep,3400);
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('vis');io.unobserve(e.target)})},{threshold:.1});
+document.querySelectorAll('.rv,.sve,.step,.wc,.tc,.pc,.fi').forEach(el=>io.observe(el));
+io.observe(document.getElementById('stats'));
+function tog(btn){const fi=btn.closest('.fi'),ans=fi.querySelector('.fia'),open=fi.classList.contains('open');document.querySelectorAll('.fi.open').forEach(f=>{f.classList.remove('open');f.querySelector('.fia').style.maxHeight='0'});if(!open){fi.classList.add('open');ans.style.maxHeight=ans.scrollHeight+'px'}}
+async function sbf(e){e.preventDefault();const form=e.target;const m=document.getElementById('fmsg');const btn=document.getElementById('submitBtn');m.textContent='';btn.disabled=true;btn.textContent='Sending...';try{const fd=new FormData(form);const payload=Object.fromEntries(fd.entries());const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await res.json();if(!res.ok)throw new Error(data.message||'Something went wrong.');m.textContent=data.message||'Your message has been sent successfully.';form.reset()}catch(err){m.textContent=err.message||'Unable to send your message right now.'}finally{btn.disabled=false;btn.textContent='Send Message'}}
+const contactForm=document.getElementById('contactForm');if(contactForm)contactForm.addEventListener('submit',sbf);
+</script>
+</body>
+</html>
