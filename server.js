@@ -6,7 +6,6 @@ const fs = require('fs');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
-const nodemailer = require('nodemailer');
 const sanitizeHtml = require('sanitize-html');
 const { z } = require('zod');
 
@@ -81,58 +80,35 @@ function clean(value) {
   }).replace(/\s+/g, ' ').trim();
 }
 
-function getTransporter() {
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, SMTP_SECURE } = process.env;
-  if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASS) return null;
-  return nodemailer.createTransport({
-    host: SMTP_HOST,
-    port: Number(SMTP_PORT),
-    secure: String(SMTP_SECURE).toLowerCase() === 'true',
-    auth: { user: SMTP_USER, pass: SMTP_PASS }
-  });
-}
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendEnquiryEmail(payload) {
-  const transporter = getTransporter();
-  if (!transporter) return { sent: false, reason: 'smtp_not_configured' };
+  try {
+    await resend.emails.send({
+      from: 'Kryvexis <onboarding@resend.dev>',
+      to: process.env.CONTACT_TO_EMAIL,
+      reply_to: payload.email,
+      subject: `New Kryvexis enquiry: ${payload.service}`,
+      html: `
+        <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111">
+          <h2>New Kryvexis enquiry</h2>
+          <p><strong>Name:</strong> ${payload.name}</p>
+          <p><strong>Email:</strong> ${payload.email}</p>
+          <p><strong>Phone:</strong> ${payload.phone || 'Not provided'}</p>
+          <p><strong>Service:</strong> ${payload.service}</p>
+          <p><strong>Message:</strong></p>
+          <p>${payload.message.replace(/\n/g, '<br/>')}</p>
+        </div>
+      `
+    });
 
-  const to = process.env.CONTACT_TO_EMAIL || process.env.SMTP_USER;
-  const from = process.env.CONTACT_FROM_EMAIL || process.env.SMTP_USER;
-  const replyTo = payload.email;
+    return { sent: true };
 
-  const subject = `New Kryvexis enquiry: ${payload.service}`;
-  const text = [
-    'New website enquiry received.',
-    '',
-    `Name: ${payload.name}`,
-    `Email: ${payload.email}`,
-    `Phone: ${payload.phone || 'Not provided'}`,
-    `Service: ${payload.service}`,
-    '',
-    'Message:',
-    payload.message
-  ].join('\n');
-
-  await transporter.sendMail({
-    from,
-    to,
-    replyTo,
-    subject,
-    text,
-    html: `
-      <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111">
-        <h2>New Kryvexis enquiry</h2>
-        <p><strong>Name:</strong> ${payload.name}</p>
-        <p><strong>Email:</strong> ${payload.email}</p>
-        <p><strong>Phone:</strong> ${payload.phone || 'Not provided'}</p>
-        <p><strong>Service:</strong> ${payload.service}</p>
-        <p><strong>Message:</strong></p>
-        <p>${payload.message.replace(/\n/g, '<br/>')}</p>
-      </div>
-    `
-  });
-
-  return { sent: true };
+  } catch (err) {
+    console.error('Resend error:', err);
+    return { sent: false, reason: 'resend_failed' };
+  }
 }
 
 function saveSubmission(payload, meta = {}) {
