@@ -8,6 +8,7 @@ const rateLimit = require('express-rate-limit');
 const morgan = require('morgan');
 const sanitizeHtml = require('sanitize-html');
 const { z } = require('zod');
+const { Resend } = require('resend');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -37,7 +38,8 @@ app.use(
         upgradeInsecureRequests: []
       }
     },
-    crossOriginEmbedderPolicy: false
+    crossOriginEmbedderPolicy: false,
+    referrerPolicy: { policy: 'strict-origin-when-cross-origin' }
   })
 );
 
@@ -70,7 +72,8 @@ const contactSchema = z.object({
   email: z.string().trim().email().max(120),
   service: z.string().trim().min(2).max(80),
   message: z.string().trim().min(10).max(3000),
-  company: z.string().max(0).optional().or(z.literal(''))
+  company: z.string().max(0).optional().or(z.literal('')),
+  consent: z.boolean().refine(value => value === true)
 });
 
 function clean(value) {
@@ -80,15 +83,21 @@ function clean(value) {
   }).replace(/\s+/g, ' ').trim();
 }
 
-const { Resend } = require('resend');
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = process.env.RESEND_API_KEY
+  ? new Resend(process.env.RESEND_API_KEY)
+  : null;
 
 async function sendEnquiryEmail(payload) {
+  if (!resend) return { sent: false, reason: 'resend_not_configured' };
+
+  const to = process.env.CONTACT_TO_EMAIL;
+  if (!to) return { sent: false, reason: 'contact_to_email_not_configured' };
+
   try {
     await resend.emails.send({
-      from: 'Kryvexis <onboarding@resend.dev>',
-      to: process.env.CONTACT_TO_EMAIL,
-      reply_to: payload.email,
+      from: process.env.CONTACT_FROM_EMAIL || 'Kryvexis <onboarding@resend.dev>',
+      to,
+      replyTo: payload.email,
       subject: `New Kryvexis enquiry: ${payload.service}`,
       html: `
         <div style="font-family:Arial,sans-serif;line-height:1.6;color:#111">
@@ -97,16 +106,28 @@ async function sendEnquiryEmail(payload) {
           <p><strong>Email:</strong> ${payload.email}</p>
           <p><strong>Phone:</strong> ${payload.phone || 'Not provided'}</p>
           <p><strong>Service:</strong> ${payload.service}</p>
+          <p><strong>Consent:</strong> Enquiry processing consent confirmed</p>
           <p><strong>Message:</strong></p>
           <p>${payload.message.replace(/\n/g, '<br/>')}</p>
         </div>
-      `
+      `,
+      text: [
+        'New website enquiry received.',
+        '',
+        `Name: ${payload.name}`,
+        `Email: ${payload.email}`,
+        `Phone: ${payload.phone || 'Not provided'}`,
+        `Service: ${payload.service}`,
+        'Consent: confirmed',
+        '',
+        'Message:',
+        payload.message
+      ].join('\n')
     });
 
     return { sent: true };
-
-  } catch (err) {
-    console.error('Resend error:', err);
+  } catch (error) {
+    console.error('Resend error:', error);
     return { sent: false, reason: 'resend_failed' };
   }
 }
@@ -133,14 +154,15 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
         allowedTags: [],
         allowedAttributes: {}
       }).trim(),
-      company: clean(req.body.company)
+      company: clean(req.body.company),
+      consent: req.body.consent === true || req.body.consent === 'true' || req.body.consent === 'on'
     };
 
     const parsed = contactSchema.safeParse(candidate);
     if (!parsed.success) {
       return res.status(400).json({
         ok: false,
-        message: 'Please check your details and try again.'
+        message: 'Please check your details, accept the privacy notice, and try again.'
       });
     }
 
@@ -163,7 +185,7 @@ app.post('/api/contact', contactLimiter, async (req, res) => {
       ok: true,
       message: result.sent
         ? 'Your message has been sent successfully. Kryvexis will get back to you soon.'
-        : 'Your message has been saved successfully. Email delivery still needs SMTP setup on the server.'
+        : 'Your message has been saved successfully. Email delivery still needs Resend setup on the server.'
     });
   } catch (error) {
     console.error('Contact form error:', error);

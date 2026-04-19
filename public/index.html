@@ -321,6 +321,20 @@ section{position:relative;z-index:2}
 .cfsbtn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:.88rem 1.85rem;border-radius:5px;font-family:var(--fb);font-size:.83rem;font-weight:500;cursor:pointer;border:none;background:rgba(240,245,248,.9);color:#060c12;transition:all .25s;width:100%;margin-top:.26rem}
 .cfsbtn:hover{background:#fff;transform:translateY(-1px);box-shadow:0 6px 22px rgba(0,0,0,.5)}
 #fmsg{text-align:center;font-family:var(--fm);font-size:.62rem;color:var(--g);min-height:1.4em;margin-top:.26rem}
+.consent-note{margin-top:.3rem;font-size:.66rem;line-height:1.7;color:rgba(255,255,255,.48)}
+.consent-check{display:flex;gap:.72rem;align-items:flex-start;padding:.85rem .9rem;border:1px solid rgba(255,255,255,.12);border-radius:var(--r2);background:rgba(4,8,12,.42)}
+.consent-check input{margin-top:.28rem;accent-color:#25d366;flex-shrink:0}
+.consent-check label{font-size:.72rem;line-height:1.7;color:rgba(255,255,255,.68)}
+.legal-inline{display:flex;gap:.35rem;flex-wrap:wrap}
+.legal-inline a{color:#fff;text-decoration:underline;text-underline-offset:2px}
+.cookie-banner{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:1200;display:none;background:rgba(6,10,14,.96);border:1px solid rgba(255,255,255,.14);border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.45);backdrop-filter:blur(18px);padding:1rem 1rem 1.05rem}
+.cookie-banner.show{display:block}
+.cookie-title{font-family:var(--fd);font-size:1.1rem;color:#fff;margin-bottom:.35rem}.cookie-copy{font-size:.78rem;line-height:1.75;color:rgba(255,255,255,.65)}
+.cookie-actions{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:.9rem}.cookie-btn{padding:.72rem 1rem;border-radius:8px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.06);color:#fff;cursor:pointer;font-size:.78rem}.cookie-btn.primary{background:#fff;color:#05080c}.cookie-btn:hover{transform:translateY(-1px)}
+.cookie-panel{display:none;margin-top:.9rem;padding-top:.9rem;border-top:1px solid rgba(255,255,255,.08)}.cookie-panel.show{display:block}
+.cookie-pref{display:flex;justify-content:space-between;gap:1rem;padding:.72rem 0;border-bottom:1px solid rgba(255,255,255,.06)}.cookie-pref:last-child{border-bottom:none}.cookie-pref strong{display:block;font-size:.8rem;color:#fff}.cookie-pref span{display:block;margin-top:.2rem;font-size:.68rem;line-height:1.65;color:rgba(255,255,255,.52)}
+.cookie-switch{display:flex;align-items:center;gap:.55rem;color:rgba(255,255,255,.58);font-size:.68rem}.cookie-switch input{accent-color:#25d366}.cookie-link{color:#fff;text-decoration:underline;text-underline-offset:2px}
+@media(max-width:640px){.cookie-banner{left:.75rem;right:.75rem;bottom:.75rem;padding:.9rem}.cookie-actions{flex-direction:column}.cookie-btn{width:100%}}
 
 #book{padding:7rem 2rem;text-align:center}
 .bkc{max-width:580px;margin:0 auto}
@@ -360,6 +374,33 @@ footer{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.1);pad
 <div id="zpill"><div id="zpd"></div><span id="zpt">Cold Aisle · Entry Corridor</span></div>
 
 <a href="https://wa.me/27686282874" id="fwa"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+<div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Cookie preferences">
+  <div class="cookie-title">Cookies & privacy</div>
+  <div class="cookie-copy">This site uses essential cookies to keep the website secure and working properly. Optional analytics cookies can help Kryvexis understand traffic and improve the site. Read the <a class="cookie-link" href="/privacy.html">Privacy Policy</a> and <a class="cookie-link" href="/terms.html">Terms &amp; Conditions</a>.</div>
+  <div class="cookie-actions">
+    <button class="cookie-btn primary" id="acceptCookiesBtn" type="button">Accept all</button>
+    <button class="cookie-btn" id="declineCookiesBtn" type="button">Decline optional</button>
+    <button class="cookie-btn" id="manageCookiesBtn" type="button">Manage preferences</button>
+  </div>
+  <div class="cookie-panel" id="cookiePanel">
+    <div class="cookie-pref">
+      <div><strong>Essential cookies</strong><span>Required for site security, form protection, and your saved consent preferences.</span></div>
+      <div class="cookie-switch"><input type="checkbox" checked disabled><span>Always on</span></div>
+    </div>
+    <div class="cookie-pref">
+      <div><strong>Analytics cookies</strong><span>Optional measurement cookies for understanding visits and improving the website if analytics are enabled later.</span></div>
+      <label class="cookie-switch"><input type="checkbox" id="analyticsConsent"><span>Allow</span></label>
+    </div>
+    <div class="cookie-pref">
+      <div><strong>Marketing cookies</strong><span>Reserved for future advertising or remarketing tools. These are off by default.</span></div>
+      <label class="cookie-switch"><input type="checkbox" id="marketingConsent"><span>Allow</span></label>
+    </div>
+    <div class="cookie-actions" style="margin-top:.7rem">
+      <button class="cookie-btn primary" id="saveCookiePrefsBtn" type="button">Save preferences</button>
+    </div>
+  </div>
+</div>
 
 <div id="znav">
   <div class="zn on" data-sec="hero"><span class="znl">Entry</span><div class="znd"></div></div>
@@ -506,7 +547,10 @@ footer{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.1);pad
         <div class="crow"><div class="cf"><label>Full Name</label><input type="text" name="name" placeholder="Your name" required/></div><div class="cf"><label>Phone / WhatsApp</label><input type="tel" name="phone" placeholder="e.g. 068 628 2874"/></div></div>
         <div class="cf"><label>Email Address</label><input type="email" name="email" placeholder="your@email.com" required/></div>
         <div class="cf"><label>Service Needed</label><select name="service" required><option value="">Select a service...</option><option>Technical Support</option><option>Device &amp; Wi-Fi Help</option><option>CV &amp; LinkedIn Services</option><option>Website Design</option><option>Business Tech Support</option><option>Other / Not Sure</option></select></div>
-        <div class="cf"><label>Tell Us More</label><textarea name="message" placeholder="Describe your problem or project..." required></textarea></div><input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" />
+        <div class="cf"><label>Tell Us More</label><textarea name="message" placeholder="Describe your problem or project..." required></textarea></div>
+        <div class="consent-check"><input type="checkbox" id="consent" name="consent" value="true" required><label for="consent">I consent to Kryvexis Solutions processing my information to respond to this enquiry and provide requested services, in line with the <span class="legal-inline"><a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a> and <a href="/terms.html" target="_blank" rel="noopener">Terms &amp; Conditions</a>.</span></label></div>
+        <div class="consent-note">Do not use this form to send sensitive passwords, banking details, ID numbers, or confidential files.</div>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0;pointer-events:none" />
         <button type="submit" class="cfsbtn" id="submitBtn">Send Message</button>
         <div id="fmsg"></div>
       </form>
@@ -525,7 +569,8 @@ footer{position:relative;z-index:3;border-top:1px solid rgba(255,255,255,.1);pad
   <div><div class="flogo">Kryvexis Solutions</div><p class="fdesc">Technical support, digital presentation help, and modern website services for individuals and businesses across Johannesburg.</p><div class="fsoc"><a href="https://wa.me/27686282874" class="fsc fscwa"><svg viewBox="0 0 24 24" fill="#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a><a href="mailto:kryvexissolutions@gmail.com" class="fsc"><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg></a></div></div>
   <div class="fcol"><h4>Services</h4><ul><li><a href="#services">Performance &amp; Virus Help</a></li><li><a href="#services">Device &amp; Wi-Fi Help</a></li><li><a href="#services">CV &amp; LinkedIn Services</a></li><li><a href="#services">Website Design</a></li></ul></div>
   <div class="fcol"><h4>Contact</h4><ul><li><a href="https://wa.me/27686282874">WhatsApp: 068 628 2874</a></li><li><a href="mailto:kryvexissolutions@gmail.com">kryvexissolutions@gmail.com</a></li><li><span>Johannesburg, South Africa</span></li><li><span class="fonl">● Available Now</span></li></ul></div>
-</div><div class="fbot"><div class="fcopy">© 2025 Kryvexis Solutions · All rights reserved</div><div class="fcopy">Johannesburg, South Africa</div></div></footer>
+  <div class="fcol"><h4>Legal</h4><ul><li><a href="/privacy.html">Privacy Policy</a></li><li><a href="/terms.html">Terms &amp; Conditions</a></li><li><a href="#" id="openCookiePrefs">Cookie Preferences</a></li><li><a href="mailto:kryvexissolutions@gmail.com?subject=PAIA%20Manual%20Request">PAIA Manual Request</a></li></ul></div>
+</div><div class="fbot"><div class="fcopy">© 2026 Kryvexis Solutions · All rights reserved</div><div class="fcopy">Johannesburg, South Africa · POPIA-aware contact handling</div></div></footer>
 
 <script>
 /* ─── CURSOR ─── */
@@ -1341,6 +1386,25 @@ window.addEventListener('resize',()=>{if(window.innerWidth>768){cnav();}document
 document.addEventListener('click',e=>{if(e.target.closest('#mnav a'))cnav();});
 async function sbf(e){e.preventDefault();const form=e.target;const m=document.getElementById('fmsg');const btn=document.getElementById('submitBtn');m.textContent='';btn.disabled=true;btn.textContent='Sending...';try{const fd=new FormData(form);const payload=Object.fromEntries(fd.entries());const res=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});const data=await res.json();if(!res.ok)throw new Error(data.message||'Something went wrong.');m.textContent=data.message||'Your message has been sent successfully.';form.reset()}catch(err){m.textContent=err.message||'Unable to send your message right now.'}finally{btn.disabled=false;btn.textContent='Send Message'}}
 const contactForm=document.getElementById('contactForm');if(contactForm)contactForm.addEventListener('submit',sbf);
+const COOKIE_KEY='kryvexis_cookie_preferences_v1';
+const cookieBanner=document.getElementById('cookieBanner');
+const cookiePanel=document.getElementById('cookiePanel');
+const analyticsConsent=document.getElementById('analyticsConsent');
+const marketingConsent=document.getElementById('marketingConsent');
+function loadCookiePrefs(){try{return JSON.parse(localStorage.getItem(COOKIE_KEY)||'null')}catch{return null}}
+function saveCookiePrefs(prefs){localStorage.setItem(COOKIE_KEY,JSON.stringify({...prefs,savedAt:new Date().toISOString()}));document.documentElement.setAttribute('data-analytics-consent',prefs.analytics?'granted':'denied');document.documentElement.setAttribute('data-marketing-consent',prefs.marketing?'granted':'denied');if(cookieBanner)cookieBanner.classList.remove('show');if(cookiePanel)cookiePanel.classList.remove('show')}
+const existingCookiePrefs=loadCookiePrefs();
+if(existingCookiePrefs){if(analyticsConsent)analyticsConsent.checked=!!existingCookiePrefs.analytics;if(marketingConsent)marketingConsent.checked=!!existingCookiePrefs.marketing;saveCookiePrefs(existingCookiePrefs)}else if(cookieBanner){setTimeout(()=>cookieBanner.classList.add('show'),900)}
+const acceptCookiesBtn=document.getElementById('acceptCookiesBtn');
+if(acceptCookiesBtn)acceptCookiesBtn.addEventListener('click',()=>{if(analyticsConsent)analyticsConsent.checked=true;if(marketingConsent)marketingConsent.checked=true;saveCookiePrefs({essential:true,analytics:true,marketing:true})});
+const declineCookiesBtn=document.getElementById('declineCookiesBtn');
+if(declineCookiesBtn)declineCookiesBtn.addEventListener('click',()=>{if(analyticsConsent)analyticsConsent.checked=false;if(marketingConsent)marketingConsent.checked=false;saveCookiePrefs({essential:true,analytics:false,marketing:false})});
+const manageCookiesBtn=document.getElementById('manageCookiesBtn');
+if(manageCookiesBtn)manageCookiesBtn.addEventListener('click',()=>cookiePanel&&cookiePanel.classList.toggle('show'));
+const saveCookiePrefsBtn=document.getElementById('saveCookiePrefsBtn');
+if(saveCookiePrefsBtn)saveCookiePrefsBtn.addEventListener('click',()=>saveCookiePrefs({essential:true,analytics:!!(analyticsConsent&&analyticsConsent.checked),marketing:!!(marketingConsent&&marketingConsent.checked)}));
+const openCookiePrefs=document.getElementById('openCookiePrefs');
+if(openCookiePrefs)openCookiePrefs.addEventListener('click',e=>{e.preventDefault();if(cookieBanner){cookieBanner.classList.add('show');cookiePanel&&cookiePanel.classList.add('show');window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}});
 </script>
 </body>
 </html>
